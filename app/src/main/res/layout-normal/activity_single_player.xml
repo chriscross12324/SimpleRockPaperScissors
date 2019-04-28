@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/singlePlayerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Main"
+    tools:context=".SinglePlayer">
+
+    <FrameLayout
+        android:id="@+id/everything"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@color/sunshineBR"
+            android:scaleType="centerCrop" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/result_background"
+            android:backgroundTint="?BackgroundColour"
+            android:backgroundTintMode="multiply"
+            android:fontFamily="@font/googlesans_regular"
+            android:gravity="center"
+            android:text="  Choose  "
+            android:textAlignment="center"
+            android:textColor="?PrimaryTextColour"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/menuButtonHolder"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <ImageView
+                android:id="@+id/menuButton"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_main_menu"
+                android:tint="?BackgroundColour"
+                android:tintMode="multiply"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/buttonSection">
+
+            <FrameLayout
+                android:id="@+id/aiResult"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="80dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/shape_two_tone_circle"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center"
+                    android:tint="?BackgroundColour"/>
+
+                <ImageView
+                    android:id="@+id/aiChoice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="25dp"
+                    android:src="@drawable/ai_picking"
+
+                    android:tintMode="multiply"/>
+            </FrameLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/buttonSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/everything">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintBottom_toTopOf="@+id/buttons"
+                android:visibility="invisible">
+
+                <LinearLayout
+                    android:id="@+id/Arrow"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:rotation="90"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_arrow" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintBottom_toTopOf="@+id/score">
+
+                <RelativeLayout
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:id="@+id/rockButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selection"
+                    android:backgroundTint="?BackgroundColour"
+                    android:backgroundTintMode="multiply"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_rock"
+                        android:tintMode="multiply"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/paperButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selection"
+                    android:backgroundTint="?BackgroundColour"
+                    android:backgroundTintMode="multiply"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_paper"
+                        android:tintMode="multiply"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/scissorsButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selection"
+                    android:backgroundTint="?BackgroundColour"
+                    android:backgroundTintMode="multiply"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_scissors"
+                        android:tintMode="multiply"/>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/score"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginBottom="7dp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintBottom_toBottomOf="@id/everything"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/lossesScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/googlesans_regular"
+                        android:gravity="center"
+                        android:text="Losses: 0"
+                        android:textAlignment="center"
+                        android:textColor="@color/clearWhite" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/drawsScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/googlesans_regular"
+                        android:gravity="center"
+                        android:text="Draws: 0"
+                        android:textAlignment="center"
+                        android:textColor="@color/clearWhite" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/winsScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/googlesans_regular"
+                        android:gravity="center"
+                        android:text="Wins: 0"
+                        android:textAlignment="center"
+                        android:textColor="@color/clearWhite" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

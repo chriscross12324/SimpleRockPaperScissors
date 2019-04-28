@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:drawable="@drawable/icon_scissors" android:duration="100"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="100"/>
+    <item android:drawable="@drawable/icon_paper" android:duration="100"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="100"/>
+    <item android:drawable="@drawable/icon_paper" android:duration="100"/>
+    <item android:drawable="@drawable/icon_scissors" android:duration="100"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="100"/>
+    <item android:drawable="@drawable/icon_paper" android:duration="100"/>
+    <item android:drawable="@drawable/icon_scissors" android:duration="100"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="100"/>
+
+    <item android:drawable="@drawable/icon_scissors" android:duration="100"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="100"/>
+    <item android:drawable="@drawable/icon_paper" android:duration="100"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="100"/>
+    <item android:drawable="@drawable/icon_paper" android:duration="100"/>
+    <item android:drawable="@drawable/icon_scissors" android:duration="100"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="110"/>
+    <item android:drawable="@drawable/icon_paper" android:duration="120"/>
+    <item android:drawable="@drawable/icon_scissors" android:duration="130"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="140"/>
+
+    <item android:drawable="@drawable/icon_rock" android:duration="150"/>
+    <item android:drawable="@drawable/icon_paper" android:duration="200"/>
+    <item android:drawable="@drawable/icon_scissors" android:duration="260"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="330"/>
+    <item android:drawable="@drawable/icon_scissors" android:duration="410"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="500"/>
+    <item android:drawable="@drawable/icon_paper" android:duration="600"/>
+    <item android:drawable="@drawable/icon_rock" android:duration="700"/>
+    <item android:drawable="@drawable/icon_scissors" android:duration="800"/>
+
+    <!-- Final Time = 6050 -->
+
+</animation-list>

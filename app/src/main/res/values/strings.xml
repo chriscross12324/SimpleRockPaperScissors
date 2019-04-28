@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Rock Paper Scissors</string>
+    <string name="HM_SP_Buttons">*Located at bottom of screen</string>
+    <string name="HM_SP_ResultBox">*Located at top of screen</string>
+    <string name="HM_LMP_Description">Play against someone on the same device. Before the game starts you will need to type how many rounds you want, then click \'Start\'</string>
+    <string name="HM_WMP_Description">Play with someone on different devices. One[1] person hosts the game, the other joins it. Follow the on-screen instruction, the winner will be displayed.</string>
+
+
+    <!-- Main Menu Titles -->
+    <string name="MM_SPTitle">Single Player</string>
+
+    <!-- Help Menu -->
+    <string name="ButtonsHeader">Buttons</string>
+    <string name="HeadersHeader">Headers</string>
+    <string name="AboutTitle">About</string>
+    <string name="HM_SP_Description">To play Single Player all you need to do is tap one of the three buttons that will be located at the bottom of the screen, the buttons are these colours.</string>
+    <string name="HM_SP_Description2"></string>
+
+    <!-- General Settings -->
+    <string name="SettingsTitle">Settings</string>
+    <string name="BG_Header">Backgrounds</string>
+    <string name="Options_Header">Options</string>
+
+    <!-- Settings Gamemode Titles -->
+    <string name="GeneralTitle">General</string>
+    <string name="SPTitle">Single Player</string>
+    <string name="LMPTitle">Offline Multiplayer</string>
+    <string name="WMPTitle">Online Multiplayer</string>
+
+    <!-- Miscellaneous -->
+    <string name="cant_leave_text">Game Running</string>
+
+
+    <!-- Feedback Types -->
+    <string-array name="feedbackTypes">
+        <item>Feedback Type</item>
+        <item>Crash</item>
+        <item>Glitch</item>
+        <item>Slow Down</item>
+        <item>Visual Issues</item>
+        <item>Suggestion</item>
+        <item>Other</item>
+    </string-array>
+
+</resources>

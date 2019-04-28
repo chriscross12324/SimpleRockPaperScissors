@@ -1,0 +1,63 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="Main" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <!--<item name="android:colorPrimary">#212121</item>
+        <item name="android:colorBackground">@color/background_material_dark</item>
+        <item name="android:colorForeground">@color/foreground_material_dark</item>-->
+    </style>
+
+    <style name="LightTheme" parent="Main">
+        <item name="BackgroundColour">@color/lightBackgroundColour</item>
+        <item name="GroupColour">@color/lightGroupColour</item>
+        <item name="ToastColour">@color/lightToastColour</item>
+        <item name="PrimaryTextColour">@color/lightTextPrimaryColour</item>
+        <item name="SecondaryTextColour">@color/lightTextSecondaryColour</item>
+        <item name="UnimportantTextColour">@color/lightTextUnimportantColour</item>
+    </style>
+
+    <style name="DarkTheme" parent="Main">
+        <item name="BackgroundColour">@color/darkBackgroundColour</item>
+        <item name="GroupColour">@color/darkGroupColour</item>
+        <item name="ToastColour">@color/darkToastColour</item>
+        <item name="PrimaryTextColour">@color/darkTextPrimaryColour</item>
+        <item name="SecondaryTextColour">@color/darkTextSecondaryColour</item>
+        <item name="UnimportantTextColour">@color/darkTextUnimportantColour</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/NeutralButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+    </style>
+    <style name="PositiveButtonStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">#0091ea</item>
+    </style>
+    <style name="NeutralButtonStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">#f00</item>
+    </style>
+    <style name="NegativeButtonStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">#0091ea</item>
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/clearWhite</item>
+        <item name="android:textSize">20sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="Main.Launcher" parent="Main">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+
+</resources>
