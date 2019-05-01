@@ -20,6 +20,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -81,6 +82,8 @@ public class Settings extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backButton.setClickable(false);
+                Vibrations.openMenu(Settings.this);
                 settingsScrollView.smoothScrollTo(0, 0);
                 UIElements.slideAnimationScrollView(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 Handler handler = new Handler();
@@ -135,7 +138,8 @@ public class Settings extends AppCompatActivity {
                 }
                 textResetScore.setText("Press again to confirm");
                 doublePressReset = true;
-                new Handler().postDelayed(new Runnable() {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         doublePressReset = false;
@@ -147,6 +151,7 @@ public class Settings extends AppCompatActivity {
         buttonAppInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Vibrations.openMenu(Settings.this);
                 settingsScrollView.smoothScrollTo(0, 0);
                 UIElements.slideAnimationScrollView(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 Handler handler = new Handler();
@@ -165,7 +170,6 @@ public class Settings extends AppCompatActivity {
             @Override
             public void run() {
                 settingsScrollViewAnimation();
-
             }
         });
         setBackgroundButtons();
@@ -239,6 +243,8 @@ public class Settings extends AppCompatActivity {
                 ContextCompat.getColor(this, R.color.coldNightBR), "Cold Night"));
         buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.eternalSpaceTL),
                 ContextCompat.getColor(this, R.color.eternalSpaceBR), "Eternal Space"));
+
+
 
     }
     public void buildBackgroundButtonRecyclerView(){

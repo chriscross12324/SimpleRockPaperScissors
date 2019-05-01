@@ -85,11 +85,17 @@ public class SinglePlayer extends AppCompatActivity {
         resetScoreCounter();
         singlePlayerIN();
 
-
+        /**
+         *
+         *          What happens when buttons are pressed.
+         *
+         */
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isPlaying){
+                    menuButton.setClickable(false);
+                    Vibrations.openGameMode(SinglePlayer.this);
                     UIElements.slideAnimationFrame(aiResult, "translationY", 60, 100, Values.animationSpeed, new DecelerateInterpolator(3));
                     UIElements.slideAnimationFrame(aiResult, "alpha", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
                     UIElements.slideAnimationText(result, "translationY", 0-resultHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
@@ -105,7 +111,7 @@ public class SinglePlayer extends AppCompatActivity {
                             finish();
                             SinglePlayer.this.overridePendingTransition(0,0);
                         }
-                    }, Values.animationSpeed+100);
+                    }, Values.animationSpeed);
 
                 }else {
                     Vibrations.UnavailableVibration(getApplicationContext());
@@ -300,6 +306,12 @@ public class SinglePlayer extends AppCompatActivity {
         if (Values.losses < 0 || Values.draws < 0 || Values.wins < 0){
         }
     }
+
+    /**
+     *          Plays the animation of the result box
+     *          and displays the correct winner.
+     *
+     */
     public void resultAnimation(){
         Handler outDelay = new Handler();
         final Handler changeText = new Handler();
