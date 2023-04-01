@@ -30,7 +30,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Main">
-        <activity android:name=".MenuTest" />
         <activity android:name=".Settings"
             android:configChanges="orientation|screenSize"/>
         <activity
@@ -50,14 +49,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/Main" />
         <activity
-            android:name=".Help"
-            android:screenOrientation="portrait"
-            android:theme="@style/Main" />
-        <activity
             android:name=".AppInfo"
             android:screenOrientation="portrait"
             android:theme="@style/Main" />
-        <activity android:name=".PermissionsScreen" />
     </application>
 
 </manifest>

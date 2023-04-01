@@ -1,7 +1,6 @@
 package com.simplegames.chris.rockpaperscissors20;
 
-import android.animation.ObjectAnimator;
-import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -11,25 +10,21 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Random;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import com.google.android.material.card.MaterialCardView;
+
+import java.util.Random;
 
 public class SinglePlayer extends AppCompatActivity {
 
@@ -108,7 +103,8 @@ public class SinglePlayer extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Goto.settingsNew(SinglePlayer.this);
+                        Intent spn = new Intent(SinglePlayer.this, Settings.class);
+                        startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         finish();
                         SinglePlayer.this.overridePendingTransition(0,0);
                     }

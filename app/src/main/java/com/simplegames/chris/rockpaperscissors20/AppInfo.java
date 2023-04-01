@@ -1,15 +1,12 @@
 package com.simplegames.chris.rockpaperscissors20;
 
-import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Typeface;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -17,11 +14,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.simplegames.chris.rockpaperscissors20.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,7 +30,7 @@ public class AppInfo extends AppCompatActivity {
         }else {
             setTheme(R.style.LightTheme);
         }
-        setContentView(R.layout.activity_app_info_new);
+        setContentView(R.layout.activity_app_info);
 
         try {
             determineBackground();
@@ -71,7 +64,8 @@ public class AppInfo extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Goto.settingsNew(AppInfo.this);
+                            Intent spn = new Intent(AppInfo.this, Settings.class);
+                            startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                             finish();
                             AppInfo.this.overridePendingTransition(0,0);
                         }

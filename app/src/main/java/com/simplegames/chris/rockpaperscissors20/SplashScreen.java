@@ -1,28 +1,17 @@
 package com.simplegames.chris.rockpaperscissors20;
 
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -140,7 +129,8 @@ public class SplashScreen extends AppCompatActivity {
         //UIElements.twoPartGradient(background, foreground, );
     }
     public void loadMenu(){
-        Goto.singlePlayer(SplashScreen.this);
+        Intent sp = new Intent(SplashScreen.this, SinglePlayer.class);
+        startActivity(sp);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
     }

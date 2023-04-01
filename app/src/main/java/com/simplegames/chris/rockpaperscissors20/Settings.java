@@ -86,7 +86,8 @@ public class Settings extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Goto.singlePlayer(Settings.this);
+                        Intent sp = new Intent(Settings.this, SinglePlayer.class);
+                        startActivity(sp);
                         finish();
                         Settings.this.overridePendingTransition(0,0);
                     }
@@ -154,7 +155,8 @@ public class Settings extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Goto.appInfo(Settings.this);
+                        Intent appinfo = new Intent(Settings.this, AppInfo.class);
+                        startActivity(appinfo.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         finish();
                         Settings.this.overridePendingTransition(0,0);
                     }
