@@ -1,15 +1,5 @@
 package com.simplegames.chris.rockpaperscissors20;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GestureDetectorCompat;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,7 +10,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -28,7 +17,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Field;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import java.util.ArrayList;
 
 public class Settings extends AppCompatActivity {
@@ -43,8 +39,8 @@ public class Settings extends AppCompatActivity {
     SwipeRefreshLayout swipeToBack;
     NestedScrollView settingsScrollView;
     ConstraintLayout buttonVibrate, buttonDarkTheme, buttonDeveloperMode, buttonResetScore, buttonAppInfo, buttonBackupRestore;
-    ConstraintLayout background, foreground;
-    ImageView backButton, vibrationIcon, darkThemeIcon, developerModeIcon;
+    ConstraintLayout foreground;
+    ImageView backButton, vibrationIcon, darkThemeIcon, developerModeIcon, background;
     TextView textResetScore;
 
 
@@ -85,7 +81,7 @@ public class Settings extends AppCompatActivity {
                 backButton.setClickable(false);
                 Vibrations.openMenu(Settings.this);
                 settingsScrollView.smoothScrollTo(0, 0);
-                UIElements.slideAnimationScrollView(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+                UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -153,7 +149,7 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 Vibrations.openMenu(Settings.this);
                 settingsScrollView.smoothScrollTo(0, 0);
-                UIElements.slideAnimationScrollView(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+                UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -264,7 +260,9 @@ public class Settings extends AppCompatActivity {
         if (Values.currentActivity == "Settings") {
             Vibrations.SettingsBGButtonVibration(Settings.this);
         }
-        UIElements.determineBackground(background, foreground, Settings.this);
+        UIElements.setBackground(this ,background, UIElements.getBackgroundColours(this), 0f, 5000);
+        //UIElements.determineBackground(background, foreground, Settings.this);
+        Toast.makeText(this, "Colours: " + Values.SPBackgroundNumber, Toast.LENGTH_SHORT).show();
     }
 
     public void settingsScrollViewAnimation(){
@@ -276,7 +274,7 @@ public class Settings extends AppCompatActivity {
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int height = displayMetrics.heightPixels;
             settingsScrollView.setY(height);
-            UIElements.slideAnimationScrollView(settingsScrollView, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+            UIElements.animate(settingsScrollView, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
             Values.currentActivity = "Settings";
         }
     }

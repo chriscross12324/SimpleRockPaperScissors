@@ -167,29 +167,29 @@ public class MenuTest extends AppCompatActivity {
                     ONMPB.setTranslationX(0 - buttonWidths);
                     OFFMPB.setTranslationX(0 - buttonWidths);
                     HB.setTranslationX(0 - buttonWidths);
-                    UIElements.slideAnimation(SPB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimation(ONMPB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimation(OFFMPB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimation(SB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimation(HB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                    UIElements.animate(SPB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                    UIElements.animate(ONMPB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                    UIElements.animate(OFFMPB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                    UIElements.animate(SB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                    UIElements.animate(HB, "translationX", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
                 }
             }
         });
     }
 
     public void SPBOut(int delay){
-        UIElements.slideAnimation(SPB, "translationX", buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
+        UIElements.animate(SPB, "translationX", buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
     }
     public void SBOut(int delay){
-        UIElements.slideAnimation(SB, "translationX", buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
+        UIElements.animate(SB, "translationX", buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
     }
     public void ONMPBOut(int delay){
-        UIElements.slideAnimation(ONMPB, "translationX", 0 - buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
+        UIElements.animate(ONMPB, "translationX", 0 - buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
     }
     public void OFFMPBOut(int delay){
-        UIElements.slideAnimation(OFFMPB, "translationX", 0 - buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
+        UIElements.animate(OFFMPB, "translationX", 0 - buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
     }
     public void HBOut(int delay){
-        UIElements.slideAnimation(HB, "translationX", 0 - buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
+        UIElements.animate(HB, "translationX", 0 - buttonWidths, delay, Values.animationSpeed, new AccelerateInterpolator(3));
     }
 }

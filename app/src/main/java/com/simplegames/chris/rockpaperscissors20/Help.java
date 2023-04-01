@@ -45,7 +45,7 @@ public class Help extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 helpScrollView.smoothScrollTo(0,0);
-                UIElements.slideAnimationScrollView(helpScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+                UIElements.animate(helpScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -61,7 +61,7 @@ public class Help extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 helpScrollView.smoothScrollTo(0,0);
-                UIElements.slideAnimationScrollView(helpScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+                UIElements.animate(helpScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -95,7 +95,7 @@ public class Help extends AppCompatActivity {
 
     public void helpScrollViewAnimation(){
         helpScrollView.setY(height);
-        UIElements.slideAnimationScrollView(helpScrollView, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+        UIElements.animate(helpScrollView, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

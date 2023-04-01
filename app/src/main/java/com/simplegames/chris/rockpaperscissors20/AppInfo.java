@@ -66,7 +66,7 @@ public class AppInfo extends AppCompatActivity {
                     int height = displayMetrics.heightPixels;
                     NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
                     appInfoScrollView.smoothScrollTo(0, 0);
-                    UIElements.slideAnimationScrollView(appInfoScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+                    UIElements.animate(appInfoScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -103,7 +103,7 @@ public class AppInfo extends AppCompatActivity {
         int height = displayMetrics.heightPixels+100;
         NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
         appInfoScrollView.setY(height);
-        UIElements.slideAnimationScrollView(appInfoScrollView, "translationY", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
+        UIElements.animate(appInfoScrollView, "translationY", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
         Values.currentActivity = "AppInfo";
     }
 

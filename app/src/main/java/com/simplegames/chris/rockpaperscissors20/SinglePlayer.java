@@ -29,13 +29,16 @@ import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
+import com.google.android.material.card.MaterialCardView;
+
 public class SinglePlayer extends AppCompatActivity {
 
-    LinearLayout rockButton, paperButton, scissorsButton, menuButtonHolder, Arrow;
+    LinearLayout Arrow;
+    MaterialCardView scissorsButton, rockButton, paperButton, buttonMenu, resultHolder;
     ConstraintLayout background;
     FrameLayout aiResult;
-    ImageView aiChoice, menuButton;
-    TextView result, lossesScore, drawsScore, winsScore;
+    ImageView aiChoice;
+    TextView resultText, lossesScore, drawsScore, winsScore;
     AnimationDrawable aiAnimation;
     int resetCounter = 0;
     boolean isPlaying = false;
@@ -68,15 +71,15 @@ public class SinglePlayer extends AppCompatActivity {
         scissorsButton = findViewById(R.id.scissorsButton);
 
         background = findViewById(R.id.background);
-        menuButton = findViewById(R.id.menuButton);
-        menuButtonHolder = findViewById(R.id.menuButtonHolder);
+        buttonMenu = findViewById(R.id.buttonMenu);
+        resultHolder = findViewById(R.id.resultHolder);
         aiChoice = findViewById(R.id.aiChoice);
         aiAnimation = (AnimationDrawable) aiChoice.getDrawable();
         aiAnimation.setEnterFadeDuration(0);
         aiAnimation.setExitFadeDuration(0);
 
         final Handler animPlay = new Handler();
-        result = findViewById(R.id.result);
+        resultText = findViewById(R.id.resultText);
         lossesScore = findViewById(R.id.lossesScore);
         drawsScore = findViewById(R.id.drawsScore);
         winsScore = findViewById(R.id.winsScore);
@@ -90,105 +93,94 @@ public class SinglePlayer extends AppCompatActivity {
          *          What happens when buttons are pressed.
          *
          */
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isPlaying){
-                    menuButton.setClickable(false);
-                    Vibrations.openGameMode(SinglePlayer.this);
-                    UIElements.slideAnimationFrame(aiResult, "translationY", 60, 100, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationFrame(aiResult, "alpha", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationText(result, "translationY", 0-resultHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationLinear(menuButtonHolder, "alpha", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationLinear(rockButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationLinear(paperButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationLinear(scissorsButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Goto.settingsNew(SinglePlayer.this);
-                            finish();
-                            SinglePlayer.this.overridePendingTransition(0,0);
-                        }
-                    }, Values.animationSpeed);
+        buttonMenu.setOnClickListener(v -> {
+            if (!isPlaying){
+                buttonMenu.setClickable(false);
+                Vibrations.openGameMode(SinglePlayer.this);
+                UIElements.animate(aiResult, "translationY", 60, 100, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(aiResult, "alpha", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(resultHolder, "translationY", -resultHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(buttonMenu, "alpha", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(rockButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(paperButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(scissorsButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Goto.settingsNew(SinglePlayer.this);
+                        finish();
+                        SinglePlayer.this.overridePendingTransition(0,0);
+                    }
+                }, Values.animationSpeed);
 
-                }else {
-                    Vibrations.UnavailableVibration(getApplicationContext());
-                    LayoutInflater layoutInflater = getLayoutInflater();
-                    View cantExitView = layoutInflater.inflate(R.layout.toast_in_game, (ViewGroup)findViewById(R.id.cantExitToast));
-                    Toast cantExitToast = Toast.makeText(SinglePlayer.this, "Can't Leave", Toast.LENGTH_SHORT);
-                    cantExitToast.setGravity(Gravity.CENTER,0,0);
-                    cantExitToast.setView(cantExitView);
-                    cantExitToast.show();
-                }
+            }else {
+                Vibrations.UnavailableVibration(getApplicationContext());
+                LayoutInflater layoutInflater = getLayoutInflater();
+                View cantExitView = layoutInflater.inflate(R.layout.toast_in_game, (ViewGroup)findViewById(R.id.cantExitToast));
+                Toast cantExitToast = Toast.makeText(SinglePlayer.this, "Can't Leave", Toast.LENGTH_SHORT);
+                cantExitToast.setGravity(Gravity.CENTER,0,0);
+                cantExitToast.setView(cantExitView);
+                cantExitToast.show();
             }
         });
 
-        rockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonHeight = rockButton.getHeight();
-                if (!isPlaying){
-                    isPlaying = true;
-                    Vibrations.SPButtonSelectedVibration(getApplicationContext());
-                    playerReturn = "Rock";
-                    setRockArrow();
-                    playAnimation();
-                    aiPick();
-                    winnerChosen();
-                    resultAnimation();
-                    //UIElements.slideAnimationLinear(rockButton, "translationY", -50, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationLinear(paperButton, "translationY", buttonHeight, 50, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationLinear(scissorsButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    animPlay.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            aiAnimation.stop();
-                            aiShow();
-                            isPlaying = false;
-                            //UIElements.slideAnimationLinear(rockButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                            UIElements.slideAnimationLinear(paperButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                            UIElements.slideAnimationLinear(scissorsButton, "translationY", 0, 50, Values.animationSpeed, new DecelerateInterpolator(3));
-                        }
-                    },6050);
-                } else {
-                    Vibrations.SPAlreadyPlayingVibration(getApplicationContext());
-                }
-
-
+        rockButton.setOnClickListener(v -> {
+            buttonHeight = rockButton.getHeight();
+            if (!isPlaying){
+                isPlaying = true;
+                Vibrations.SPButtonSelectedVibration(getApplicationContext());
+                playerReturn = "Rock";
+                playAnimation();
+                aiPick();
+                winnerChosen();
+                resultAnimation();
+                //UIElements.animate(rockButton, "translationY", -50, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(paperButton, "translationY", buttonHeight, 50, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(scissorsButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                animPlay.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        aiAnimation.stop();
+                        aiShow();
+                        isPlaying = false;
+                        //UIElements.animate(rockButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                        UIElements.animate(paperButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                        UIElements.animate(scissorsButton, "translationY", 0, 50, Values.animationSpeed, new DecelerateInterpolator(3));
+                    }
+                },6050);
+            } else {
+                Vibrations.SPAlreadyPlayingVibration(getApplicationContext());
             }
+
+
         });
-        paperButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonHeight = rockButton.getHeight();
-                if (!isPlaying){
-                    isPlaying = true;
-                    Vibrations.SPButtonSelectedVibration(getApplicationContext());
-                    playerReturn = "Paper";
-                    setPaperArrow();
-                    playAnimation();
-                    aiPick();
-                    winnerChosen();
-                    resultAnimation();
-                    UIElements.slideAnimationLinear(rockButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationLinear(scissorsButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    animPlay.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            aiAnimation.stop();
-                            aiShow();
-                            isPlaying = false;
-                            UIElements.slideAnimationLinear(rockButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                            UIElements.slideAnimationLinear(scissorsButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                        }
-                    },6050);
-                } else {
-                    Vibrations.SPAlreadyPlayingVibration(getApplicationContext());
-                }
-
+        paperButton.setOnClickListener(v -> {
+            buttonHeight = rockButton.getHeight();
+            if (!isPlaying){
+                isPlaying = true;
+                Vibrations.SPButtonSelectedVibration(getApplicationContext());
+                playerReturn = "Paper";
+                playAnimation();
+                aiPick();
+                winnerChosen();
+                resultAnimation();
+                UIElements.animate(rockButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(scissorsButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                animPlay.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        aiAnimation.stop();
+                        aiShow();
+                        isPlaying = false;
+                        UIElements.animate(rockButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                        UIElements.animate(scissorsButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                    }
+                },6050);
+            } else {
+                Vibrations.SPAlreadyPlayingVibration(getApplicationContext());
             }
+
         });
         scissorsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,21 +190,20 @@ public class SinglePlayer extends AppCompatActivity {
                     isPlaying = true;
                     Vibrations.SPButtonSelectedVibration(getApplicationContext());
                     playerReturn = "Scissors";
-                    setScissorsArrow();
                     playAnimation();
                     aiPick();
                     winnerChosen();
                     resultAnimation();
-                    UIElements.slideAnimationLinear(rockButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                    UIElements.slideAnimationLinear(paperButton, "translationY", buttonHeight, 50, Values.animationSpeed, new DecelerateInterpolator(3));
+                    UIElements.animate(rockButton, "translationY", buttonHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                    UIElements.animate(paperButton, "translationY", buttonHeight, 50, Values.animationSpeed, new DecelerateInterpolator(3));
                     animPlay.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             aiAnimation.stop();
                             aiShow();
                             isPlaying = false;
-                            UIElements.slideAnimationLinear(rockButton, "translationY", 0, 50, Values.animationSpeed, new DecelerateInterpolator(3));
-                            UIElements.slideAnimationLinear(paperButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                            UIElements.animate(rockButton, "translationY", 0, 50, Values.animationSpeed, new DecelerateInterpolator(3));
+                            UIElements.animate(paperButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
                         }
                     },6050);
                 } else {
@@ -288,17 +279,17 @@ public class SinglePlayer extends AppCompatActivity {
     }
     public void winnerDisplay(){
         if (winnerReturn == "Draw"){
-            result.setText("  Draw  ");
+            resultText.setText("Draw");
             Values.draws++;
             drawsScore.setText("Draws: "+ Values.draws);
             //aiSmarter();
         } else if (winnerReturn == "PlayerWin"){
-            result.setText("  You Win  ");
+            resultText.setText("You Win");
             Values.wins++;
             winsScore.setText("Wins: "+ Values.wins);
             //aiSmarter();
         } else if (winnerReturn == "AiWin"){
-            result.setText("  You Lose  ");
+            resultText.setText("You Lose");
             Values.losses++;
             lossesScore.setText("Losses: "+ Values.losses);
             //aiSmarter();
@@ -321,7 +312,7 @@ public class SinglePlayer extends AppCompatActivity {
         outDelay.postDelayed(new Runnable() {
             @Override
             public void run() {
-                UIElements.slideAnimationText(result, "translationY", 0-resultHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(resultHolder, "translationY", -resultHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
                 changeText.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -329,7 +320,7 @@ public class SinglePlayer extends AppCompatActivity {
                             @Override
                             public void run() {
                                 winnerDisplay();
-                                UIElements.slideAnimationText(result, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                                UIElements.animate(resultHolder, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
                             }
                         }, 3634);
                     }
@@ -410,22 +401,22 @@ public class SinglePlayer extends AppCompatActivity {
             @Override
             public void run() {
                 buttonHeight = rockButton.getHeight();
-                resultHeight = result.getHeight();
+                resultHeight = resultHolder.getHeight() + resultHolder.getPaddingTop();
                 Log.e("NOTE", ""+buttonHeight);
                 aiResult.setTranslationY(60);
                 aiResult.setAlpha(0f);
-                result.setTranslationY(0-resultHeight);
-                menuButtonHolder.setAlpha(0f);
+                resultHolder.setTranslationY(-resultHeight);
+                buttonMenu.setAlpha(0f);
                 rockButton.setTranslationY(buttonHeight);
                 paperButton.setTranslationY(buttonHeight);
                 scissorsButton.setTranslationY(buttonHeight);
-                UIElements.slideAnimationFrame(aiResult, "translationY", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
-                UIElements.slideAnimationFrame(aiResult, "alpha", 1, 100, Values.animationSpeed, new DecelerateInterpolator(3));
-                UIElements.slideAnimationLinear(menuButtonHolder, "alpha", 1, 100, Values.animationSpeed, new DecelerateInterpolator(3));
-                UIElements.slideAnimationText(result, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                UIElements.slideAnimationLinear(rockButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                UIElements.slideAnimationLinear(paperButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
-                UIElements.slideAnimationLinear(scissorsButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(aiResult, "translationY", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(aiResult, "alpha", 1, 100, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(buttonMenu, "alpha", 1, 100, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(resultHolder, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(rockButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(paperButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+                UIElements.animate(scissorsButton, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
                 Values.currentActivity = "SinglePlayer";
             }
         });
@@ -483,44 +474,6 @@ public class SinglePlayer extends AppCompatActivity {
             //aiScissorsPercent = 33;
         }
     }*/
-
-
-    public void setRockArrow(){
-        Arrow = findViewById(R.id.Arrow);
-        rockButton = findViewById(R.id.rockButton);
-
-        Arrow.setVisibility(View.VISIBLE);
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(Arrow, "x", rockButton.getX());
-        objectAnimator.setInterpolator(new FastOutSlowInInterpolator());
-        objectAnimator.setDuration(600);
-        objectAnimator.start();
-        Arrow.getLayoutParams().width = rockButton.getWidth();
-        Arrow.requestLayout();
-    }
-    public void setPaperArrow(){
-        Arrow = findViewById(R.id.Arrow);
-        paperButton = findViewById(R.id.paperButton);
-
-        Arrow.setVisibility(View.VISIBLE);
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(Arrow, "x", paperButton.getX());
-        objectAnimator.setInterpolator(new FastOutSlowInInterpolator());
-        objectAnimator.setDuration(600);
-        objectAnimator.start();
-        Arrow.getLayoutParams().width = paperButton.getWidth();
-        Arrow.requestLayout();
-    }
-    public void setScissorsArrow(){
-        Arrow = findViewById(R.id.Arrow);
-        scissorsButton = findViewById(R.id.scissorsButton);
-
-        Arrow.setVisibility(View.VISIBLE);
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(Arrow, "x", scissorsButton.getX());
-        objectAnimator.setInterpolator(new FastOutSlowInInterpolator());
-        objectAnimator.setDuration(600);
-        objectAnimator.start();
-        Arrow.getLayoutParams().width = scissorsButton.getWidth();
-        Arrow.requestLayout();
-    }
 
 
     @Override
