@@ -1,27 +1,25 @@
 apply plugin: 'com.android.application'
 
 android {
-    buildToolsVersion '28.0.3'
-    compileSdkVersion 28
+    namespace 'com.simplegames.chris.rockpaperscissors20'
+    compileSdk 33
+
     defaultConfig {
         applicationId 'com.simplegames.chris.rockpaperscissors'
-        minSdkVersion 24
-        targetSdkVersion 28
-        versionCode 11
-        versionName '3.0.1'
+        minSdk 24
+        targetSdk 33
+        versionCode 12
+        versionName '3.1.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    lintOptions {
-        checkReleaseBuilds false
-    }
-    productFlavors {
-    }
+
     dataBinding {
         enabled = true
     }
@@ -29,18 +27,21 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    lint {
+        checkReleaseBuilds false
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.core:core:1.0.1'
-    implementation "com.android.support:support-core-utils:28.0.0"
-    implementation 'com.google.android.gms:play-services-games:16.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.core:core:1.9.0'
+    implementation "androidx.legacy:legacy-support-core-utils:1.0.0"
+    implementation 'com.google.android.gms:play-services-games:23.1.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
 }

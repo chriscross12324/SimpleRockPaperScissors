@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.simplegames.chris.rockpaperscissors20">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -36,9 +35,10 @@
             android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".SplashScreen"
-            android:resizeableActivity="false"
+            android:resizeableActivity="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Main.Launcher">
+            android:theme="@style/Main.Launcher"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
