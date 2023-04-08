@@ -2,22 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--
-    <uses-permission
-        android:name="android.permission.ACCESS_COARSE_LOCATION"
-        android:required="true" />
-    <uses-permission
-        android:name="android.permission.ACCESS_WIFI_STATE"
-        android:required="true" />
-    <uses-permission
-        android:name="android.permission.CHANGE_WIFI_STATE"
-        android:required="true" />
-    -->
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-permission
         android:name="android.permission.INTERNET"
         android:required="true" />
-
+    -->
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
@@ -30,27 +21,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Main">
-        <activity android:name=".Settings"
-            android:configChanges="orientation|screenSize"/>
+        <activity
+            android:name=".SinglePlayerNew"
+            android:exported="false"
+            android:theme="@style/Main" />
+        <activity
+            android:name=".Settings"
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".SplashScreen"
+            android:exported="true"
             android:resizeableActivity="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Main.Launcher"
-            android:exported="true">
+            android:theme="@style/Main.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SinglePlayer"
-            android:screenOrientation="portrait"
             android:theme="@style/Main" />
         <activity
             android:name=".AppInfo"
-            android:screenOrientation="portrait"
             android:theme="@style/Main" />
     </application>
 

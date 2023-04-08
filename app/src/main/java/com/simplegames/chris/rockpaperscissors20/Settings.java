@@ -87,7 +87,7 @@ public class Settings extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent sp = new Intent(Settings.this, SinglePlayer.class);
+                        Intent sp = new Intent(Settings.this, SinglePlayerNew.class);
                         startActivity(sp);
                         finish();
                         Settings.this.overridePendingTransition(0,0);
@@ -250,7 +250,7 @@ public class Settings extends AppCompatActivity {
         }
         UIElements.setBackground(this ,background, UIElements.getBackgroundColours(this), 0f, 5000);
         //UIElements.determineBackground(background, foreground, Settings.this);
-        Toast.makeText(this, "Colours: " + Values.selectedBackground, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Colours: " + Values.selectedBackground, Toast.LENGTH_SHORT).show();
     }
 
     public void settingsScrollViewAnimation(){

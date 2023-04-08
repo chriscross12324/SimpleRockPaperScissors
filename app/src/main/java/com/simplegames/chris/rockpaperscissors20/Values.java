@@ -41,7 +41,7 @@ public class Values {
         handler.postDelayed(() -> {
             saveAllValues(context);
             saveTimer(context);
-            if (true){
+            if (devMode){
                 Vibrations.vibrate(context, "high");
             }
         }, 1000);

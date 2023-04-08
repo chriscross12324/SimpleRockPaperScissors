@@ -86,7 +86,7 @@ public class UIElements {
             view.setBackground(gradientDrawable);
         });
         valueAnimator.start();
-        Toast.makeText(view.getContext(), "Animating", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(view.getContext(), "Animating", Toast.LENGTH_SHORT).show();
     }
     
     private static int blendColours(Context context, int startColour, int endColour, float fraction) {
