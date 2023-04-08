@@ -30,9 +30,8 @@ public class SinglePlayer extends AppCompatActivity {
 
     LinearLayout Arrow;
     MaterialCardView scissorsButton, rockButton, paperButton, buttonMenu, resultHolder;
-    ConstraintLayout background;
     FrameLayout aiResult;
-    ImageView aiChoice;
+    ImageView aiChoice, background;
     TextView resultText, lossesScore, drawsScore, winsScore;
     AnimationDrawable aiAnimation;
     int resetCounter = 0;
@@ -337,7 +336,7 @@ public class SinglePlayer extends AppCompatActivity {
         }
     }
     public void sendBackgroundRequest(){
-        ConstraintLayout background = findViewById(R.id.background);
+        ImageView background = findViewById(R.id.background);
         switch (Values.SPBackgroundNumber){
             case 0:
                 UIElements.twoPartGradient(background,null, ContextCompat.getColor(this, R.color.wintersDayTL),

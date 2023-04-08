@@ -42,6 +42,13 @@ public class Values {
     public static boolean darkTheme;
 
 
+    //Vibration Strengths
+    public static int vibrationLow = 7;
+    public static int vibrationMedium = 14;
+    public static int vibrationHigh = 21;
+    public static long[] vibrationError = {0, 25, 45, 25};
+    public static long[] vibrationReset = {50, 10, 70, 10};
+
     //Misc Values
     public static int mainMenuButtonVibration = 5;
     public static int openGM = 5;

@@ -16,6 +16,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.card.MaterialCardView;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,34 +49,31 @@ public class AppInfo extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ImageView backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    backButton.setClickable(false);
-                    Vibrations.openMenu(AppInfo.this);
-                    DisplayMetrics displayMetrics = new DisplayMetrics();
-                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                    int height = displayMetrics.heightPixels;
-                    NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
-                    appInfoScrollView.smoothScrollTo(0, 0);
-                    UIElements.animate(appInfoScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent spn = new Intent(AppInfo.this, Settings.class);
-                            startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                            finish();
-                            AppInfo.this.overridePendingTransition(0,0);
-                        }
-                    }, Values.animationSpeed);
-                }catch (Exception e){
-                    finish();
-                }
-
+        MaterialCardView backButton = findViewById(R.id.buttonBack);
+        backButton.setOnClickListener(v -> {
+            try {
+                backButton.setClickable(false);
+                Vibrations.openMenu(AppInfo.this);
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int height = displayMetrics.heightPixels;
+                NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
+                appInfoScrollView.smoothScrollTo(0, 0);
+                UIElements.animate(appInfoScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent spn = new Intent(AppInfo.this, Settings.class);
+                        startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        finish();
+                        AppInfo.this.overridePendingTransition(0,0);
+                    }
+                }, Values.animationSpeed);
+            }catch (Exception e){
+                finish();
             }
+
         });
         Date c = Calendar.getInstance().getTime();
 
@@ -87,8 +86,9 @@ public class AppInfo extends AppCompatActivity {
     }
 
     private void determineBackground(){
-        ConstraintLayout background = findViewById(R.id.background);
-        UIElements.determineBackground(background, null, AppInfo.this);
+        ImageView background = findViewById(R.id.background);
+        //UIElements.determineBackground(background, null, AppInfo.this);
+        UIElements.setBackground(getApplicationContext(), background, UIElements.getBackgroundColours(getApplicationContext()), 0f, 0);
     }
 
     public void appInfoScrollViewAnimation(){

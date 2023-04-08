@@ -2,11 +2,13 @@ package com.simplegames.chris.rockpaperscissors20;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.android.material.card.MaterialCardView;
+
 public class SettingsButton {
     private int buttonTL;
     private int buttonBR;
     private String buttonText;
-    private ConstraintLayout buttonLayout;
+    private MaterialCardView buttonLayout;
 
     public SettingsButton(int TL, int BR, String Text){
         buttonTL = TL;
@@ -23,7 +25,10 @@ public class SettingsButton {
     public String getButtonText(){
         return buttonText;
     }
-    public ConstraintLayout getButtonLayout(){
+    public void setButtonLayout(MaterialCardView layout) {
+        this.buttonLayout = layout;
+    }
+    public MaterialCardView getButtonLayout(){
         return buttonLayout;
     }
 }

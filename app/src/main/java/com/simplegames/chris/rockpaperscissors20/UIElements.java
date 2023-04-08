@@ -56,9 +56,9 @@ public class UIElements {
         }
     }
 
-    public static void setBackground(Context context, ImageView view, int[] colours, float cornerRadius, long animationDuration) {
+    public static void setBackground(Context context, View view, int[] colours, float cornerRadius, long animationDuration) {
         //Get the Current Gradient
-        GradientDrawable currentGradient = (GradientDrawable) view.getDrawable();
+        //GradientDrawable currentGradient = (GradientDrawable) view.getBackground();
 
         //Create the New Gradient
         GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR, colours);
@@ -74,15 +74,15 @@ public class UIElements {
             //Blend Colours
             int[] blendedColours = new int[colours.length];
             for (int i = 0; i < colours.length; i++) {
-                int startColour = currentGradient == null ? colours[i] : Objects.requireNonNull(currentGradient.getColors())[i];
+                //int startColour = currentGradient == null ? colours[i] : Objects.requireNonNull(currentGradient.getColors())[i];
                 int endColour = colours[i];
-                blendedColours[i] = blendColours(context, startColour, endColour, fraction);
+                //blendedColours[i] = blendColours(context, startColour, endColour, fraction);
             }
 
             Log.e("MSG", "" + blendedColours[0]);
 
             //Set Blended Colours
-            gradientDrawable.setColors(blendedColours);
+            gradientDrawable.setColors(colours);
             view.setBackground(gradientDrawable);
         });
         valueAnimator.start();
@@ -141,7 +141,7 @@ public class UIElements {
         }
     }
 
-    public static void twoPartGradient(ConstraintLayout background, ConstraintLayout foreground, int TL, int BR, float corner){
+    public static void twoPartGradient(View background, ConstraintLayout foreground, int TL, int BR, float corner){
         if (Values.currentActivity == "Settings"){
             if (foreground != null){
                 GradientDrawable gradientDrawable = new GradientDrawable(

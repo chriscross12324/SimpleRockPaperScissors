@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.card.MaterialCardView;
+
 import java.util.ArrayList;
 
 public class Settings extends AppCompatActivity {
@@ -38,9 +40,9 @@ public class Settings extends AppCompatActivity {
 
     SwipeRefreshLayout swipeToBack;
     NestedScrollView settingsScrollView;
-    ConstraintLayout buttonVibrate, buttonDarkTheme, buttonDeveloperMode, buttonResetScore, buttonAppInfo, buttonBackupRestore;
-    ConstraintLayout foreground;
-    ImageView backButton, vibrationIcon, darkThemeIcon, developerModeIcon, background;
+    MaterialCardView buttonVibrate, buttonDarkTheme, buttonBack;
+    ConstraintLayout buttonDeveloperMode, buttonResetScore, buttonAppInfo, buttonBackupRestore;
+    ImageView vibrationIcon, darkThemeIcon, developerModeIcon, background;
     TextView textResetScore;
 
 
@@ -60,7 +62,6 @@ public class Settings extends AppCompatActivity {
 
         //Set Views
         background = findViewById(R.id.background);
-        foreground = findViewById(R.id.foreground);
         settingsScrollView = findViewById(R.id.settingsScrollView);
         buttonVibrate = findViewById(R.id.buttonVibrate);
         buttonDarkTheme = findViewById(R.id.buttonDarkTheme);
@@ -68,17 +69,17 @@ public class Settings extends AppCompatActivity {
         buttonResetScore = findViewById(R.id.buttonResetScore);
         buttonAppInfo = findViewById(R.id.buttonAppInfo);
         buttonBackupRestore = findViewById(R.id.buttonBackupRestore);
-        backButton = findViewById(R.id.backButton);
+        buttonBack = findViewById(R.id.buttonBack);
         textResetScore = findViewById(R.id.textResetScore);
         vibrationIcon = findViewById(R.id.vibrationIcon);
-        darkThemeIcon = findViewById(R.id.darkThemeIcon);
+        //darkThemeIcon = findViewById(R.id.darkThemeIcon);
         developerModeIcon = findViewById(R.id.developerModeIcon);
 
         //Option Buttons
-        backButton.setOnClickListener(new View.OnClickListener() {
+        buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backButton.setClickable(false);
+                buttonBack.setClickable(false);
                 Vibrations.openMenu(Settings.this);
                 settingsScrollView.smoothScrollTo(0, 0);
                 UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
@@ -123,53 +124,39 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        buttonResetScore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (doublePressReset){
-                    textResetScore.setText("Reset Score");
-                    Vibrations.ResetScoreVibration(getApplicationContext());
-                    Values.resetScoreSP = true;
-                    doublePressReset = false;
-                    return;
-                }
-                textResetScore.setText("Press again to confirm");
-                doublePressReset = true;
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        doublePressReset = false;
-                        textResetScore.setText("Reset Score");
-                    }
-                }, 2000);
+        buttonResetScore.setOnClickListener(v -> {
+            Handler handler = new Handler();
+            Runnable runnable = () -> {
+                doublePressReset = false;
+                textResetScore.setText("Reset Score");
+            };
+
+            if (doublePressReset){
+                textResetScore.setText("Reset Score");
+                Vibrations.ResetScoreVibration(getApplicationContext());
+                Values.resetScoreSP = true;
+                doublePressReset = false;
+                handler.removeCallbacks(runnable);
+                return;
             }
+            textResetScore.setText("Press again to confirm");
+            doublePressReset = true;
+            handler.postDelayed(runnable, 2000);
         });
-        buttonAppInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Vibrations.openMenu(Settings.this);
-                settingsScrollView.smoothScrollTo(0, 0);
-                UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent appinfo = new Intent(Settings.this, AppInfo.class);
-                        startActivity(appinfo.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                        finish();
-                        Settings.this.overridePendingTransition(0,0);
-                    }
-                }, Values.animationSpeed);
-            }
+        buttonAppInfo.setOnClickListener(v -> {
+            Vibrations.openMenu(Settings.this);
+            settingsScrollView.smoothScrollTo(0, 0);
+            UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                Intent appinfo = new Intent(Settings.this, AppInfo.class);
+                startActivity(appinfo.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
+                Settings.this.overridePendingTransition(0,0);
+            }, Values.animationSpeed);
         });
         determineBackground();
-        getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                settingsScrollViewAnimation();
-            }
-        });
+        getWindow().getDecorView().post(this::settingsScrollViewAnimation);
         setBackgroundButtons();
         determineOptionsStates();
         buildBackgroundButtonRecyclerView();
@@ -192,11 +179,11 @@ public class Settings extends AppCompatActivity {
         }
         if (!Values.darkTheme){
             buttonDarkTheme.setBackground(null);
-            darkThemeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.black)));
+            //darkThemeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.black)));
         }else {
             UIElements.twoPartGradient(buttonDarkTheme,null,Color.parseColor(getResources().getString(0+R.color.enabledOption)),
                     Color.parseColor(getResources().getString(0+R.color.enabledOption)), 50);
-            darkThemeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
+            //darkThemeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
         }
         if (!Values.devMode){
             if (Values.darkTheme){
@@ -212,8 +199,7 @@ public class Settings extends AppCompatActivity {
             developerModeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
         }
 
-        UIElements.solidColours(buttonResetScore, ContextCompat.getColor(this, R.color.resetScore),
-                new float[] {50,50,50,50,50,50,50,50});
+        //UIElements.setBackground(this, buttonResetScore, new int[] {ContextCompat.getColor(this, R.color.resetScore)}, 50f, 0);
         UIElements.twoPartGradient(buttonAppInfo, null, ContextCompat.getColor(this, R.color.backupRestoreTopLeft),
                 ContextCompat.getColor(this, R.color.backupRestoreBottomRight), 50);
 

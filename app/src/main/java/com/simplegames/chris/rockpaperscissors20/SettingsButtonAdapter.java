@@ -2,6 +2,7 @@ package com.simplegames.chris.rockpaperscissors20;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +21,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
+
 public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAdapter.SettingsButtonViewHolder> {
-    private ArrayList<SettingsButton> buttonArrayList;
+    private static ArrayList<SettingsButton> buttonArrayList;
     private OnItemClickListener buttonListener;
     private static Context buttonContext;
 
@@ -33,23 +37,26 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
     }
 
     public static class SettingsButtonViewHolder extends RecyclerView.ViewHolder{
-        ConstraintLayout buttonLayout;
-        public TextView buttonText;
+        MaterialCardView buttonLayout;
+        ImageView buttonBackground;
+        TextView buttonText;
 
-        public SettingsButtonViewHolder(@NonNull View itemView, final OnItemClickListener listener, Context context) {
+        public SettingsButtonViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            this.buttonLayout = itemView.findViewById(R.id.constraintLayout);
-            buttonText = itemView.findViewById(R.id.textView);
+            this.buttonLayout = itemView.findViewById(R.id.buttonColour);
+            this.buttonBackground = itemView.findViewById(R.id.buttonColourBackground);
+            this.buttonText = itemView.findViewById(R.id.buttonColourText);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null){
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION){
-                            Values.SPBackgroundNumber = position;
-                            ((Settings)buttonContext).determineBackground();
-                        }
+            itemView.setOnClickListener(v -> {
+                if (listener != null){
+                    int oldPos = Values.SPBackgroundNumber;
+                    MaterialCardView oldLayout = buttonArrayList.get(oldPos).getButtonLayout();
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION){
+                        Values.SPBackgroundNumber = position;
+                        ((Settings)buttonContext).determineBackground();
+                        setButtonStroke(oldLayout, oldPos);
+                        setButtonStroke(buttonLayout, position);
                     }
                 }
             });
@@ -65,29 +72,35 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
     @Override
     public SettingsButtonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.settings_background_button_layout, parent, false);
-        SettingsButtonViewHolder sbvh = new SettingsButtonViewHolder(v, buttonListener, buttonContext);
+        SettingsButtonViewHolder sbvh = new SettingsButtonViewHolder(v, buttonListener);
         return sbvh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull SettingsButtonViewHolder holder, int position) {
         SettingsButton currentItem = buttonArrayList.get(position);
+        currentItem.setButtonLayout(holder.buttonLayout);
         holder.buttonText.setText(currentItem.getButtonText());
 
         GradientDrawable gradientDrawable = new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
                 new int[] {currentItem.getButtonTL(),currentItem.getButtonBR()});
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-        gradientDrawable.setCornerRadius(50);
-        holder.buttonLayout.setBackground(gradientDrawable);
-    }
 
-    public static interface AdapterCallback{
-        void onMethodCallback();
+        setButtonStroke(holder.buttonLayout, position);
+        holder.buttonBackground.setBackground(gradientDrawable);
     }
 
     @Override
     public int getItemCount() {
         return buttonArrayList.size();
+    }
+
+    private static void setButtonStroke(MaterialCardView layout, int position) {
+        if (Values.SPBackgroundNumber == position) {
+            layout.setStrokeWidth(6);
+        } else {
+            layout.setStrokeWidth(0);
+        }
     }
 }
