@@ -4,10 +4,13 @@ import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 
@@ -197,5 +200,10 @@ public class UIElements {
         objectAnimator.setInterpolator(interpolator);
         Handler handler = new Handler();
         handler.postDelayed(objectAnimator::start, delay);
+    }
+
+    public static int dpToFloat(float inputDP) {
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, inputDP, displayMetrics));
     }
 }

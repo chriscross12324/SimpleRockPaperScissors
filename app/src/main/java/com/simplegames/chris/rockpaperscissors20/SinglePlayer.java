@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
 
@@ -29,9 +30,9 @@ public class SinglePlayer extends AppCompatActivity {
 
     LinearLayout Arrow;
     MaterialCardView scissorsButton, rockButton, paperButton, buttonMenu, resultHolder;
-    FrameLayout aiResult;
+    ConstraintLayout aiResult;
     ImageView aiChoice, background;
-    TextView resultText, lossesScore, drawsScore, winsScore;
+    TextView resultText/*, lossesScore, drawsScore, winsScore*/;
     AnimationDrawable aiAnimation;
     int resetCounter = 0;
     boolean isPlaying = false;
@@ -73,9 +74,9 @@ public class SinglePlayer extends AppCompatActivity {
 
         final Handler animPlay = new Handler();
         resultText = findViewById(R.id.resultText);
-        lossesScore = findViewById(R.id.lossesScore);
+        /*lossesScore = findViewById(R.id.lossesScore);
         drawsScore = findViewById(R.id.drawsScore);
-        winsScore = findViewById(R.id.winsScore);
+        winsScore = findViewById(R.id.winsScore);*/
         openGame();
         sendBackgroundRequest();
         resetScoreCounter();
@@ -275,17 +276,17 @@ public class SinglePlayer extends AppCompatActivity {
         if (winnerReturn == "Draw"){
             resultText.setText("Draw");
             Values.draws++;
-            drawsScore.setText("Draws: "+ Values.draws);
+            //drawsScore.setText("Draws: "+ Values.draws);
             //aiSmarter();
         } else if (winnerReturn == "PlayerWin"){
             resultText.setText("You Win");
             Values.wins++;
-            winsScore.setText("Wins: "+ Values.wins);
+            //winsScore.setText("Wins: "+ Values.wins);
             //aiSmarter();
         } else if (winnerReturn == "AiWin"){
             resultText.setText("You Lose");
             Values.losses++;
-            lossesScore.setText("Losses: "+ Values.losses);
+            //lossesScore.setText("Losses: "+ Values.losses);
             //aiSmarter();
         }
         if (Values.losses < 0 || Values.draws < 0 || Values.wins < 0){
@@ -327,9 +328,9 @@ public class SinglePlayer extends AppCompatActivity {
 
     public void openGame(){
         try{
-            lossesScore.setText("Losses: "+ Values.losses);
+            /*lossesScore.setText("Losses: "+ Values.losses);
             drawsScore.setText("Draws: "+ Values.draws);
-            winsScore.setText("Wins: "+ Values.wins);
+            winsScore.setText("Wins: "+ Values.wins);*/
         }catch (Exception loadFail){
             Toast.makeText(this, "Failed to Load save", Toast.LENGTH_SHORT).show();
         }
@@ -383,9 +384,9 @@ public class SinglePlayer extends AppCompatActivity {
             Values.wins = resetCounter;
             Values.draws = resetCounter;
             Values.losses = resetCounter;
-            lossesScore.setText("Losses: " + Values.losses);
+            /*lossesScore.setText("Losses: " + Values.losses);
             drawsScore.setText("Draws: " + Values.draws);
-            winsScore.setText("Wins: " + Values.wins);
+            winsScore.setText("Wins: " + Values.wins);*/
             Values.resetScoreSP = false;
         }
     }

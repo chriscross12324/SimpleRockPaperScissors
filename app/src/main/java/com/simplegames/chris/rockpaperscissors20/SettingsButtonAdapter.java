@@ -90,7 +90,7 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
 
     private static void setButtonStroke(MaterialCardView layout, int position) {
         if (Values.selectedBackground == position) {
-            layout.setStrokeWidth(6);
+            layout.setStrokeWidth(UIElements.dpToFloat(2.5f));
         } else {
             layout.setStrokeWidth(0);
         }
