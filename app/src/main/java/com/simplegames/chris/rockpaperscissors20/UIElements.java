@@ -9,18 +9,15 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
-import java.util.Objects;
-
 public class UIElements {
 
     public static int[] getBackgroundColours(Context context) {
-        int selectedBackground = Values.SPBackgroundNumber;
+        int selectedBackground = Values.selectedBackground;
 
         switch (selectedBackground) {
             case 0: {
@@ -98,7 +95,7 @@ public class UIElements {
     }
 
     public static void determineBackground(ConstraintLayout background, ConstraintLayout foreground, Context context){
-        switch (Values.SPBackgroundNumber){
+        switch (Values.selectedBackground){
             case 0:
                 UIElements.twoPartGradient(background,foreground, ContextCompat.getColor(context, R.color.wintersDayTL),
                         ContextCompat.getColor(context, R.color.wintersDayBR),0f);

@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -27,7 +25,7 @@ public class AppInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Values.darkTheme){
+        if (Values.darkThemeEnabled){
             setTheme(R.style.DarkTheme);
         }else {
             setTheme(R.style.LightTheme);

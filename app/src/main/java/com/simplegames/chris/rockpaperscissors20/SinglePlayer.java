@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
 
@@ -47,7 +46,7 @@ public class SinglePlayer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Values.darkTheme){
+        if (Values.darkThemeEnabled){
             setTheme(R.style.DarkTheme);
         }else {
             setTheme(R.style.LightTheme);
@@ -337,7 +336,7 @@ public class SinglePlayer extends AppCompatActivity {
     }
     public void sendBackgroundRequest(){
         ImageView background = findViewById(R.id.background);
-        switch (Values.SPBackgroundNumber){
+        switch (Values.selectedBackground){
             case 0:
                 UIElements.twoPartGradient(background,null, ContextCompat.getColor(this, R.color.wintersDayTL),
                         ContextCompat.getColor(this, R.color.wintersDayBR),0f);

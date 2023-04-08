@@ -49,7 +49,7 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Values.darkTheme){
+        if (Values.darkThemeEnabled){
             setTheme(R.style.DarkTheme);
         }else {
             setTheme(R.style.LightTheme);
@@ -112,12 +112,12 @@ public class Settings extends AppCompatActivity {
         buttonDarkTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Values.darkTheme){
-                    Values.darkTheme = false;
+                if (Values.darkThemeEnabled){
+                    Values.darkThemeEnabled = false;
                     resetLayout();
                     Vibrations.vibrate(getApplicationContext(), "low");
                 }else {
-                    Values.darkTheme = true;
+                    Values.darkThemeEnabled = true;
                     resetLayout();
                     Vibrations.vibrate(getApplicationContext(), "low");
                 }
@@ -165,7 +165,7 @@ public class Settings extends AppCompatActivity {
 
     private void determineOptionsStates(){
         if (!Values.vibrationEnabled){
-            if (Values.darkTheme){
+            if (Values.darkThemeEnabled){
                 buttonVibrate.setBackground(null);
                 vibrationIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
             }else {
@@ -177,7 +177,7 @@ public class Settings extends AppCompatActivity {
                     Color.parseColor(getResources().getString(0+R.color.enabledOption)), 50);
             vibrationIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
         }
-        if (!Values.darkTheme){
+        if (!Values.darkThemeEnabled){
             buttonDarkTheme.setBackground(null);
             //darkThemeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.black)));
         }else {
@@ -186,7 +186,7 @@ public class Settings extends AppCompatActivity {
             //darkThemeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
         }
         if (!Values.devMode){
-            if (Values.darkTheme){
+            if (Values.darkThemeEnabled){
                 buttonDeveloperMode.setBackground(null);
                 developerModeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
             }else {
@@ -250,7 +250,7 @@ public class Settings extends AppCompatActivity {
         }
         UIElements.setBackground(this ,background, UIElements.getBackgroundColours(this), 0f, 5000);
         //UIElements.determineBackground(background, foreground, Settings.this);
-        Toast.makeText(this, "Colours: " + Values.SPBackgroundNumber, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Colours: " + Values.selectedBackground, Toast.LENGTH_SHORT).show();
     }
 
     public void settingsScrollViewAnimation(){

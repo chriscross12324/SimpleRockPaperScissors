@@ -1,24 +1,16 @@
 package com.simplegames.chris.rockpaperscissors20;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -49,11 +41,11 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
 
             itemView.setOnClickListener(v -> {
                 if (listener != null){
-                    int oldPos = Values.SPBackgroundNumber;
+                    int oldPos = Values.selectedBackground;
                     MaterialCardView oldLayout = buttonArrayList.get(oldPos).getButtonLayout();
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION){
-                        Values.SPBackgroundNumber = position;
+                        Values.selectedBackground = position;
                         ((Settings)buttonContext).determineBackground();
                         setButtonStroke(oldLayout, oldPos);
                         setButtonStroke(buttonLayout, position);
@@ -97,7 +89,7 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
     }
 
     private static void setButtonStroke(MaterialCardView layout, int position) {
-        if (Values.SPBackgroundNumber == position) {
+        if (Values.selectedBackground == position) {
             layout.setStrokeWidth(6);
         } else {
             layout.setStrokeWidth(0);
