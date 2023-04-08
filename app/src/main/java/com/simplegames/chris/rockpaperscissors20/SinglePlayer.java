@@ -90,7 +90,7 @@ public class SinglePlayer extends AppCompatActivity {
         buttonMenu.setOnClickListener(v -> {
             if (!isPlaying){
                 buttonMenu.setClickable(false);
-                Vibrations.openGameMode(SinglePlayer.this);
+                Vibrations.vibrate(SinglePlayer.this, "low");
                 UIElements.animate(aiResult, "translationY", 60, 100, Values.animationSpeed, new DecelerateInterpolator(3));
                 UIElements.animate(aiResult, "alpha", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
                 UIElements.animate(resultHolder, "translationY", -resultHeight, 0, Values.animationSpeed, new DecelerateInterpolator(3));
@@ -110,7 +110,7 @@ public class SinglePlayer extends AppCompatActivity {
                 }, Values.animationSpeed);
 
             }else {
-                Vibrations.UnavailableVibration(getApplicationContext());
+                Vibrations.vibrate(getApplicationContext(), "error");
                 LayoutInflater layoutInflater = getLayoutInflater();
                 View cantExitView = layoutInflater.inflate(R.layout.toast_in_game, (ViewGroup)findViewById(R.id.cantExitToast));
                 Toast cantExitToast = Toast.makeText(SinglePlayer.this, "Can't Leave", Toast.LENGTH_SHORT);
@@ -124,7 +124,7 @@ public class SinglePlayer extends AppCompatActivity {
             buttonHeight = rockButton.getHeight();
             if (!isPlaying){
                 isPlaying = true;
-                Vibrations.SPButtonSelectedVibration(getApplicationContext());
+                Vibrations.vibrate(getApplicationContext(), "medium");
                 playerReturn = "Rock";
                 playAnimation();
                 aiPick();
@@ -145,7 +145,7 @@ public class SinglePlayer extends AppCompatActivity {
                     }
                 },6050);
             } else {
-                Vibrations.SPAlreadyPlayingVibration(getApplicationContext());
+                Vibrations.vibrate(getApplicationContext(), "error");
             }
 
 
@@ -154,7 +154,7 @@ public class SinglePlayer extends AppCompatActivity {
             buttonHeight = rockButton.getHeight();
             if (!isPlaying){
                 isPlaying = true;
-                Vibrations.SPButtonSelectedVibration(getApplicationContext());
+                Vibrations.vibrate(getApplicationContext(), "medium");
                 playerReturn = "Paper";
                 playAnimation();
                 aiPick();
@@ -173,7 +173,7 @@ public class SinglePlayer extends AppCompatActivity {
                     }
                 },6050);
             } else {
-                Vibrations.SPAlreadyPlayingVibration(getApplicationContext());
+                Vibrations.vibrate(getApplicationContext(), "error");
             }
 
         });
@@ -183,7 +183,7 @@ public class SinglePlayer extends AppCompatActivity {
                 buttonHeight = rockButton.getHeight();
                 if (!isPlaying){
                     isPlaying = true;
-                    Vibrations.SPButtonSelectedVibration(getApplicationContext());
+                    Vibrations.vibrate(getApplicationContext(), "medium");
                     playerReturn = "Scissors";
                     playAnimation();
                     aiPick();
@@ -202,7 +202,7 @@ public class SinglePlayer extends AppCompatActivity {
                         }
                     },6050);
                 } else {
-                    Vibrations.SPAlreadyPlayingVibration(getApplicationContext());
+                    Vibrations.vibrate(getApplicationContext(), "error");
                 }
 
             }

@@ -53,7 +53,7 @@ public class AppInfo extends AppCompatActivity {
         backButton.setOnClickListener(v -> {
             try {
                 backButton.setClickable(false);
-                Vibrations.openMenu(AppInfo.this);
+                Vibrations.vibrate(AppInfo.this, "low");
                 DisplayMetrics displayMetrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                 int height = displayMetrics.heightPixels;

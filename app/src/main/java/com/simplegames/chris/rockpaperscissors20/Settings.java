@@ -80,7 +80,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 buttonBack.setClickable(false);
-                Vibrations.openMenu(Settings.this);
+                Vibrations.vibrate(Settings.this, "low");
                 settingsScrollView.smoothScrollTo(0, 0);
                 UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 Handler handler = new Handler();
@@ -101,11 +101,11 @@ public class Settings extends AppCompatActivity {
                 if (Values.vibrationEnabled){
                     Values.vibrationEnabled = false;
                     determineOptionsStates();
-                    Vibrations.SettingsBGButtonVibration(getApplicationContext());
+                    Vibrations.vibrate(getApplicationContext(), "low");
                 }else {
                     Values.vibrationEnabled = true;
                     determineOptionsStates();
-                    Vibrations.SettingsBGButtonVibration(getApplicationContext());
+                    Vibrations.vibrate(getApplicationContext(), "low");
                 }
             }
         });
@@ -115,11 +115,11 @@ public class Settings extends AppCompatActivity {
                 if (Values.darkTheme){
                     Values.darkTheme = false;
                     resetLayout();
-                    Vibrations.SettingsBGButtonVibration(getApplicationContext());
+                    Vibrations.vibrate(getApplicationContext(), "low");
                 }else {
                     Values.darkTheme = true;
                     resetLayout();
-                    Vibrations.SettingsBGButtonVibration(getApplicationContext());
+                    Vibrations.vibrate(getApplicationContext(), "low");
                 }
             }
         });
@@ -133,7 +133,7 @@ public class Settings extends AppCompatActivity {
 
             if (doublePressReset){
                 textResetScore.setText("Reset Score");
-                Vibrations.ResetScoreVibration(getApplicationContext());
+                Vibrations.vibrate(getApplicationContext(), "reset");
                 Values.resetScoreSP = true;
                 doublePressReset = false;
                 handler.removeCallbacks(runnable);
@@ -144,7 +144,7 @@ public class Settings extends AppCompatActivity {
             handler.postDelayed(runnable, 2000);
         });
         buttonAppInfo.setOnClickListener(v -> {
-            Vibrations.openMenu(Settings.this);
+            Vibrations.vibrate(Settings.this, "low");
             settingsScrollView.smoothScrollTo(0, 0);
             UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
             Handler handler = new Handler();
@@ -246,7 +246,7 @@ public class Settings extends AppCompatActivity {
     }
     public void determineBackground(){
         if (Values.currentActivity == "Settings") {
-            Vibrations.SettingsBGButtonVibration(Settings.this);
+            Vibrations.vibrate(getApplicationContext(), "low");
         }
         UIElements.setBackground(this ,background, UIElements.getBackgroundColours(this), 0f, 5000);
         //UIElements.determineBackground(background, foreground, Settings.this);
