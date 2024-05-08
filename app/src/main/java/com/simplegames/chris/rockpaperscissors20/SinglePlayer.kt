@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.card.MaterialCardView
 import java.util.Random
 import java.util.Timer
@@ -31,7 +32,7 @@ class SinglePlayer : AppCompatActivity() {
     private lateinit var roundResultHolder: MaterialCardView
 
     private lateinit var opponentAnimation: AnimationDrawable
-    private var isPlaying: Boolean = false;
+    private var isPlaying: Boolean = false
     private var opponentChoice: String = ""
     private var playerChoice: String = ""
 
@@ -151,7 +152,7 @@ class SinglePlayer : AppCompatActivity() {
                 Vibrations.vibrate(this, "error")
             } else {
                 //Set isPlaying
-                isPlaying = true;
+                isPlaying = true
                 playerChoice = "Rock"
 
                 //Vibrate
@@ -185,7 +186,7 @@ class SinglePlayer : AppCompatActivity() {
                 Vibrations.vibrate(this, "error")
             } else {
                 //Set isPlaying
-                isPlaying = true;
+                isPlaying = true
                 playerChoice = "Paper"
 
                 //Vibrate
@@ -219,7 +220,7 @@ class SinglePlayer : AppCompatActivity() {
                 Vibrations.vibrate(this, "error")
             } else {
                 //Set isPlaying
-                isPlaying = true;
+                isPlaying = true
                 playerChoice = "Scissors"
 
                 //Vibrate
@@ -251,7 +252,7 @@ class SinglePlayer : AppCompatActivity() {
 
     private fun playOpponentAnimation() {
         //Play Picking Animation
-        opponentChoiceImage.setImageDrawable(resources.getDrawable(R.drawable.ai_picking))
+        opponentChoiceImage.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ai_picking, null))
         val pickingAnimation = opponentChoiceImage.drawable as AnimationDrawable
         pickingAnimation.start()
 

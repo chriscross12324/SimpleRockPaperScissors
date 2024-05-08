@@ -1,7 +1,5 @@
 package com.simplegames.chris.rockpaperscissors20;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.google.android.material.card.MaterialCardView;
 
 public class SettingsButton {

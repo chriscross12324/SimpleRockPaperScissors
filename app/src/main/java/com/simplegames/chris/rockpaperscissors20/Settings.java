@@ -28,6 +28,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Settings extends AppCompatActivity {
     private ArrayList<SettingsButton> buttonArrayList;
@@ -149,8 +150,8 @@ public class Settings extends AppCompatActivity {
             UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
             Handler handler = new Handler();
             handler.postDelayed(() -> {
-                Intent appinfo = new Intent(Settings.this, AppInfo.class);
-                startActivity(appinfo.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                Intent appInfo = new Intent(Settings.this, AppInfo.class);
+                startActivity(appInfo.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
                 Settings.this.overridePendingTransition(0,0);
             }, Values.animationSpeed);
@@ -254,14 +255,14 @@ public class Settings extends AppCompatActivity {
         });
     }
     public void determineBackground(){
-        if (Values.currentActivity == "Settings") {
+        if (Objects.equals(Values.currentActivity, "Settings")) {
             Vibrations.vibrate(getApplicationContext(), "low");
         }
         UIElements.setBackground(this ,background, UIElements.getBackgroundColours(this), 0f, 5000);
     }
 
     public void settingsScrollViewAnimation(){
-        if (Values.currentActivity == "Settings"){
+        if (Objects.equals(Values.currentActivity, "Settings")){
             settingsScrollView.scrollTo(0,0);
         } else {
             settingsScrollView.scrollTo(0,0);

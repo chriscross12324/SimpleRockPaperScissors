@@ -12,10 +12,11 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+
+import java.util.Objects;
 
 public class UIElements {
 
@@ -112,7 +113,7 @@ public class UIElements {
     }
 
     public static void twoPartGradient(View background, ConstraintLayout foreground, int TL, int BR, float corner){
-        if (Values.currentActivity == "Settings"){
+        if (Objects.equals(Values.currentActivity, "Settings")){
             if (foreground != null){
                 GradientDrawable gradientDrawable = new GradientDrawable(
                         GradientDrawable.Orientation.TL_BR,

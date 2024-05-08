@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/sunshineBR"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:importantForAccessibility="no" />
 
     </androidx.cardview.widget.CardView>
 
@@ -64,9 +65,10 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/icon_info"
-                        app:tint="?PrimaryTextColour" />
+                        app:tint="?PrimaryTextColour"
+                        android:importantForAccessibility="no" />
 
-                    <Space
+                    <View
                         android:layout_width="10dp"
                         android:layout_height="0dp" />
 
@@ -75,7 +77,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/googlesans_bold"
                         android:gravity="center"
-                        android:text="App Info"
+                        android:text="@string/app_info_title"
                         android:textColor="?PrimaryTextColour"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +121,8 @@
                         android:src="@drawable/icon_arrow"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?PrimaryTextColour" />
+                        app:tint="?PrimaryTextColour"
+                        android:importantForAccessibility="no" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -148,7 +151,7 @@
                             android:layout_marginTop="64dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_bold"
-                            android:text="App Name"
+                            android:text="@string/app_info_title_app_name"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -162,7 +165,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_medium"
-                            android:text="Rock Paper Scissors"
+                            android:text="@string/app_name"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -177,7 +180,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_bold"
-                            android:text="Version"
+                            android:text="@string/app_info_title_app_version"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -191,7 +194,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_medium"
-                            android:text="3.0 Beta 1"
+                            android:text="@string/general_placeholder"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -206,7 +209,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_bold"
-                            android:text="Changes"
+                            android:text="@string/app_info_title_changes"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -238,7 +241,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_bold"
-                            android:text="Date Released"
+                            android:text="@string/app_info_title_release_date"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -252,7 +255,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_medium"
-                            android:text="April 8, 2023"
+                            android:text="@string/app_info_body_release_date"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -267,7 +270,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_bold"
-                            android:text="App Stability"
+                            android:text="@string/app_info_title_app_stability"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -281,7 +284,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_medium"
-                            android:text="Stable"
+                            android:text="@string/app_info_body_app_stability"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -296,7 +299,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_bold"
-                            android:text="App Developer"
+                            android:text="@string/app_info_title_app_developer"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -310,68 +313,14 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_medium"
-                            android:text="Chris Coulthard"
+                            android:text="@string/developer_name"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/developerTitle" />
 
-                        <!--<TextView
-                            android:id="@+id/qualityControlTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="8dp"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:text="Quality Control"
-                            android:textColor="?PrimaryTextColour"
-                            android:textSize="20sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/developerBody" />
-                        <TextView
-                            android:id="@+id/qualityControlBody1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:fontFamily="@font/googlesans_medium"
-                            android:text="Chris Coulthard"
-                            android:textColor="?PrimaryTextColour"
-                            android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/qualityControlTitle" />
-                        <TextView
-                            android:id="@+id/qualityControlBody2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:fontFamily="@font/googlesans_medium"
-                            android:text="Alex Ochodek (swizzle)"
-                            android:textColor="?PrimaryTextColour"
-                            android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/qualityControlBody1" />
-                        <TextView
-                            android:id="@+id/qualityControlBody3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:fontFamily="@font/googlesans_medium"
-                            android:text="Sevda"
-                            android:textColor="?PrimaryTextColour"
-                            android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/qualityControlBody2" />-->
-
-                        <LinearLayout
+                        <View
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             app:layout_constraintTop_toBottomOf="@id/developerBody" />

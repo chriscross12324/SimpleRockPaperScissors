@@ -129,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Space
+        <View
             android:layout_width="10dp"
             android:layout_height="match_parent" />
 
@@ -155,7 +155,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <Space
+        <View
             android:layout_width="5dp"
             android:layout_height="0dp" />
 
@@ -181,7 +181,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <Space
+        <View
             android:layout_width="5dp"
             android:layout_height="0dp" />
 
@@ -207,7 +207,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <Space
+        <View
             android:layout_width="10dp"
             android:layout_height="match_parent" />
     </LinearLayout>

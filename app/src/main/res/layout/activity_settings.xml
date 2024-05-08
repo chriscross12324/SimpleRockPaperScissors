@@ -67,7 +67,7 @@
                         android:src="@drawable/icon_settings"
                         app:tint="?PrimaryTextColour" />
 
-                    <Space
+                    <View
                         android:layout_width="10dp"
                         android:layout_height="0dp" />
 
@@ -190,7 +190,7 @@
 
                             </com.google.android.material.card.MaterialCardView>
 
-                            <Space
+                            <View
                                 android:layout_width="10dp"
                                 android:layout_height="0dp" />
 
