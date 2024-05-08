@@ -3,9 +3,9 @@ package com.simplegames.chris.rockpaperscissors20;
 import com.google.android.material.card.MaterialCardView;
 
 public class SettingsButton {
-    private int buttonTL;
-    private int buttonBR;
-    private String buttonText;
+    private final int buttonTL;
+    private final int buttonBR;
+    private final String buttonText;
     private MaterialCardView buttonLayout;
 
     public SettingsButton(int TL, int BR, String Text){

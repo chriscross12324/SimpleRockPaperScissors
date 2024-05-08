@@ -29,9 +29,9 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
     }
 
     public static class SettingsButtonViewHolder extends RecyclerView.ViewHolder{
-        MaterialCardView buttonLayout;
-        ImageView buttonBackground;
-        TextView buttonText;
+        final MaterialCardView buttonLayout;
+        final ImageView buttonBackground;
+        final TextView buttonText;
 
         public SettingsButtonViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);

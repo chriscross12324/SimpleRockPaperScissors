@@ -30,45 +30,33 @@ public class UIElements {
     }
 
     public static int[] getColourArray(Context context, int selectedBackground) {
-        switch (selectedBackground) {
-            case 0: {
-                return new int[] {ContextCompat.getColor(context, R.color.wintersDayTL), ContextCompat.getColor(context, R.color.wintersDayBR)};
-            }
-            case 1: {
-                return new int[] {ContextCompat.getColor(context, R.color.shallowLakeTL), ContextCompat.getColor(context, R.color.shallowLakeBR)};
-            }
-            case 2: {
-                return new int[] {ContextCompat.getColor(context, R.color.tropicalOceanTL), ContextCompat.getColor(context, R.color.tropicalOceanBR)};
-            }
-            case 3: {
-                return new int[] {ContextCompat.getColor(context, R.color.greenGrassTL), ContextCompat.getColor(context, R.color.greenGrassBR)};
-            }
-            case 4: {
-                return new int[] {ContextCompat.getColor(context, R.color.sunshineTL), ContextCompat.getColor(context, R.color.sunshineBR)};
-            }
-            case 5: {
-                return new int[] {ContextCompat.getColor(context, R.color.forestTL), ContextCompat.getColor(context, R.color.forestBR)};
-            }
-            case 6: {
-                return new int[] {ContextCompat.getColor(context, R.color.atmosphereTL), ContextCompat.getColor(context, R.color.atmosphereBR)};
-            }
-            case 7: {
-                return new int[] {ContextCompat.getColor(context, R.color.purpleHazeTL), ContextCompat.getColor(context, R.color.purpleHazeBR)};
-            }
-            case 8: {
-                return new int[] {ContextCompat.getColor(context, R.color.coldNightTL), ContextCompat.getColor(context, R.color.coldNightBR)};
-            }
-            case 9: {
-                return new int[] {ContextCompat.getColor(context, R.color.eternalSpaceTL), ContextCompat.getColor(context, R.color.eternalSpaceBR)};
-            }
-            case 10: {
-                return new int[] {ContextCompat.getColor(context, R.color.juicyPomegranateTL), ContextCompat.getColor(context, R.color.juicyPomegranateBR)};
-            }
-            case 11: {
-                return new int[] {ContextCompat.getColor(context, R.color.sunnyDepthsTL), ContextCompat.getColor(context, R.color.sunnyDepthsBR)};
-            }
-        }
-        return new int[0];
+        return switch (selectedBackground) {
+            case 0 ->
+                    new int[]{ContextCompat.getColor(context, R.color.wintersDayTL), ContextCompat.getColor(context, R.color.wintersDayBR)};
+            case 1 ->
+                    new int[]{ContextCompat.getColor(context, R.color.shallowLakeTL), ContextCompat.getColor(context, R.color.shallowLakeBR)};
+            case 2 ->
+                    new int[]{ContextCompat.getColor(context, R.color.tropicalOceanTL), ContextCompat.getColor(context, R.color.tropicalOceanBR)};
+            case 3 ->
+                    new int[]{ContextCompat.getColor(context, R.color.greenGrassTL), ContextCompat.getColor(context, R.color.greenGrassBR)};
+            case 4 ->
+                    new int[]{ContextCompat.getColor(context, R.color.sunshineTL), ContextCompat.getColor(context, R.color.sunshineBR)};
+            case 5 ->
+                    new int[]{ContextCompat.getColor(context, R.color.forestTL), ContextCompat.getColor(context, R.color.forestBR)};
+            case 6 ->
+                    new int[]{ContextCompat.getColor(context, R.color.atmosphereTL), ContextCompat.getColor(context, R.color.atmosphereBR)};
+            case 7 ->
+                    new int[]{ContextCompat.getColor(context, R.color.purpleHazeTL), ContextCompat.getColor(context, R.color.purpleHazeBR)};
+            case 8 ->
+                    new int[]{ContextCompat.getColor(context, R.color.coldNightTL), ContextCompat.getColor(context, R.color.coldNightBR)};
+            case 9 ->
+                    new int[]{ContextCompat.getColor(context, R.color.eternalSpaceTL), ContextCompat.getColor(context, R.color.eternalSpaceBR)};
+            case 10 ->
+                    new int[]{ContextCompat.getColor(context, R.color.juicyPomegranateTL), ContextCompat.getColor(context, R.color.juicyPomegranateBR)};
+            case 11 ->
+                    new int[]{ContextCompat.getColor(context, R.color.sunnyDepthsTL), ContextCompat.getColor(context, R.color.sunnyDepthsBR)};
+            default -> new int[0];
+        };
     }
 
     public static void setBackground(Context context, View view, int[] colours, float cornerRadius, long animationDuration) {
@@ -88,9 +76,8 @@ public class UIElements {
 
             //Blend Colours
             int[] blendedColours = new int[colours.length];
-            for (int i = 0; i < colours.length; i++) {
+            for (int endColour : colours) {
                 //int startColour = currentGradient == null ? colours[i] : Objects.requireNonNull(currentGradient.getColors())[i];
-                int endColour = colours[i];
                 //blendedColours[i] = blendColours(context, startColour, endColour, fraction);
             }
 
@@ -124,17 +111,14 @@ public class UIElements {
                 ObjectAnimator fadeIn = ObjectAnimator.ofFloat(foreground, "alpha", 0, 1);
                 fadeIn.setDuration(500);
                 fadeIn.start();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        GradientDrawable gradientDrawable = new GradientDrawable(
-                                GradientDrawable.Orientation.TL_BR,
-                                new int[] {TL, BR});
-                        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-                        gradientDrawable.setCornerRadius(corner);
-                        background.setBackground(gradientDrawable);
-                        foreground.setAlpha(0);
-                    }
+                new Handler().postDelayed(() -> {
+                    GradientDrawable gradientDrawable1 = new GradientDrawable(
+                            GradientDrawable.Orientation.TL_BR,
+                            new int[] {TL, BR});
+                    gradientDrawable1.setShape(GradientDrawable.RECTANGLE);
+                    gradientDrawable1.setCornerRadius(corner);
+                    background.setBackground(gradientDrawable1);
+                    foreground.setAlpha(0);
                 }, 500);
             }else {
                 GradientDrawable gradientDrawable = new GradientDrawable(

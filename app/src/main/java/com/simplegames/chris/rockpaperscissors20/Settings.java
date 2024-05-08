@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -77,52 +76,28 @@ public class Settings extends AppCompatActivity {
         developerModeIcon = findViewById(R.id.developerModeIcon);
 
         //Option Buttons
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonBack.setClickable(false);
-                Vibrations.vibrate(Settings.this, "low");
-                settingsScrollView.smoothScrollTo(0, 0, 500);
-                UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent sp = new Intent(Settings.this, SinglePlayer.class);
-                        startActivity(sp);
-                        finish();
-                        Settings.this.overridePendingTransition(0,0);
-                    }
-                }, Values.animationSpeed);
-            }
+        buttonBack.setOnClickListener(v -> {
+            buttonBack.setClickable(false);
+            Vibrations.vibrate(Settings.this, "low");
+            settingsScrollView.smoothScrollTo(0, 0, 500);
+            UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                Intent sp = new Intent(Settings.this, SinglePlayer.class);
+                startActivity(sp);
+                finish();
+                Settings.this.overridePendingTransition(0,0);
+            }, Values.animationSpeed);
         });
-        buttonVibrate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Values.vibrationEnabled){
-                    Values.vibrationEnabled = false;
-                    determineOptionsStates();
-                    Vibrations.vibrate(getApplicationContext(), "low");
-                }else {
-                    Values.vibrationEnabled = true;
-                    determineOptionsStates();
-                    Vibrations.vibrate(getApplicationContext(), "low");
-                }
-            }
+        buttonVibrate.setOnClickListener(v -> {
+            Values.vibrationEnabled = !Values.vibrationEnabled;
+            determineOptionsStates();
+            Vibrations.vibrate(getApplicationContext(), "low");
         });
-        buttonDarkTheme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Values.darkThemeEnabled){
-                    Values.darkThemeEnabled = false;
-                    resetLayout();
-                    Vibrations.vibrate(getApplicationContext(), "low");
-                }else {
-                    Values.darkThemeEnabled = true;
-                    resetLayout();
-                    Vibrations.vibrate(getApplicationContext(), "low");
-                }
-            }
+        buttonDarkTheme.setOnClickListener(v -> {
+            Values.darkThemeEnabled = !Values.darkThemeEnabled;
+            resetLayout();
+            Vibrations.vibrate(getApplicationContext(), "low");
         });
 
         buttonResetScore.setOnClickListener(v -> {
@@ -249,10 +224,7 @@ public class Settings extends AppCompatActivity {
 
         buttonRecyclerView.setLayoutManager(buttonLayoutManager);
         buttonRecyclerView.setAdapter(buttonAdapter);
-        buttonAdapter.setOnItemClickListener(new SettingsButtonAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) { }
-        });
+        buttonAdapter.setOnItemClickListener(position -> { });
     }
     public void determineBackground(){
         if (Objects.equals(Values.currentActivity, "Settings")) {
@@ -314,14 +286,11 @@ public class Settings extends AppCompatActivity {
     public void resetLayout(){
         NestedScrollView settingsScrollView = findViewById(R.id.settingsScrollView);
         settingsScrollView.smoothScrollTo(0,0, 500);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent sp = new Intent(Settings.this, Settings.class);
-                startActivity(sp);
-                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-                finish();
-            }
+        new Handler().postDelayed(() -> {
+            Intent sp = new Intent(Settings.this, Settings.class);
+            startActivity(sp);
+            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            finish();
         }, Values.animationSpeed);
 
     }

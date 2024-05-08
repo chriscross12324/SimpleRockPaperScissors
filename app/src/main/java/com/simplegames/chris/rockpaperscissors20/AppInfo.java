@@ -34,10 +34,10 @@ public class AppInfo extends AppCompatActivity {
 
         try {
             determineBackground();
-        }catch (Exception e){}
+        } catch (Exception e){}
         try {
             appInfoScrollViewAnimation();
-        }catch (Exception e){}
+        } catch (Exception e){}
 
         TextView appVersion = findViewById(R.id.versionBody);
         try {
@@ -59,14 +59,11 @@ public class AppInfo extends AppCompatActivity {
                 appInfoScrollView.smoothScrollTo(0, 0, 500);
                 UIElements.animate(appInfoScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent spn = new Intent(AppInfo.this, Settings.class);
-                        startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                        finish();
-                        AppInfo.this.overridePendingTransition(0,0);
-                    }
+                handler.postDelayed(() -> {
+                    Intent spn = new Intent(AppInfo.this, Settings.class);
+                    startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    finish();
+                    AppInfo.this.overridePendingTransition(0,0);
                 }, Values.animationSpeed);
             }catch (Exception e){
                 finish();
