@@ -12,7 +12,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //Open Screen
-        Intent sp = new Intent(SplashScreen.this, SinglePlayerNew.class);
+        Intent sp = new Intent(SplashScreen.this, SinglePlayer.class);
         startActivity(sp);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 

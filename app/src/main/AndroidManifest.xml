@@ -22,7 +22,7 @@
         android:supportsRtl="false"
         android:theme="@style/Main">
         <activity
-            android:name=".SinglePlayerNew"
+            android:name=".SinglePlayer"
             android:exported="false"
             android:theme="@style/Main" />
         <activity
@@ -39,9 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SinglePlayer"
-            android:theme="@style/Main" />
         <activity
             android:name=".AppInfo"
             android:theme="@style/Main" />

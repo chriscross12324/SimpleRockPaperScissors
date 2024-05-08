@@ -56,7 +56,7 @@ public class AppInfo extends AppCompatActivity {
                 getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                 int height = displayMetrics.heightPixels;
                 NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
-                appInfoScrollView.smoothScrollTo(0, 0);
+                appInfoScrollView.smoothScrollTo(0, 0, 500);
                 UIElements.animate(appInfoScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {

@@ -15,6 +15,7 @@
         android:layout_marginEnd="16dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/transparent"
         app:strokeColor="?PrimaryTextColour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -21,7 +21,14 @@ public class UIElements {
 
     public static int[] getBackgroundColours(Context context) {
         int selectedBackground = Values.selectedBackground;
+        return getColourArray(context, selectedBackground);
+    }
 
+    public static int[] getBackgroundColours(Context context, int selectedBackground) {
+        return getColourArray(context, selectedBackground);
+    }
+
+    public static int[] getColourArray(Context context, int selectedBackground) {
         switch (selectedBackground) {
             case 0: {
                 return new int[] {ContextCompat.getColor(context, R.color.wintersDayTL), ContextCompat.getColor(context, R.color.wintersDayBR)};
@@ -50,10 +57,17 @@ public class UIElements {
             case 8: {
                 return new int[] {ContextCompat.getColor(context, R.color.coldNightTL), ContextCompat.getColor(context, R.color.coldNightBR)};
             }
-            default: {
+            case 9: {
                 return new int[] {ContextCompat.getColor(context, R.color.eternalSpaceTL), ContextCompat.getColor(context, R.color.eternalSpaceBR)};
             }
+            case 10: {
+                return new int[] {ContextCompat.getColor(context, R.color.juicyPomegranateTL), ContextCompat.getColor(context, R.color.juicyPomegranateBR)};
+            }
+            case 11: {
+                return new int[] {ContextCompat.getColor(context, R.color.sunnyDepthsTL), ContextCompat.getColor(context, R.color.sunnyDepthsBR)};
+            }
         }
+        return new int[0];
     }
 
     public static void setBackground(Context context, View view, int[] colours, float cornerRadius, long animationDuration) {
@@ -95,50 +109,6 @@ public class UIElements {
         int blue = (int) ((Color.blue(endColour) * fraction) + (Color.blue(startColour) * (1 - fraction)));
 
         return Color.argb(255, red, green, blue);
-    }
-
-    public static void determineBackground(ConstraintLayout background, ConstraintLayout foreground, Context context){
-        switch (Values.selectedBackground){
-            case 0:
-                UIElements.twoPartGradient(background,foreground, ContextCompat.getColor(context, R.color.wintersDayTL),
-                        ContextCompat.getColor(context, R.color.wintersDayBR),0f);
-                return;
-            case 1:
-                UIElements.twoPartGradient(background,foreground,ContextCompat.getColor(context, R.color.shallowLakeTL),
-                        ContextCompat.getColor(context, R.color.shallowLakeBR), 0f);
-                return;
-            case 2:
-                UIElements.twoPartGradient(background,foreground,ContextCompat.getColor(context, R.color.tropicalOceanTL),
-                        ContextCompat.getColor(context, R.color.tropicalOceanBR), 0f);
-                return;
-            case 3:
-                UIElements.twoPartGradient(background,foreground,ContextCompat.getColor(context, R.color.greenGrassTL),
-                        ContextCompat.getColor(context, R.color.greenGrassBR), 0f);
-                return;
-            case 4:
-                UIElements.twoPartGradient(background,foreground,ContextCompat.getColor(context, R.color.sunshineTL),
-                        ContextCompat.getColor(context, R.color.sunshineBR), 0f);
-                return;
-            case 5:
-                UIElements.twoPartGradient(background, foreground,ContextCompat.getColor(context, R.color.forestTL),
-                        ContextCompat.getColor(context, R.color.forestBR), 0f);
-                return;
-            case 6:
-                UIElements.twoPartGradient(background,foreground,ContextCompat.getColor(context, R.color.atmosphereTL),
-                        ContextCompat.getColor(context, R.color.atmosphereBR), 0f);
-                return;
-            case 7:
-                UIElements.twoPartGradient(background,foreground,ContextCompat.getColor(context, R.color.purpleHazeTL),
-                        ContextCompat.getColor(context, R.color.purpleHazeBR), 0f);
-                return;
-            case 8:
-                UIElements.twoPartGradient(background,foreground,ContextCompat.getColor(context, R.color.coldNightTL),
-                        ContextCompat.getColor(context, R.color.coldNightBR), 0f);
-                return;
-            case 9:
-                UIElements.twoPartGradient(background,foreground,ContextCompat.getColor(context, R.color.eternalSpaceTL),
-                        ContextCompat.getColor(context, R.color.eternalSpaceBR), 0f);
-        }
     }
 
     public static void twoPartGradient(View background, ConstraintLayout foreground, int TL, int BR, float corner){

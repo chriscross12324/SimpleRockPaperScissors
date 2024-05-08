@@ -29,6 +29,7 @@
 
     <!-- Miscellaneous -->
     <string name="cant_leave_text">Game Running</string>
+    <string name="changelog">• Updated design\n• Added support for up to Android 13\n• Improved stability\n• Fixed animation issues</string>
 
 
     <!-- Feedback Types -->

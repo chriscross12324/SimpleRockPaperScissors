@@ -69,20 +69,20 @@
 
 
     <!-- Winters Day -->
-    <color name="wintersDayTL">#c2e9fb</color>
-    <color name="wintersDayBR">#a1c4fd</color>
+    <color name="wintersDayTL">#BFEBFF</color>
+    <color name="wintersDayBR">#7AADFF</color>
 
     <!-- Shallow Lake -->
     <color name="shallowLakeTL">#89f7fe</color>
-    <color name="shallowLakeBR">#66a6ff</color>
+    <color name="shallowLakeBR">#5694FF</color>
 
     <!-- Tropic Ocean -->
-    <color name="tropicalOceanTL">#84fab0</color>
-    <color name="tropicalOceanBR">#8fd3f4</color>
+    <color name="tropicalOceanTL">#80FFB9</color>
+    <color name="tropicalOceanBR">#6CC8F3</color>
 
     <!-- Green Grass -->
-    <color name="greenGrassTL">#d4fc79</color>
-    <color name="greenGrassBR">#96e6a1</color>
+    <color name="greenGrassTL">#D0FF85</color>
+    <color name="greenGrassBR">#6AD575</color>
 
     <!-- Sunshine -->
     <color name="sunshineTL">#f6d365</color>
@@ -90,23 +90,31 @@
 
     <!-- Forest -->
     <color name="forestTL">#3cba92</color>
-    <color name="forestBR">#0ba360</color>
+    <color name="forestBR">#03992D</color>
 
     <!-- Atmosphere -->
-    <color name="atmosphereTL">#6f86d6</color>
-    <color name="atmosphereBR">#48c6ef</color>
+    <color name="atmosphereTL">#445BD3</color>
+    <color name="atmosphereBR">#64E5FB</color>
 
     <!-- Purple Haze -->
     <color name="purpleHazeTL">#88d3ce</color>
     <color name="purpleHazeBR">#6e45e2</color>
 
+    <!-- Juicy Pomegranate -->
+    <color name="juicyPomegranateTL">#f072aa</color>
+    <color name="juicyPomegranateBR">#753392</color>
+
     <!-- Cold Night -->
     <color name="coldNightTL">#A2B5DC</color>
     <color name="coldNightBR">#163581</color>
 
+    <!-- Sunny Depths -->
+    <color name="sunnyDepthsTL">#4df7b9</color>
+    <color name="sunnyDepthsBR">#172650</color>
+
     <!-- Eternal Space -->
     <color name="eternalSpaceTL">#537895</color>
-    <color name="eternalSpaceBR">#09203f</color>
+    <color name="eternalSpaceBR">#061831</color>
 
     <color name="primary_dark_material_light">#757575</color>
 

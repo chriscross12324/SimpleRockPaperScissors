@@ -16,7 +16,7 @@ import java.util.Random
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
-class SinglePlayerNew : AppCompatActivity() {
+class SinglePlayer : AppCompatActivity() {
 
     //Create Screen Values
     private lateinit var buttonRock: MaterialCardView
@@ -139,7 +139,7 @@ class SinglePlayerNew : AppCompatActivity() {
 
                 //Open Settings
                 Timer().schedule(timerTask {
-                    val pageSettings = Intent(this@SinglePlayerNew, Settings::class.java)
+                    val pageSettings = Intent(this@SinglePlayer, Settings::class.java)
                     startActivity(pageSettings.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     finish()
                 }, Values.animationSpeed.toLong())
@@ -272,7 +272,7 @@ class SinglePlayerNew : AppCompatActivity() {
             displayWinner()
             pickingAnimation.stop()
             isPlaying = false
-        }, 6050)
+        }, 5900)
     }
 
     private fun opponentPick() {

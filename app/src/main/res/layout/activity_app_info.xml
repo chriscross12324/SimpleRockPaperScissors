@@ -220,26 +220,15 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_medium"
-                            android:text="Fixed some animation glitches"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:text="@string/changelog"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/changesTitle" />
 
-                        <TextView
-                            android:id="@+id/changesBody2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:fontFamily="@font/googlesans_medium"
-                            android:text="Fixed vibrations"
-                            android:textColor="?PrimaryTextColour"
-                            android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/changesBody1" />
 
                         <TextView
                             android:id="@+id/dateReleasedTitle"
@@ -254,7 +243,7 @@
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/changesBody2" />
+                            app:layout_constraintTop_toBottomOf="@id/changesBody1" />
 
                         <TextView
                             android:id="@+id/dateReleasedBody"
@@ -263,7 +252,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/googlesans_medium"
-                            android:text="April 25, 2019"
+                            android:text="April 8, 2023"
                             android:textColor="?PrimaryTextColour"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"

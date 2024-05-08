@@ -3,14 +3,14 @@ apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     namespace 'com.simplegames.chris.rockpaperscissors20'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId 'com.simplegames.chris.rockpaperscissors'
-        minSdk 24
-        targetSdk 33
+        minSdk 22
+        targetSdk 34
         versionCode 12
-        versionName '3.1.0'
+        versionName '3.1.1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

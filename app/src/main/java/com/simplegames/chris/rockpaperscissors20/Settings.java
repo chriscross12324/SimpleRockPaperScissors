@@ -81,13 +81,13 @@ public class Settings extends AppCompatActivity {
             public void onClick(View v) {
                 buttonBack.setClickable(false);
                 Vibrations.vibrate(Settings.this, "low");
-                settingsScrollView.smoothScrollTo(0, 0);
+                settingsScrollView.smoothScrollTo(0, 0, 500);
                 UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent sp = new Intent(Settings.this, SinglePlayerNew.class);
+                        Intent sp = new Intent(Settings.this, SinglePlayer.class);
                         startActivity(sp);
                         finish();
                         Settings.this.overridePendingTransition(0,0);
@@ -145,7 +145,7 @@ public class Settings extends AppCompatActivity {
         });
         buttonAppInfo.setOnClickListener(v -> {
             Vibrations.vibrate(Settings.this, "low");
-            settingsScrollView.smoothScrollTo(0, 0);
+            settingsScrollView.smoothScrollTo(0, 0, 500);
             UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
             Handler handler = new Handler();
             handler.postDelayed(() -> {
@@ -165,16 +165,20 @@ public class Settings extends AppCompatActivity {
 
     private void determineOptionsStates(){
         if (!Values.vibrationEnabled){
+            UIElements.setBackground(this, buttonVibrate, new int[] {
+                            ContextCompat.getColor(this, R.color.transparent),
+                            ContextCompat.getColor(this, R.color.transparent)},
+                    UIElements.dpToFloat(15f), 0);
             if (Values.darkThemeEnabled){
-                buttonVibrate.setBackground(null);
-                vibrationIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
+                vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.white));
             }else {
-                buttonVibrate.setBackground(null);
-                vibrationIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.black)));
+                vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.black));
             }
         }else {
-            UIElements.twoPartGradient(buttonVibrate,null,Color.parseColor(getResources().getString(0+R.color.enabledOption)),
-                    Color.parseColor(getResources().getString(0+R.color.enabledOption)), 50);
+            UIElements.setBackground(this, buttonVibrate, new int[] {
+                    ContextCompat.getColor(this, R.color.enabledOption),
+                    ContextCompat.getColor(this, R.color.enabledOption)},
+                    UIElements.dpToFloat(15f), 0);
             vibrationIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
         }
         if (!Values.darkThemeEnabled){
@@ -227,6 +231,11 @@ public class Settings extends AppCompatActivity {
                 ContextCompat.getColor(this, R.color.coldNightBR), "Cold Night"));
         buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.eternalSpaceTL),
                 ContextCompat.getColor(this, R.color.eternalSpaceBR), "Eternal Space"));
+        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.juicyPomegranateTL),
+                ContextCompat.getColor(this, R.color.juicyPomegranateBR), "Juicy Pomegranate"));
+        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.sunnyDepthsTL),
+                ContextCompat.getColor(this, R.color.sunnyDepthsBR), "Sunny Depths"));
+
 
 
 
@@ -249,14 +258,12 @@ public class Settings extends AppCompatActivity {
             Vibrations.vibrate(getApplicationContext(), "low");
         }
         UIElements.setBackground(this ,background, UIElements.getBackgroundColours(this), 0f, 5000);
-        //UIElements.determineBackground(background, foreground, Settings.this);
-        //Toast.makeText(this, "Colours: " + Values.selectedBackground, Toast.LENGTH_SHORT).show();
     }
 
     public void settingsScrollViewAnimation(){
         if (Values.currentActivity == "Settings"){
             settingsScrollView.scrollTo(0,0);
-        }else {
+        } else {
             settingsScrollView.scrollTo(0,0);
             DisplayMetrics displayMetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -305,7 +312,7 @@ public class Settings extends AppCompatActivity {
 
     public void resetLayout(){
         NestedScrollView settingsScrollView = findViewById(R.id.settingsScrollView);
-        settingsScrollView.smoothScrollTo(0,0);
+        settingsScrollView.smoothScrollTo(0,0, 500);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -314,7 +321,7 @@ public class Settings extends AppCompatActivity {
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
                 finish();
             }
-        }, 100);
+        }, Values.animationSpeed);
 
     }
 
