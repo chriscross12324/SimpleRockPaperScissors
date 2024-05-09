@@ -72,13 +72,13 @@ class SinglePlayer : AppCompatActivity() {
         //Button Presses
         buttonMenu.setOnClickListener {
             if (isPlaying) {
-                Vibrations.vibrate(this, "error")
+                vibrate(this, VibrationType.ERROR)
             } else {
                 //Stop multiple clicks
                 buttonMenu.isClickable = false
 
                 //Vibrate
-                Vibrations.vibrate(this, "medium")
+                vibrate(this, VibrationType.MEDIUM)
 
                 //Animate UI Out
                 UIElements.animate(
@@ -149,14 +149,14 @@ class SinglePlayer : AppCompatActivity() {
 
         buttonRock.setOnClickListener {
             if (isPlaying) {
-                Vibrations.vibrate(this, "error")
+                vibrate(this, VibrationType.ERROR)
             } else {
                 //Set isPlaying
                 isPlaying = true
                 playerChoice = "Rock"
 
                 //Vibrate
-                Vibrations.vibrate(this, "low")
+                vibrate(this, VibrationType.WEAK)
 
                 //Hide Other Options
                 UIElements.animate(
@@ -183,14 +183,14 @@ class SinglePlayer : AppCompatActivity() {
 
         buttonPaper.setOnClickListener {
             if (isPlaying) {
-                Vibrations.vibrate(this, "error")
+                vibrate(this, VibrationType.ERROR)
             } else {
                 //Set isPlaying
                 isPlaying = true
                 playerChoice = "Paper"
 
                 //Vibrate
-                Vibrations.vibrate(this, "low")
+                vibrate(this, VibrationType.WEAK)
 
                 //Hide Other Options
                 UIElements.animate(
@@ -217,14 +217,14 @@ class SinglePlayer : AppCompatActivity() {
 
         buttonScissors.setOnClickListener {
             if (isPlaying) {
-                Vibrations.vibrate(this, "error")
+                vibrate(this, VibrationType.ERROR)
             } else {
                 //Set isPlaying
                 isPlaying = true
                 playerChoice = "Scissors"
 
                 //Vibrate
-                Vibrations.vibrate(this, "low")
+                vibrate(this, VibrationType.WEAK)
 
                 //Hide Other Options
                 UIElements.animate(

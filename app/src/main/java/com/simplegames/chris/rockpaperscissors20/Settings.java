@@ -1,5 +1,8 @@
 package com.simplegames.chris.rockpaperscissors20;
 
+import static com.simplegames.chris.rockpaperscissors20.VibrationsKt.vibrate;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -78,7 +81,7 @@ public class Settings extends AppCompatActivity {
         //Option Buttons
         buttonBack.setOnClickListener(v -> {
             buttonBack.setClickable(false);
-            Vibrations.vibrate(Settings.this, "low");
+            vibrate(Settings.this, VibrationType.WEAK);
             settingsScrollView.smoothScrollTo(0, 0, 500);
             UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
             Handler handler = new Handler();
@@ -92,12 +95,12 @@ public class Settings extends AppCompatActivity {
         buttonVibrate.setOnClickListener(v -> {
             Values.vibrationEnabled = !Values.vibrationEnabled;
             determineOptionsStates();
-            Vibrations.vibrate(getApplicationContext(), "low");
+            vibrate(getApplicationContext(), VibrationType.WEAK);
         });
         buttonDarkTheme.setOnClickListener(v -> {
             Values.darkThemeEnabled = !Values.darkThemeEnabled;
             resetLayout();
-            Vibrations.vibrate(getApplicationContext(), "low");
+            vibrate(getApplicationContext(), VibrationType.WEAK);
         });
 
         buttonResetScore.setOnClickListener(v -> {
@@ -109,7 +112,7 @@ public class Settings extends AppCompatActivity {
 
             if (doublePressReset){
                 textResetScore.setText("Reset Score");
-                Vibrations.vibrate(getApplicationContext(), "reset");
+                vibrate(getApplicationContext(), VibrationType.ERROR);
                 Values.resetScoreSP = true;
                 doublePressReset = false;
                 handler.removeCallbacks(runnable);
@@ -120,7 +123,7 @@ public class Settings extends AppCompatActivity {
             handler.postDelayed(runnable, 2000);
         });
         buttonAppInfo.setOnClickListener(v -> {
-            Vibrations.vibrate(Settings.this, "low");
+            vibrate(Settings.this, VibrationType.WEAK);
             settingsScrollView.smoothScrollTo(0, 0, 500);
             UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
             Handler handler = new Handler();
@@ -228,7 +231,7 @@ public class Settings extends AppCompatActivity {
     }
     public void determineBackground(){
         if (Objects.equals(Values.currentActivity, "Settings")) {
-            Vibrations.vibrate(getApplicationContext(), "low");
+            vibrate(getApplicationContext(), VibrationType.WEAK);
         }
         UIElements.setBackground(this ,background, UIElements.getBackgroundColours(this), 0f, 5000);
     }
@@ -296,6 +299,7 @@ public class Settings extends AppCompatActivity {
     }
 
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed(){
     }

@@ -1,5 +1,8 @@
 package com.simplegames.chris.rockpaperscissors20;
 
+import static com.simplegames.chris.rockpaperscissors20.VibrationsKt.vibrate;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
@@ -25,19 +28,15 @@ public class AppInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Values.darkThemeEnabled){
+        if (Values.darkThemeEnabled) {
             setTheme(R.style.DarkTheme);
-        }else {
+        } else {
             setTheme(R.style.LightTheme);
         }
         setContentView(R.layout.activity_app_info);
 
-        try {
-            determineBackground();
-        } catch (Exception e){}
-        try {
-            appInfoScrollViewAnimation();
-        } catch (Exception e){}
+        determineBackground();
+        appInfoScrollViewAnimation();
 
         TextView appVersion = findViewById(R.id.versionBody);
         try {
@@ -51,7 +50,7 @@ public class AppInfo extends AppCompatActivity {
         backButton.setOnClickListener(v -> {
             try {
                 backButton.setClickable(false);
-                Vibrations.vibrate(AppInfo.this, "low");
+                vibrate(AppInfo.this, VibrationType.WEAK);
                 DisplayMetrics displayMetrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                 int height = displayMetrics.heightPixels;
@@ -63,9 +62,9 @@ public class AppInfo extends AppCompatActivity {
                     Intent spn = new Intent(AppInfo.this, Settings.class);
                     startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     finish();
-                    AppInfo.this.overridePendingTransition(0,0);
+                    AppInfo.this.overridePendingTransition(0, 0);
                 }, Values.animationSpeed);
-            }catch (Exception e){
+            } catch (Exception e) {
                 finish();
             }
 
@@ -77,26 +76,26 @@ public class AppInfo extends AppCompatActivity {
         //dateReleasedBody.setText(df.format(c));
 
 
-
     }
 
-    private void determineBackground(){
+    private void determineBackground() {
         ImageView background = findViewById(R.id.background);
         //UIElements.determineBackground(background, null, AppInfo.this);
         UIElements.setBackground(getApplicationContext(), background, UIElements.getBackgroundColours(getApplicationContext()), 0f, 0);
     }
 
-    public void appInfoScrollViewAnimation(){
+    public void appInfoScrollViewAnimation() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels+100;
+        int height = displayMetrics.heightPixels + 100;
         NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
         appInfoScrollView.setY(height);
         UIElements.animate(appInfoScrollView, "translationY", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
         Values.currentActivity = "AppInfo";
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
     }
 }
