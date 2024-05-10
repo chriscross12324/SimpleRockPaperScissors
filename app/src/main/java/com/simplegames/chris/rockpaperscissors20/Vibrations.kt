@@ -19,7 +19,7 @@ fun vibrate(context: Context, type: VibrationType) {
     }
 
     //Don't continue if Vibrations are disabled
-    if (!Values.vibrationEnabled) return
+    if (!ValuesNew.vibrationEnabled) return
 
     //Vibrate
     when (type) {

@@ -12,6 +12,7 @@ import androidx.core.widget.NestedScrollView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -28,7 +29,7 @@ public class AppInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Values.darkThemeEnabled) {
+        if (ValuesNew.INSTANCE.getDarkThemeEnabled()) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.LightTheme);
@@ -56,14 +57,14 @@ public class AppInfo extends AppCompatActivity {
                 int height = displayMetrics.heightPixels;
                 NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
                 appInfoScrollView.smoothScrollTo(0, 0, 500);
-                UIElements.animate(appInfoScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+                UIElements.animate(appInfoScrollView, "translationY", height, 0, ValuesNew.INSTANCE.getAnimationDuration(), new AccelerateInterpolator(3));
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     Intent spn = new Intent(AppInfo.this, Settings.class);
                     startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                     finish();
                     AppInfo.this.overridePendingTransition(0, 0);
-                }, Values.animationSpeed);
+                }, ValuesNew.INSTANCE.getAnimationDuration());
             } catch (Exception e) {
                 finish();
             }
@@ -90,8 +91,10 @@ public class AppInfo extends AppCompatActivity {
         int height = displayMetrics.heightPixels + 100;
         NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
         appInfoScrollView.setY(height);
-        UIElements.animate(appInfoScrollView, "translationY", 0, 100, Values.animationSpeed, new DecelerateInterpolator(3));
+        UIElements.animate(appInfoScrollView, "translationY", 0, 100, ValuesNew.INSTANCE.getAnimationDuration(), new DecelerateInterpolator(3));
+        appInfoScrollView.setVisibility(View.VISIBLE);
         Values.currentActivity = "AppInfo";
+        //ValuesNew.INSTANCE
     }
 
     @SuppressLint("MissingSuperCall")

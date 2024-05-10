@@ -21,7 +21,7 @@ import java.util.Objects;
 public class UIElements {
 
     public static int[] getBackgroundColours(Context context) {
-        int selectedBackground = Values.selectedBackground;
+        int selectedBackground = ValuesNew.INSTANCE.getBackgroundGradient();
         return getColourArray(context, selectedBackground);
     }
 

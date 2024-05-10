@@ -16,9 +16,9 @@
     <string name="app_info_title_changes">Changes</string>
     <string name="changelog">• Updated design\n• Added support for up to Android 13\n• Improved stability\n• Fixed animation issues</string>
     <string name="app_info_title_release_date">Date Released</string>
-    <string name="app_info_body_release_date">April 8, 2023</string>
+    <string name="app_info_body_release_date">May 9, 2024</string>
     <string name="app_info_title_app_stability">App Stability</string>
-    <string name="app_info_body_app_stability">Stable</string>
+    <string name="app_info_body_app_stability">Release</string>
     <string name="app_info_title_app_developer">App Developer</string>
 
 </resources>

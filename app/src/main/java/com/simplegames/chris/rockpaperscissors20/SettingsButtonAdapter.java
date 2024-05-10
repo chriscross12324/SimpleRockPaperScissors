@@ -8,27 +8,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+
+import java.util.ArrayList;
 
 public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAdapter.SettingsButtonViewHolder> {
     private static ArrayList<SettingsButton> buttonArrayList;
     private OnItemClickListener buttonListener;
     private static Context buttonContext;
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener) {
         buttonListener = listener;
     }
 
-    public static class SettingsButtonViewHolder extends RecyclerView.ViewHolder{
+    public static class SettingsButtonViewHolder extends RecyclerView.ViewHolder {
         final MaterialCardView buttonLayout;
         final ImageView buttonBackground;
         final TextView buttonText;
@@ -40,22 +40,25 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
             this.buttonText = itemView.findViewById(R.id.buttonColourText);
 
             itemView.setOnClickListener(v -> {
-                if (listener != null){
-                    int oldPos = Values.selectedBackground;
+                if (listener != null) {
+                    int oldPos = ValuesNew.INSTANCE.getBackgroundGradient();
                     MaterialCardView oldLayout = buttonArrayList.get(oldPos).getButtonLayout();
                     int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION){
-                        Values.selectedBackground = position;
-                        ((Settings)buttonContext).determineBackground();
+                    if (position != RecyclerView.NO_POSITION) {
+                        ValuesNew.INSTANCE.setBackgroundGradient(position);
+                        ((Settings) buttonContext).determineBackground();
                         setButtonStroke(oldLayout, oldPos);
                         setButtonStroke(buttonLayout, position);
+                        ValuesNew.INSTANCE.saveValue(buttonContext,
+                                SharedPreferenceKeys.INSTANCE.getKeySettingBackgroundGradient(),
+                                position);
                     }
                 }
             });
         }
     }
 
-    public SettingsButtonAdapter(ArrayList<SettingsButton> settingsButtonArrayList, Context context){
+    public SettingsButtonAdapter(ArrayList<SettingsButton> settingsButtonArrayList, Context context) {
         buttonArrayList = settingsButtonArrayList;
         buttonContext = context;
     }
@@ -75,7 +78,7 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
 
         GradientDrawable gradientDrawable = new GradientDrawable(
                 GradientDrawable.Orientation.TL_BR,
-                new int[] {currentItem.getButtonTL(),currentItem.getButtonBR()});
+                new int[]{currentItem.getButtonTL(), currentItem.getButtonBR()});
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
 
         setButtonStroke(holder.buttonLayout, position);
@@ -88,7 +91,7 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
     }
 
     private static void setButtonStroke(MaterialCardView layout, int position) {
-        if (Values.selectedBackground == position) {
+        if (ValuesNew.INSTANCE.getBackgroundGradient() == position) {
             layout.setStrokeWidth(UIElements.dpToFloat(2.5f));
         } else {
             layout.setStrokeWidth(0);

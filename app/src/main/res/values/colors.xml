@@ -6,25 +6,19 @@
     <color name="transparent">#00000000</color>
 
     <!-- Light Theme #F5F5F5 #E0E0E0 -->
-    <color name="lightBackgroundColour">#CDFFFFFF</color><!--B3-->
-    <color name="lightGroupColour">#dadada</color>
+    <color name="lightBackgroundColour">#80FFFFFF</color><!--B3-->
+    <color name="lightForegroundColour">#FFFFFF</color>
     <color name="lightToastColour">#C8FFFFFF</color>
-    <color name="lightTextPrimaryColour">#212121</color>
-    <color name="lightTextSecondaryColour">#D2000000</color>
-    <color name="lightTextUnimportantColour">#BDBDBD</color>
-    <color name="lightThemeSwitchThumbColour">#000000</color>
-    <color name="lightThemeSwitchTrackColour">#000000</color>
+    <color name="lightTextPrimaryColour">#000000</color>
+    <color name="lightTextSecondaryColour">#80000000</color>
     <!-- ########### -->
 
     <!-- Dark Theme -->
-    <color name="darkBackgroundColour">#CD212121</color><!--CD-->
-    <color name="darkGroupColour">#353535</color>
+    <color name="darkBackgroundColour">#B3121212</color><!--CD-->
+    <color name="darkForegroundColour">#121212</color>
     <color name="darkToastColour">#C8000000</color>
-    <color name="darkTextPrimaryColour">#F6F6F6</color>
-    <color name="darkTextSecondaryColour">#D2FFFFFF</color>
-    <color name="darkTextUnimportantColour">#525252</color>
-    <color name="darkThemeSwitchThumbColour">#ffffff</color>
-    <color name="darkThemeSwitchTrackColour">#ffffff</color>
+    <color name="darkTextPrimaryColour">#FFFFFF</color>
+    <color name="darkTextSecondaryColour">#80FFFFFF</color>
     <!-- ########### -->
 
     <color name="clearWhite">#d2ffffff</color>
@@ -37,6 +31,7 @@
     <color name="white">#FFFFFF</color>
 
     <color name="enabledOption">#D9039BE5</color>
+    <color name="disabledOption">#33898989</color>
 
     <color name="resetScore">#d50000</color>
 

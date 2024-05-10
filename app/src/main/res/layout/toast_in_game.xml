@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/googlesans_regular"
+                android:fontFamily="@font/rounded_regular"
                 android:text="@string/cant_leave_text"
                 android:textColor="?PrimaryTextColour"
                 android:textSize="15sp" />

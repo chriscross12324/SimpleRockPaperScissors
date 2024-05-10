@@ -10,20 +10,18 @@
 
     <style name="LightTheme" parent="Main">
         <item name="BackgroundColour">@color/lightBackgroundColour</item>
-        <item name="GroupColour">@color/lightGroupColour</item>
+        <item name="ForegroundColour">@color/lightForegroundColour</item>
         <item name="ToastColour">@color/lightToastColour</item>
         <item name="PrimaryTextColour">@color/lightTextPrimaryColour</item>
         <item name="SecondaryTextColour">@color/lightTextSecondaryColour</item>
-        <item name="UnimportantTextColour">@color/lightTextUnimportantColour</item>
     </style>
 
     <style name="DarkTheme" parent="Main">
         <item name="BackgroundColour">@color/darkBackgroundColour</item>
-        <item name="GroupColour">@color/darkGroupColour</item>
+        <item name="ForegroundColour">@color/darkForegroundColour</item>
         <item name="ToastColour">@color/darkToastColour</item>
         <item name="PrimaryTextColour">@color/darkTextPrimaryColour</item>
         <item name="SecondaryTextColour">@color/darkTextSecondaryColour</item>
-        <item name="UnimportantTextColour">@color/darkTextUnimportantColour</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
@@ -52,9 +50,9 @@
         <item name="colorControlActivated">@color/white</item>
     </style>
 
-    <style name="Main.Launcher" parent="Main">
+    <!--<style name="Main.Launcher" parent="Main">
         <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
+    </style>-->
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/darkBackgroundColour</item>

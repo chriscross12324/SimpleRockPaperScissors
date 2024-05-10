@@ -13,19 +13,17 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.card.MaterialCardView;
 
@@ -41,20 +39,17 @@ public class Settings extends AppCompatActivity {
     boolean doublePressReset;
     int height;
 
-    SwipeRefreshLayout swipeToBack;
     NestedScrollView settingsScrollView;
-    MaterialCardView buttonVibrate, buttonDarkTheme, buttonBack;
-    ConstraintLayout buttonDeveloperMode, buttonResetScore, buttonAppInfo, buttonBackupRestore;
-    ImageView vibrationIcon, darkThemeIcon, developerModeIcon, background;
-    TextView textResetScore;
+    MaterialCardView buttonVibrate, buttonDarkTheme, buttonBack, buttonAppInfo;
+    ImageView vibrationIcon, background;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Values.darkThemeEnabled){
+        if (ValuesNew.INSTANCE.getDarkThemeEnabled()) {
             setTheme(R.style.DarkTheme);
-        }else {
+        } else {
             setTheme(R.style.LightTheme);
         }
         setContentView(R.layout.activity_settings);
@@ -68,71 +63,48 @@ public class Settings extends AppCompatActivity {
         settingsScrollView = findViewById(R.id.settingsScrollView);
         buttonVibrate = findViewById(R.id.buttonVibrate);
         buttonDarkTheme = findViewById(R.id.buttonDarkTheme);
-        buttonDeveloperMode = findViewById(R.id.buttonDeveloperMode);
-        buttonResetScore = findViewById(R.id.buttonResetScore);
         buttonAppInfo = findViewById(R.id.buttonAppInfo);
-        buttonBackupRestore = findViewById(R.id.buttonBackupRestore);
         buttonBack = findViewById(R.id.buttonBack);
-        textResetScore = findViewById(R.id.textResetScore);
         vibrationIcon = findViewById(R.id.vibrationIcon);
-        //darkThemeIcon = findViewById(R.id.darkThemeIcon);
-        developerModeIcon = findViewById(R.id.developerModeIcon);
 
         //Option Buttons
         buttonBack.setOnClickListener(v -> {
             buttonBack.setClickable(false);
             vibrate(Settings.this, VibrationType.WEAK);
             settingsScrollView.smoothScrollTo(0, 0, 500);
-            UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+            UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.INSTANCE.getAnimationDuration(), new AccelerateInterpolator(3));
             Handler handler = new Handler();
             handler.postDelayed(() -> {
                 Intent sp = new Intent(Settings.this, SinglePlayer.class);
                 startActivity(sp);
                 finish();
-                Settings.this.overridePendingTransition(0,0);
-            }, Values.animationSpeed);
+                Settings.this.overridePendingTransition(0, 0);
+            }, ValuesNew.INSTANCE.getAnimationDuration());
         });
         buttonVibrate.setOnClickListener(v -> {
-            Values.vibrationEnabled = !Values.vibrationEnabled;
+            ValuesNew.INSTANCE.setVibrationEnabled(!ValuesNew.INSTANCE.getVibrationEnabled());
+            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.INSTANCE.getKeySettingVibrations(), ValuesNew.INSTANCE.getVibrationEnabled());
             determineOptionsStates();
             vibrate(getApplicationContext(), VibrationType.WEAK);
         });
         buttonDarkTheme.setOnClickListener(v -> {
-            Values.darkThemeEnabled = !Values.darkThemeEnabled;
+            ValuesNew.INSTANCE.setDarkThemeEnabled(!ValuesNew.INSTANCE.getDarkThemeEnabled());
+            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.INSTANCE.getKeySettingTheme(), ValuesNew.INSTANCE.getDarkThemeEnabled());
             resetLayout();
             vibrate(getApplicationContext(), VibrationType.WEAK);
         });
 
-        buttonResetScore.setOnClickListener(v -> {
-            Handler handler = new Handler();
-            Runnable runnable = () -> {
-                doublePressReset = false;
-                textResetScore.setText("Reset Score");
-            };
-
-            if (doublePressReset){
-                textResetScore.setText("Reset Score");
-                vibrate(getApplicationContext(), VibrationType.ERROR);
-                Values.resetScoreSP = true;
-                doublePressReset = false;
-                handler.removeCallbacks(runnable);
-                return;
-            }
-            textResetScore.setText("Press again to confirm");
-            doublePressReset = true;
-            handler.postDelayed(runnable, 2000);
-        });
         buttonAppInfo.setOnClickListener(v -> {
             vibrate(Settings.this, VibrationType.WEAK);
             settingsScrollView.smoothScrollTo(0, 0, 500);
-            UIElements.animate(settingsScrollView, "translationY", height, 0, Values.animationSpeed, new AccelerateInterpolator(3));
+            UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.INSTANCE.getAnimationDuration(), new AccelerateInterpolator(3));
             Handler handler = new Handler();
             handler.postDelayed(() -> {
                 Intent appInfo = new Intent(Settings.this, AppInfo.class);
                 startActivity(appInfo.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
-                Settings.this.overridePendingTransition(0,0);
-            }, Values.animationSpeed);
+                Settings.this.overridePendingTransition(0, 0);
+            }, ValuesNew.INSTANCE.getAnimationDuration());
         });
         determineBackground();
         getWindow().getDecorView().post(this::settingsScrollViewAnimation);
@@ -142,53 +114,38 @@ public class Settings extends AppCompatActivity {
 
     }
 
-    private void determineOptionsStates(){
-        if (!Values.vibrationEnabled){
-            UIElements.setBackground(this, buttonVibrate, new int[] {
-                            ContextCompat.getColor(this, R.color.transparent),
-                            ContextCompat.getColor(this, R.color.transparent)},
+    private void determineOptionsStates() {
+        if (!ValuesNew.INSTANCE.getVibrationEnabled()) {
+            UIElements.setBackground(this, buttonVibrate, new int[]{
+                            ContextCompat.getColor(this, R.color.disabledOption),
+                            ContextCompat.getColor(this, R.color.disabledOption)},
                     UIElements.dpToFloat(15f), 0);
-            if (Values.darkThemeEnabled){
+            if (ValuesNew.INSTANCE.getDarkThemeEnabled()) {
                 vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.white));
-            }else {
+            } else {
                 vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.black));
             }
-        }else {
-            UIElements.setBackground(this, buttonVibrate, new int[] {
-                    ContextCompat.getColor(this, R.color.enabledOption),
-                    ContextCompat.getColor(this, R.color.enabledOption)},
+        } else {
+            UIElements.setBackground(this, buttonVibrate, new int[]{
+                            ContextCompat.getColor(this, R.color.enabledOption),
+                            ContextCompat.getColor(this, R.color.enabledOption)},
                     UIElements.dpToFloat(15f), 0);
-            vibrationIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
+            vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.white));
         }
-        if (!Values.darkThemeEnabled){
-            buttonDarkTheme.setBackground(null);
-            //darkThemeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.black)));
-        }else {
-            UIElements.twoPartGradient(buttonDarkTheme,null,Color.parseColor(getResources().getString(0+R.color.enabledOption)),
-                    Color.parseColor(getResources().getString(0+R.color.enabledOption)), 50);
-            //darkThemeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
+        if (!ValuesNew.INSTANCE.getDarkThemeEnabled()) {
+            UIElements.setBackground(this, buttonDarkTheme, new int[]{
+                            ContextCompat.getColor(this, R.color.disabledOption),
+                            ContextCompat.getColor(this, R.color.disabledOption)},
+                    UIElements.dpToFloat(15f), 0);
+        } else {
+            UIElements.setBackground(this, buttonDarkTheme, new int[]{
+                            ContextCompat.getColor(this, R.color.enabledOption),
+                            ContextCompat.getColor(this, R.color.enabledOption)},
+                    UIElements.dpToFloat(15f), 0);
         }
-        if (!Values.devMode){
-            if (Values.darkThemeEnabled){
-                buttonDeveloperMode.setBackground(null);
-                developerModeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
-            }else {
-                buttonDeveloperMode.setBackground(null);
-                developerModeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.black)));
-            }
-        }else {
-            UIElements.twoPartGradient(buttonDeveloperMode,null,Color.parseColor(getResources().getString(0+R.color.enabledOption)),
-                    Color.parseColor(getResources().getString(0+R.color.enabledOption)), 50);
-            developerModeIcon.setColorFilter(Color.parseColor(getResources().getString(0+R.color.white)));
-        }
-
-        //UIElements.setBackground(this, buttonResetScore, new int[] {ContextCompat.getColor(this, R.color.resetScore)}, 50f, 0);
-        UIElements.twoPartGradient(buttonAppInfo, null, ContextCompat.getColor(this, R.color.backupRestoreTopLeft),
-                ContextCompat.getColor(this, R.color.backupRestoreBottomRight), 50);
-
     }
 
-    public void setBackgroundButtons(){
+    public void setBackgroundButtons() {
         buttonArrayList = new ArrayList<>();
         buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.wintersDayTL),
                 ContextCompat.getColor(this, R.color.wintersDayBR), "Winters Day"));
@@ -216,10 +173,9 @@ public class Settings extends AppCompatActivity {
                 ContextCompat.getColor(this, R.color.sunnyDepthsBR), "Sunny Depths"));
 
 
-
-
     }
-    public void buildBackgroundButtonRecyclerView(){
+
+    public void buildBackgroundButtonRecyclerView() {
         buttonRecyclerView = findViewById(R.id.backgroundRecyclerView);
         buttonRecyclerView.setHasFixedSize(true);
         buttonLayoutManager = new LinearLayoutManager(this);
@@ -227,80 +183,46 @@ public class Settings extends AppCompatActivity {
 
         buttonRecyclerView.setLayoutManager(buttonLayoutManager);
         buttonRecyclerView.setAdapter(buttonAdapter);
-        buttonAdapter.setOnItemClickListener(position -> { });
+        buttonAdapter.setOnItemClickListener(position -> {
+        });
     }
-    public void determineBackground(){
+
+    public void determineBackground() {
         if (Objects.equals(Values.currentActivity, "Settings")) {
             vibrate(getApplicationContext(), VibrationType.WEAK);
         }
-        UIElements.setBackground(this ,background, UIElements.getBackgroundColours(this), 0f, 5000);
+        UIElements.setBackground(this, background, UIElements.getBackgroundColours(this), 0f, 5000);
     }
 
-    public void settingsScrollViewAnimation(){
-        if (Objects.equals(Values.currentActivity, "Settings")){
-            settingsScrollView.scrollTo(0,0);
+    public void settingsScrollViewAnimation() {
+        settingsScrollView.setVisibility(View.VISIBLE);
+        if (Objects.equals(Values.currentActivity, "Settings")) {
+            settingsScrollView.scrollTo(0, 0);
         } else {
-            settingsScrollView.scrollTo(0,0);
+            settingsScrollView.scrollTo(0, 0);
             DisplayMetrics displayMetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int height = displayMetrics.heightPixels;
             settingsScrollView.setY(height);
-            UIElements.animate(settingsScrollView, "translationY", 0, 0, Values.animationSpeed, new DecelerateInterpolator(3));
+            UIElements.animate(settingsScrollView, "translationY", 0, 0, ValuesNew.INSTANCE.getAnimationDuration(), new DecelerateInterpolator(3));
             Values.currentActivity = "Settings";
         }
     }
 
-    public Bitmap setShadow(int resourceId){
-        Bitmap bmp = null;
-        try {
-            int margin = 30;
-            int halfMargin = margin/2;
-
-            int shadowRadius = 15;
-
-            int shadowColor = Color.rgb(0, 0, 0);
-
-            Bitmap src = BitmapFactory.decodeResource(getResources(), resourceId);
-
-            //Bitmap alpha = src.extractAlpha();
-
-            bmp = Bitmap.createBitmap(src.getWidth() + margin, src.getHeight()
-            + margin, Bitmap.Config.ARGB_8888);
-
-            Canvas canvas = new Canvas(bmp);
-
-            Paint paint = new Paint();
-            paint.setColor(shadowColor);
-
-            paint.setMaskFilter(new BlurMaskFilter(shadowRadius, BlurMaskFilter.Blur.OUTER));
-            //canvas.drawBitmap(alpha, halfMargin, halfMargin, paint);
-
-            canvas.drawBitmap(src, halfMargin, halfMargin, null);
-            //Toast.makeText(this, "Shadow"+alpha, Toast.LENGTH_SHORT).show();
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-            Toast.makeText(this, "Failed: "+e, Toast.LENGTH_SHORT).show();
-        }
-        return bmp;
-    }
-
-    public void resetLayout(){
+    public void resetLayout() {
         NestedScrollView settingsScrollView = findViewById(R.id.settingsScrollView);
-        settingsScrollView.smoothScrollTo(0,0, 500);
+        settingsScrollView.smoothScrollTo(0, 0, ValuesNew.INSTANCE.getAnimationDuration() / 4);
         new Handler().postDelayed(() -> {
             Intent sp = new Intent(Settings.this, Settings.class);
             startActivity(sp);
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
-        }, Values.animationSpeed);
-
+        }, ValuesNew.INSTANCE.getAnimationDuration() / 4);
     }
 
 
     @SuppressLint("MissingSuperCall")
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
     }
 }

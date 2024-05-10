@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="BackgroundColour" format="reference|color"/>
-    <attr name="GroupColour" format="reference|color"/>
+    <attr name="ForegroundColour" format="reference|color"/>
     <attr name="ToastColour" format="reference|color"/>
     <attr name="PrimaryTextColour" format="reference|color"/>
     <attr name="SecondaryTextColour" format="reference|color"/>
-    <attr name="UnimportantTextColour" format="reference|color"/>
-    <attr name="SwitchThumbColour" format="reference|color"/>
-    <attr name="SwitchTrackColour" format="reference|color"/>
 </resources>
