@@ -14,9 +14,9 @@
     <string name="app_info_title_app_name">App Name</string>
     <string name="app_info_title_app_version">Version</string>
     <string name="app_info_title_changes">Changes</string>
-    <string name="changelog">• Now supports Android 5.1 – 14\n• Added support for System Back\n• Improved stability and performance\n• Adjusted UI and animations</string>
-    <string name="app_info_title_release_date">Date Released</string>
-    <string name="app_info_body_release_date">May 9, 2024</string>
+    <string name="changelog">• Now supports Android 5.1 – 14 (Previously 7.0 – 12)\n• Added support for System Back\n• Improved stability and performance\n• Adjusted UI and animations</string>
+    <string name="app_info_title_release_date">Build Date</string>
+    <string name="app_info_body_release_date">May 11, 2024</string>
     <string name="app_info_title_app_stability">App Stability</string>
     <string name="app_info_body_app_stability">Release</string>
     <string name="app_info_title_app_developer">App Developer</string>

@@ -48,7 +48,7 @@ public class AppInfo extends AppCompatActivity {
 
         backButton.setOnClickListener(v -> {
             vibrate(AppInfo.this, VibrationType.WEAK);
-            onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
         });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {

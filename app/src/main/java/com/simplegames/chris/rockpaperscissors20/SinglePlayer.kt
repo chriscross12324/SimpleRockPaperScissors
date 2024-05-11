@@ -147,6 +147,7 @@ class SinglePlayer : AppCompatActivity() {
                     val pageSettings = Intent(this@SinglePlayer, Settings::class.java)
                     startActivity(pageSettings.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     finish()
+                    this@SinglePlayer.overridePendingTransition(0, 0)
                 }, ValuesNew.ANIMATION_DURATION.toLong())
             }
         }
@@ -302,14 +303,14 @@ class SinglePlayer : AppCompatActivity() {
                     }
 
                 } else {
-                    vibrate(this, VibrationType.STRONG)
+                    vibrate(this, VibrationType.MEDIUM)
 
                     //Display Winner
                     displayWinner()
                     //pickingAnimation.stop()
                     Handler().postDelayed({
                         isPlaying = false
-                    }, ValuesNew.ANIMATION_DURATION.toLong())
+                    }, ValuesNew.ANIMATION_DURATION.toLong() / 2)
                 }
             }, accumulatedDelay)
             accumulatedDelay += calculateDuration(i).toLong()

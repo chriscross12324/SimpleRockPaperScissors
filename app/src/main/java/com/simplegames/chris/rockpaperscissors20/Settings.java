@@ -59,7 +59,7 @@ public class Settings extends AppCompatActivity {
         //Option Buttons
         buttonBack.setOnClickListener(v -> {
             vibrate(Settings.this, VibrationType.WEAK);
-            onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
         });
         buttonVibrate.setOnClickListener(v -> {
             ValuesNew.INSTANCE.setVibrationEnabled(!ValuesNew.INSTANCE.getVibrationEnabled());
