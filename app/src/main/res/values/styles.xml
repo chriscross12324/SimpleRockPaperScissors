@@ -11,7 +11,6 @@
     <style name="LightTheme" parent="Main">
         <item name="BackgroundColour">@color/lightBackgroundColour</item>
         <item name="ForegroundColour">@color/lightForegroundColour</item>
-        <item name="ToastColour">@color/lightToastColour</item>
         <item name="PrimaryTextColour">@color/lightTextPrimaryColour</item>
         <item name="SecondaryTextColour">@color/lightTextSecondaryColour</item>
     </style>
@@ -19,7 +18,6 @@
     <style name="DarkTheme" parent="Main">
         <item name="BackgroundColour">@color/darkBackgroundColour</item>
         <item name="ForegroundColour">@color/darkForegroundColour</item>
-        <item name="ToastColour">@color/darkToastColour</item>
         <item name="PrimaryTextColour">@color/darkTextPrimaryColour</item>
         <item name="SecondaryTextColour">@color/darkTextSecondaryColour</item>
     </style>
@@ -55,8 +53,8 @@
     </style>-->
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/darkBackgroundColour</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_app</item>
+        <item name="windowSplashScreenBackground">@color/darkForegroundColour</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Main</item>
     </style>
 
