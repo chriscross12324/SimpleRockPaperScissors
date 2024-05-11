@@ -20,5 +20,12 @@
     <string name="app_info_title_app_stability">App Stability</string>
     <string name="app_info_body_app_stability">Release</string>
     <string name="app_info_title_app_developer">App Developer</string>
+    <string name="settings_title_options">Options</string>
+    <string name="settings_title_backgrounds">Backgrounds</string>
+    <string name="settings_title_miscellaneous">Miscellaneous</string>
+    <string name="game_initial_choose">Choose</string>
+    <string name="game_result_win">You Win!</string>
+    <string name="game_result_draw">Draw</string>
+    <string name="game_result_lose">You Lose</string>
 
 </resources>

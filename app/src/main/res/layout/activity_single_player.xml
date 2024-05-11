@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/endSunshine"
+            android:importantForAccessibility="no"
             android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>
@@ -44,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/icon_main_menu"
             android:tintMode="multiply"
             app:tint="?PrimaryTextColour" />
@@ -71,7 +73,7 @@
             android:layout_marginHorizontal="16dp"
             android:fontFamily="@font/rounded_extra_bold"
             android:gravity="center"
-            android:text="Choose"
+            android:text="@string/game_initial_choose"
             android:textAlignment="center"
             android:textColor="?PrimaryTextColour"
             android:textSize="24sp" />
@@ -97,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             android:src="@drawable/shape_two_tone_circle"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -110,6 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="25dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/ai_picking"
             android:tintMode="multiply"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -149,6 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
+                android:importantForAccessibility="no"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_rock"
                 android:tintMode="multiply" />
@@ -175,6 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
+                android:importantForAccessibility="no"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_paper"
                 android:tintMode="multiply" />
@@ -201,6 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
+                android:importantForAccessibility="no"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_scissors"
                 android:tintMode="multiply" />

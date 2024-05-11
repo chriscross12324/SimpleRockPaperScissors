@@ -1,7 +1,6 @@
 package com.simplegames.chris.rockpaperscissors20;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,7 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
                         setButtonStroke(oldLayout, oldPos);
                         setButtonStroke(buttonLayout, position);
                         ValuesNew.INSTANCE.saveValue(buttonContext,
-                                SharedPreferenceKeys.INSTANCE.getKeySettingBackgroundGradient(),
+                                SharedPreferenceKeys.INSTANCE.getKEY_SETTING_BACKGROUND_GRADIENT(),
                                 position);
                     }
                 }

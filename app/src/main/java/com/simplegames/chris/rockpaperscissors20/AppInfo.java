@@ -43,7 +43,7 @@ public class AppInfo extends AppCompatActivity {
             String versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             appVersion.setText(versionName);
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            e.getLocalizedMessage();
         }
 
         backButton.setOnClickListener(v -> {
@@ -60,14 +60,14 @@ public class AppInfo extends AppCompatActivity {
                     DisplayMetrics displayMetrics = new DisplayMetrics();
                     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                     int height = displayMetrics.heightPixels;
-                    UIElements.animate(appInfoScrollView, "translationY", height, 0, ValuesNew.INSTANCE.getAnimationDuration(), new AccelerateInterpolator(3));
+                    UIElements.animate(appInfoScrollView, "translationY", height, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3));
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         Intent spn = new Intent(AppInfo.this, Settings.class);
                         startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         finish();
                         AppInfo.this.overridePendingTransition(0, 0);
-                    }, ValuesNew.INSTANCE.getAnimationDuration());
+                    }, ValuesNew.ANIMATION_DURATION);
                 }
             }
         });
@@ -85,7 +85,7 @@ public class AppInfo extends AppCompatActivity {
         int height = displayMetrics.heightPixels + 100;
         NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
         appInfoScrollView.setY(height);
-        UIElements.animate(appInfoScrollView, "translationY", 0, 100, ValuesNew.INSTANCE.getAnimationDuration(), new DecelerateInterpolator(3));
+        UIElements.animate(appInfoScrollView, "translationY", 0, 100, ValuesNew.ANIMATION_DURATION, new DecelerateInterpolator(3));
         appInfoScrollView.setVisibility(View.VISIBLE);
         Values.currentActivity = "AppInfo";
         //ValuesNew.INSTANCE

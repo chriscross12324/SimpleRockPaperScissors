@@ -1,15 +1,15 @@
 package com.simplegames.chris.rockpaperscissors20
 
 object SharedPreferenceKeys {
-    val sharedPreferencesKey = "SharedPreferences"
+    val SHARED_PREFERENCES_KEY = "SharedPreferences"
 
     //User Settings
-    val keySettingVibrations = "vibrationsEnabled"
-    val keySettingTheme = "darkThemeEnabled"
-    val keySettingBackgroundGradient = "backgroundGradient"
+    val KEY_SETTING_VIBRATIONS = "vibrationsEnabled"
+    val KEY_SETTING_THEME = "darkThemeEnabled"
+    val KEY_SETTING_BACKGROUND_GRADIENT = "backgroundGradient"
 
     //Scoreboard
-    val keyScoreboardWins = "userWins"
-    val keyScoreboardDraws = "userDraws"
-    val keyScoreboardLosses = "userLosses"
+    val KEY_SCOREBOARD_WINS = "userWins"
+    val KEY_SCOREBOARD_DRAWS = "userDraws"
+    val KEY_SCOREBOARD_LOSSES = "userLosses"
 }

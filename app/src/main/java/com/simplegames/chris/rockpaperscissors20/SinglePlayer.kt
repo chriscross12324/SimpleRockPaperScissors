@@ -90,7 +90,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     -(buttonMenu.height + UIElements.dpToFloat(10f)),
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
                 UIElements.animate(
@@ -98,7 +98,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     (buttonRock.height + UIElements.dpToFloat(10f)),
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
                 UIElements.animate(
@@ -106,7 +106,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     (buttonPaper.height + UIElements.dpToFloat(10f)),
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
                 UIElements.animate(
@@ -114,7 +114,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     (buttonScissors.height + UIElements.dpToFloat(10f)),
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
                 UIElements.animate(
@@ -122,7 +122,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     -(roundResultHolder.height + UIElements.dpToFloat(10f)),
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
                 UIElements.animate(
@@ -130,7 +130,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     60,
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
                 UIElements.animate(
@@ -138,7 +138,7 @@ class SinglePlayer : AppCompatActivity() {
                     "alpha",
                     0,
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
 
@@ -147,7 +147,7 @@ class SinglePlayer : AppCompatActivity() {
                     val pageSettings = Intent(this@SinglePlayer, Settings::class.java)
                     startActivity(pageSettings.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
                     finish()
-                }, ValuesNew.animationDuration.toLong())
+                }, ValuesNew.ANIMATION_DURATION.toLong())
             }
         }
 
@@ -172,7 +172,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     (buttonPaper.height + UIElements.dpToFloat(10f)),
                     50,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
                 UIElements.animate(
@@ -180,7 +180,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     (buttonScissors.height + UIElements.dpToFloat(10f)),
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
 
@@ -209,7 +209,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     (buttonPaper.height + UIElements.dpToFloat(10f)),
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
                 UIElements.animate(
@@ -217,7 +217,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     (buttonScissors.height + UIElements.dpToFloat(10f)),
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
 
@@ -247,7 +247,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     (buttonPaper.height + UIElements.dpToFloat(10f)),
                     0,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
                 UIElements.animate(
@@ -255,7 +255,7 @@ class SinglePlayer : AppCompatActivity() {
                     "translationY",
                     (buttonScissors.height + UIElements.dpToFloat(10f)),
                     50,
-                    ValuesNew.animationDuration,
+                    ValuesNew.ANIMATION_DURATION,
                     DecelerateInterpolator(3f)
                 )
 
@@ -278,7 +278,7 @@ class SinglePlayer : AppCompatActivity() {
                 "translationY",
                 -(roundResultHolder.height + UIElements.dpToFloat(10f)),
                 0,
-                ValuesNew.animationDuration,
+                ValuesNew.ANIMATION_DURATION,
                 DecelerateInterpolator(3f)
             )
         }, 2000)
@@ -309,7 +309,7 @@ class SinglePlayer : AppCompatActivity() {
                     //pickingAnimation.stop()
                     Handler().postDelayed({
                         isPlaying = false
-                    }, ValuesNew.animationDuration.toLong())
+                    }, ValuesNew.ANIMATION_DURATION.toLong())
                 }
             }, accumulatedDelay)
             accumulatedDelay += calculateDuration(i).toLong()
@@ -363,7 +363,7 @@ class SinglePlayer : AppCompatActivity() {
             }
 
             else -> {
-                opponentChoiceImage.setImageResource(R.drawable.icon_app)
+                opponentChoiceImage.setImageResource(R.drawable.icon_info)
             }
         }
     }
@@ -372,13 +372,13 @@ class SinglePlayer : AppCompatActivity() {
         displayOpponentChoice()
         val rules = mapOf(0 to 2, 1 to 0, 2 to 1)
         if (playerChoice == opponentChoice) {
-            roundResult.text = "Tie"
+            roundResult.text = getString(R.string.game_result_draw)
             ValuesNew.userDraws++
         } else if (rules[playerChoice] == opponentChoice) {
-            roundResult.text = "You Win!"
+            roundResult.text = getString(R.string.game_result_win)
             ValuesNew.userWins++
         } else {
-            roundResult.text = "You Lose"
+            roundResult.text = getString(R.string.game_result_lose)
             ValuesNew.userLosses++
         }
 
@@ -388,7 +388,7 @@ class SinglePlayer : AppCompatActivity() {
             "translationY",
             0,
             0,
-            ValuesNew.animationDuration,
+            ValuesNew.ANIMATION_DURATION,
             DecelerateInterpolator(3f)
         )
         UIElements.animate(
@@ -396,7 +396,7 @@ class SinglePlayer : AppCompatActivity() {
             "translationY",
             0,
             0,
-            ValuesNew.animationDuration,
+            ValuesNew.ANIMATION_DURATION,
             DecelerateInterpolator(3f)
         )
         UIElements.animate(
@@ -404,7 +404,7 @@ class SinglePlayer : AppCompatActivity() {
             "translationY",
             0,
             50,
-            ValuesNew.animationDuration,
+            ValuesNew.ANIMATION_DURATION,
             DecelerateInterpolator(3f)
         )
         UIElements.animate(
@@ -412,7 +412,7 @@ class SinglePlayer : AppCompatActivity() {
             "translationY",
             0,
             0,
-            ValuesNew.animationDuration,
+            ValuesNew.ANIMATION_DURATION,
             DecelerateInterpolator(3f)
         )
     }
@@ -446,7 +446,7 @@ class SinglePlayer : AppCompatActivity() {
                 "translationY",
                 0,
                 0,
-                ValuesNew.animationDuration,
+                ValuesNew.ANIMATION_DURATION,
                 DecelerateInterpolator(3f)
             )
             UIElements.animate(
@@ -454,7 +454,7 @@ class SinglePlayer : AppCompatActivity() {
                 "translationY",
                 0,
                 0,
-                ValuesNew.animationDuration,
+                ValuesNew.ANIMATION_DURATION,
                 DecelerateInterpolator(3f)
             )
             UIElements.animate(
@@ -462,7 +462,7 @@ class SinglePlayer : AppCompatActivity() {
                 "translationY",
                 0,
                 0,
-                ValuesNew.animationDuration,
+                ValuesNew.ANIMATION_DURATION,
                 DecelerateInterpolator(3f)
             )
             UIElements.animate(
@@ -470,7 +470,7 @@ class SinglePlayer : AppCompatActivity() {
                 "translationY",
                 0,
                 0,
-                ValuesNew.animationDuration,
+                ValuesNew.ANIMATION_DURATION,
                 DecelerateInterpolator(3f)
             )
             UIElements.animate(
@@ -478,7 +478,7 @@ class SinglePlayer : AppCompatActivity() {
                 "translationY",
                 0,
                 100,
-                ValuesNew.animationDuration,
+                ValuesNew.ANIMATION_DURATION,
                 DecelerateInterpolator(3f)
             )
             UIElements.animate(
@@ -486,7 +486,7 @@ class SinglePlayer : AppCompatActivity() {
                 "alpha",
                 1,
                 100,
-                ValuesNew.animationDuration,
+                ValuesNew.ANIMATION_DURATION,
                 DecelerateInterpolator(3f)
             )
             UIElements.animate(
@@ -494,7 +494,7 @@ class SinglePlayer : AppCompatActivity() {
                 "translationY",
                 0,
                 0,
-                ValuesNew.animationDuration,
+                ValuesNew.ANIMATION_DURATION,
                 DecelerateInterpolator(3f)
             )
 

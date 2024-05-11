@@ -5,12 +5,9 @@ import android.content.SharedPreferences
 import java.lang.IllegalArgumentException
 
 object ValuesNew {
-    //Singleton Instance
-    private var instance: ValuesNew? = null
-
     //App Essentials
     val currentScreen = CurrentScreen.GAME
-    val animationDuration = 800
+    const val ANIMATION_DURATION = 800
 
     //User Settings
     var vibrationEnabled: Boolean = true
@@ -24,7 +21,7 @@ object ValuesNew {
 
     fun saveValue(context: Context, key: String, value: Any) {
         //Initialize Shared Preferences
-        val sharedPreferences: SharedPreferences = context.getSharedPreferences(SharedPreferenceKeys.sharedPreferencesKey, Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences(SharedPreferenceKeys.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
         //Save Value
@@ -40,22 +37,15 @@ object ValuesNew {
 
     fun loadValues(context: Context) {
         //Initialize Shared Preferences
-        val sharedPreferences: SharedPreferences = context.getSharedPreferences(SharedPreferenceKeys.sharedPreferencesKey, Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences(SharedPreferenceKeys.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
 
         //Load Values
-        vibrationEnabled = sharedPreferences.getBoolean(SharedPreferenceKeys.keySettingVibrations, true)
-        darkThemeEnabled = sharedPreferences.getBoolean(SharedPreferenceKeys.keySettingTheme, true)
-        backgroundGradient = sharedPreferences.getInt(SharedPreferenceKeys.keySettingBackgroundGradient, 0)
-        userWins = sharedPreferences.getInt(SharedPreferenceKeys.keyScoreboardWins, 0)
-        userDraws = sharedPreferences.getInt(SharedPreferenceKeys.keyScoreboardDraws, 0)
-        userLosses = sharedPreferences.getInt(SharedPreferenceKeys.keyScoreboardLosses, 0)
-    }
-
-    fun getInstance(): ValuesNew {
-        if (instance == null) {
-            instance = ValuesNew
-        }
-        return instance!!
+        vibrationEnabled = sharedPreferences.getBoolean(SharedPreferenceKeys.KEY_SETTING_VIBRATIONS, true)
+        darkThemeEnabled = sharedPreferences.getBoolean(SharedPreferenceKeys.KEY_SETTING_THEME, true)
+        backgroundGradient = sharedPreferences.getInt(SharedPreferenceKeys.KEY_SETTING_BACKGROUND_GRADIENT, 0)
+        userWins = sharedPreferences.getInt(SharedPreferenceKeys.KEY_SCOREBOARD_WINS, 0)
+        userDraws = sharedPreferences.getInt(SharedPreferenceKeys.KEY_SCOREBOARD_DRAWS, 0)
+        userLosses = sharedPreferences.getInt(SharedPreferenceKeys.KEY_SCOREBOARD_LOSSES, 0)
     }
 }
 

@@ -19,18 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
-import androidx.activity.OnBackPressedCallback;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Settings extends AppCompatActivity {
     private ArrayList<SettingsButton> buttonArrayList;
-    private RecyclerView buttonRecyclerView;
-    private SettingsButtonAdapter buttonAdapter;
-    private RecyclerView.LayoutManager buttonLayoutManager;
 
-    boolean doublePressReset;
     int height;
 
     NestedScrollView settingsScrollView;
@@ -68,28 +63,28 @@ public class Settings extends AppCompatActivity {
         });
         buttonVibrate.setOnClickListener(v -> {
             ValuesNew.INSTANCE.setVibrationEnabled(!ValuesNew.INSTANCE.getVibrationEnabled());
-            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.INSTANCE.getKeySettingVibrations(), ValuesNew.INSTANCE.getVibrationEnabled());
+            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.INSTANCE.getKEY_SETTING_VIBRATIONS(), ValuesNew.INSTANCE.getVibrationEnabled());
             determineOptionsStates();
             vibrate(getApplicationContext(), VibrationType.WEAK);
         });
         buttonDarkTheme.setOnClickListener(v -> {
             ValuesNew.INSTANCE.setDarkThemeEnabled(!ValuesNew.INSTANCE.getDarkThemeEnabled());
-            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.INSTANCE.getKeySettingTheme(), ValuesNew.INSTANCE.getDarkThemeEnabled());
+            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.INSTANCE.getKEY_SETTING_THEME(), ValuesNew.INSTANCE.getDarkThemeEnabled());
             resetLayout();
             vibrate(getApplicationContext(), VibrationType.WEAK);
         });
 
         buttonAppInfo.setOnClickListener(v -> {
             vibrate(Settings.this, VibrationType.WEAK);
-            settingsScrollView.smoothScrollTo(0, 0, ValuesNew.INSTANCE.getAnimationDuration() / 2);
-            UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.INSTANCE.getAnimationDuration(), new AccelerateInterpolator(3));
+            settingsScrollView.smoothScrollTo(0, 0, ValuesNew.ANIMATION_DURATION / 2);
+            UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3));
             Handler handler = new Handler();
             handler.postDelayed(() -> {
                 Intent appInfo = new Intent(Settings.this, AppInfo.class);
                 startActivity(appInfo.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
                 Settings.this.overridePendingTransition(0, 0);
-            }, ValuesNew.INSTANCE.getAnimationDuration());
+            }, ValuesNew.ANIMATION_DURATION);
         });
         determineBackground();
         getWindow().getDecorView().post(this::settingsScrollViewAnimation);
@@ -103,14 +98,14 @@ public class Settings extends AppCompatActivity {
                 if (buttonBack.isClickable()) {
                     buttonBack.setClickable(false);
                     settingsScrollView.smoothScrollTo(0, 0, 500);
-                    UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.INSTANCE.getAnimationDuration(), new AccelerateInterpolator(3));
+                    UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3));
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         Intent sp = new Intent(Settings.this, SinglePlayer.class);
                         startActivity(sp);
                         finish();
                         Settings.this.overridePendingTransition(0, 0);
-                    }, ValuesNew.INSTANCE.getAnimationDuration());
+                    }, ValuesNew.ANIMATION_DURATION);
                 }
             }
         });
@@ -168,10 +163,10 @@ public class Settings extends AppCompatActivity {
     }
 
     public void buildBackgroundButtonRecyclerView() {
-        buttonRecyclerView = findViewById(R.id.backgroundRecyclerView);
+        RecyclerView buttonRecyclerView = findViewById(R.id.backgroundRecyclerView);
         buttonRecyclerView.setHasFixedSize(true);
-        buttonLayoutManager = new LinearLayoutManager(this);
-        buttonAdapter = new SettingsButtonAdapter(buttonArrayList, this);
+        RecyclerView.LayoutManager buttonLayoutManager = new LinearLayoutManager(this);
+        SettingsButtonAdapter buttonAdapter = new SettingsButtonAdapter(buttonArrayList, this);
 
         buttonRecyclerView.setLayoutManager(buttonLayoutManager);
         buttonRecyclerView.setAdapter(buttonAdapter);
@@ -196,19 +191,19 @@ public class Settings extends AppCompatActivity {
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int height = displayMetrics.heightPixels;
             settingsScrollView.setY(height);
-            UIElements.animate(settingsScrollView, "translationY", 0, 0, ValuesNew.INSTANCE.getAnimationDuration(), new DecelerateInterpolator(3));
+            UIElements.animate(settingsScrollView, "translationY", 0, 0, ValuesNew.ANIMATION_DURATION, new DecelerateInterpolator(3));
             Values.currentActivity = "Settings";
         }
     }
 
     public void resetLayout() {
         NestedScrollView settingsScrollView = findViewById(R.id.settingsScrollView);
-        settingsScrollView.smoothScrollTo(0, 0, ValuesNew.INSTANCE.getAnimationDuration() / 4);
+        settingsScrollView.smoothScrollTo(0, 0, ValuesNew.ANIMATION_DURATION / 4);
         new Handler().postDelayed(() -> {
             Intent sp = new Intent(Settings.this, Settings.class);
             startActivity(sp);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
-        }, ValuesNew.INSTANCE.getAnimationDuration() / 4);
+        }, ValuesNew.ANIMATION_DURATION / 4);
     }
 }
