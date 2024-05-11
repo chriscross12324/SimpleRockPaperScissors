@@ -1,122 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
     <color name="transparent">#00000000</color>
 
     <!-- Light Theme #F5F5F5 #E0E0E0 -->
-    <color name="lightBackgroundColour">#80FFFFFF</color><!--B3-->
+    <color name="lightBackgroundColour">#80FFFFFF</color>
     <color name="lightForegroundColour">#FFFFFF</color>
-    <color name="lightToastColour">#C8FFFFFF</color>
     <color name="lightTextPrimaryColour">#000000</color>
-    <color name="lightTextSecondaryColour">#80000000</color>
+    <color name="lightTextSecondaryColour">#BF000000</color>
     <!-- ########### -->
 
     <!-- Dark Theme -->
-    <color name="darkBackgroundColour">#B3121212</color><!--CD-->
+    <color name="darkBackgroundColour">#B3121212</color>
     <color name="darkForegroundColour">#121212</color>
-    <color name="darkToastColour">#C8000000</color>
     <color name="darkTextPrimaryColour">#FFFFFF</color>
-    <color name="darkTextSecondaryColour">#80FFFFFF</color>
+    <color name="darkTextSecondaryColour">#BFFFFFFF</color>
     <!-- ########### -->
 
+    <!-- General -->
     <color name="clearWhite">#d2ffffff</color>
     <color name="clearBlack">#a7000000</color>
     <color name="materialWhite">#F5F5F5</color>
     <color name="materialBlack">#212121</color>
 
-
     <color name="black">#0d0d0d</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="enabledOption">#D9039BE5</color>
-    <color name="disabledOption">#33898989</color>
+    <color name="enabledOption">#D936A1FF</color>
+    <color name="disabledOption">#33FFFFFF</color>
+    <!-- ########### -->
 
-    <color name="resetScore">#d50000</color>
+    <!-- Snowfall -->
+    <color name="startSnowfall">#EBF6FB</color>
+    <color name="endSnowfall">#AFBCD1</color>
 
-    <color name="backupRestoreTopLeft">#00B8D4</color>
-    <color name="backupRestoreBottomRight">#0091EA</color>
+    <!-- Faded Red -->
+    <color name="startFadedRed">#ED9694</color>
+    <color name="endFadedRed">#EF3B36</color>
 
-    <color name="helpBBLeft">#FF9800</color>
-    <color name="helpBBRight">#bf360c</color>
+    <!-- Sunset -->
+    <color name="startSunset">#C31432</color>
+    <color name="endSunset">#360B23</color>
 
-    <color name="settingsBBLeft">#546E7A</color>
-    <color name="settingsBBRight">#263238</color>
+    <!-- Hot Lava -->
+    <color name="startHotLava">#F6C359</color>
+    <color name="endHotLava">#DF3E2B</color>
 
-    <color name="SPGradientTopLeft">#029b00</color>
-    <color name="SPGradientBottomRight">#004b06</color>
-
-    <color name="OFFMPGradientTopLeft">#057cb9</color>
-    <color name="OFFMPGradientBottomRight">#0c548e</color>
-
-    <color name="ONMPGradientTopLeft">#b90c0c</color>
-    <color name="ONMPGradientBottomRight">#690000</color>
-
-    <color name="backBBLeft">#9e9e9e</color>
-    <color name="backBBRight">#757575</color>
-
-    <color name="green">#259917</color>
-    <color name="blue">#005fdc</color>
-    <color name="red">#c70000</color>
-
-
-
-
-    <!-- Winters Day -->
-    <color name="wintersDayTL">#BFEBFF</color>
-    <color name="wintersDayBR">#7AADFF</color>
-
-    <!-- Shallow Lake -->
-    <color name="shallowLakeTL">#89f7fe</color>
-    <color name="shallowLakeBR">#5694FF</color>
-
-    <!-- Tropic Ocean -->
-    <color name="tropicalOceanTL">#80FFB9</color>
-    <color name="tropicalOceanBR">#6CC8F3</color>
-
-    <!-- Green Grass -->
-    <color name="greenGrassTL">#D0FF85</color>
-    <color name="greenGrassBR">#6AD575</color>
+    <!-- Cotton Candy -->
+    <color name="startCottonCandy">#EB836E</color>
+    <color name="endCottonCandy">#8920E6</color>
 
     <!-- Sunshine -->
-    <color name="sunshineTL">#f6d365</color>
-    <color name="sunshineBR">#fda085</color>
+    <color name="startSunshine">#f6d365</color>
+    <color name="endSunshine">#fda085</color>
 
-    <!-- Forest -->
-    <color name="forestTL">#3cba92</color>
-    <color name="forestBR">#03992D</color>
+    <!-- Traffic Lights -->
+    <color name="firstTrafficLights">#C6FFDD</color>
+    <color name="secondTrafficLights">#FFD575</color>
+    <color name="thirdTrafficLights">#F45459</color>
 
-    <!-- Atmosphere -->
-    <color name="atmosphereTL">#445BD3</color>
-    <color name="atmosphereBR">#64E5FB</color>
+    <!-- Green Grass -->
+    <color name="startGreenGrass">#D0FF85</color>
+    <color name="endGreenGrass">#6AD575</color>
 
-    <!-- Purple Haze -->
-    <color name="purpleHazeTL">#88d3ce</color>
-    <color name="purpleHazeBR">#6e45e2</color>
+    <!-- Coniferous -->
+    <color name="startConiferous">#2C975C</color>
+    <color name="endConiferous">#084D11</color>
 
-    <!-- Juicy Pomegranate -->
-    <color name="juicyPomegranateTL">#f072aa</color>
-    <color name="juicyPomegranateBR">#753392</color>
-
-    <!-- Cold Night -->
-    <color name="coldNightTL">#A2B5DC</color>
-    <color name="coldNightBR">#163581</color>
+    <!-- Tropical Ocean -->
+    <color name="startTropicalOcean">#80FFB9</color>
+    <color name="endTropicalOcean">#6CC8F3</color>
 
     <!-- Sunny Depths -->
-    <color name="sunnyDepthsTL">#4df7b9</color>
-    <color name="sunnyDepthsBR">#172650</color>
+    <color name="startSunnyDepths">#4df7b9</color>
+    <color name="endSunnyDepths">#172650</color>
 
-    <!-- Eternal Space -->
-    <color name="eternalSpaceTL">#537895</color>
-    <color name="eternalSpaceBR">#061831</color>
+    <!-- Orbit -->
+    <color name="firstOrbit">#141E30</color>
+    <color name="secondOrbit">#19293C</color>
+    <color name="thirdOrbit">#1E3546</color>
+    <color name="fourthOrbit">#2B5F64</color>
 
-    <color name="primary_dark_material_light">#757575</color>
+    <!-- Juicy Pomegranate -->
+    <color name="startJuicyPomegranate">#f072aa</color>
+    <color name="endJuicyPomegranate">#753392</color>
 
+    <!-- Amethyst -->
+    <color name="firstAmethyst">#CE78EF</color>
+    <color name="secondAmethyst">#9D53BA</color>
+    <color name="thirdAmethyst">#964FB2</color>
+    <color name="fourthAmethyst">#8742A2</color>
+    <color name="fifthAmethyst">#3D216B</color>
 
+    <!-- Darkness -->
+    <color name="startDarkness">#383838</color>
+    <color name="endDarkness">#131313</color>
 
+    <!-- Lollipop -->
+    <color name="firstLollipop">#D38EC7</color>
+    <color name="secondLollipop">#679FD6</color>
+    <color name="thirdLollipop">#89CD8C</color>
+    <color name="fourthLollipop">#D6CF5A</color>
+    <color name="fifthLollipop">#EBA556</color>
+    <color name="sixthLollipop">#EB463F</color>
 
-    <color name="switchTrackColour">#ffffff</color>
 
 
 </resources>

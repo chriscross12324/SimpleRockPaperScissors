@@ -17,7 +17,7 @@
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/sunshineBR"
+            android:background="@color/endSunshine"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop" />
 
@@ -34,7 +34,7 @@
         android:paddingTop="120dp"
         android:paddingBottom="18dp"
         android:scrollbars="none"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -322,9 +322,8 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="4dp"
+                        android:layout_margin="8dp"
                         android:importantForAccessibility="no"
-                        android:rotation="90"
                         android:src="@drawable/icon_arrow"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"

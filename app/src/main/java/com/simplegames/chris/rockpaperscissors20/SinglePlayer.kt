@@ -9,10 +9,13 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.postDelayed
 import com.google.android.material.card.MaterialCardView
+import kotlinx.coroutines.delay
 import java.util.Random
 import java.util.Timer
 import kotlin.concurrent.timerTask
@@ -64,7 +67,7 @@ class SinglePlayer : AppCompatActivity() {
         roundResultHolder = findViewById(R.id.resultHolder)
 
         opponentAnimation = opponentChoiceImage.drawable as AnimationDrawable
-        UIElements.setBackground(this, background, UIElements.getBackgroundColours(this), 0f, 0)
+        UIElements.setBackground(background, UIElements.getBackgroundColours(this), 0f)
 
         //Animate Elements In
         animateIn()
@@ -83,8 +86,8 @@ class SinglePlayer : AppCompatActivity() {
                 //Animate UI Out
                 UIElements.animate(
                     buttonMenu,
-                    "alpha",
-                    0,
+                    "translationY",
+                    -(buttonMenu.height + UIElements.dpToFloat(10f)),
                     0,
                     ValuesNew.animationDuration,
                     DecelerateInterpolator(3f)
@@ -268,12 +271,38 @@ class SinglePlayer : AppCompatActivity() {
             )
         }, 2000)
 
-        //Display Winner
-        Handler().postDelayed({
-            displayWinner()
-            pickingAnimation.stop()
-            isPlaying = false
-        }, 5900)
+        var accumulatedDelay = 0L
+
+        for (i in 1..30) {
+            Handler().postDelayed({
+                vibrate(this, VibrationType.WEAK)
+
+                if (i == 30) {
+                    Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
+
+                    //Display Winner
+                    displayWinner()
+                    pickingAnimation.stop()
+                    isPlaying = false
+                }
+            }, accumulatedDelay)
+            accumulatedDelay += calculateDuration(i).toLong()
+        }
+    }
+
+    private fun calculateDuration(loopCount: Int): Int {
+        val listOfDurations = listOf(
+            100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+            100, 100, 100, 100, 100, 110, 120, 130, 140, 150,
+            200, 250, 300, 350, 400, 450, 500, 600, 700, 800
+        )
+
+        return listOfDurations.elementAt(loopCount - 1)
+        /*return when {
+            loopCount <= 25 -> 100
+            loopCount <= 30 -> 100 + (loopCount - 25) * (800 - 100) / (30 - 25)
+            else -> 0 // Outside the defined range
+        }*/
     }
 
     private fun opponentPick() {
@@ -386,7 +415,7 @@ class SinglePlayer : AppCompatActivity() {
         background.post {
             Log.e("ERR RPS: ", "UI There")
             //Set Elements Initial Positions/Alphas
-            buttonMenu.alpha = 0f
+            buttonMenu.translationY = (-(buttonMenu.height + UIElements.dpToFloat(10f)).toFloat())
             buttonRock.translationY = ((buttonRock.height + UIElements.dpToFloat(10f)).toFloat())
             buttonPaper.translationY = ((buttonPaper.height + UIElements.dpToFloat(10f)).toFloat())
             buttonScissors.translationY =
@@ -407,8 +436,8 @@ class SinglePlayer : AppCompatActivity() {
             //Animate Elements
             UIElements.animate(
                 buttonMenu,
-                "alpha",
-                1,
+                "translationY",
+                0,
                 0,
                 ValuesNew.animationDuration,
                 DecelerateInterpolator(3f)

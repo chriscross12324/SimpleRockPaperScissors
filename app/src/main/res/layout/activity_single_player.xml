@@ -19,7 +19,7 @@
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/sunshineBR"
+            android:background="@color/endSunshine"
             android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>
@@ -42,8 +42,8 @@
         <ImageView
             android:id="@+id/menuButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
             android:src="@drawable/icon_main_menu"
             android:tintMode="multiply"
             app:tint="?PrimaryTextColour" />
@@ -103,7 +103,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="?BackgroundColour" />
+            app:tint="?ForegroundColour" />
 
         <ImageView
             android:id="@+id/aiChoice"

@@ -29,25 +29,37 @@
                 android:id="@+id/buttonColourBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/sunshineBR"
+                android:background="@color/endSunshine"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/buttonColourText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/general_placeholder"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:fontFamily="@font/rounded_medium"
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:cardBackgroundColor="?BackgroundColour"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/transparent">
+
+                <TextView
+                    android:id="@+id/buttonColourText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/rounded_bold"
+                    android:gravity="center"
+                    android:paddingVertical="2dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/general_placeholder"
+                    android:textColor="?PrimaryTextColour"
+                    android:textSize="16sp" />
+            </com.google.android.material.card.MaterialCardView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

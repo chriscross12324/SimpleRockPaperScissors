@@ -2,14 +2,7 @@ package com.simplegames.chris.rockpaperscissors20;
 
 import static com.simplegames.chris.rockpaperscissors20.VibrationsKt.vibrate;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BlurMaskFilter;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -17,8 +10,8 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
@@ -26,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import androidx.activity.OnBackPressedCallback;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -69,17 +63,8 @@ public class Settings extends AppCompatActivity {
 
         //Option Buttons
         buttonBack.setOnClickListener(v -> {
-            buttonBack.setClickable(false);
             vibrate(Settings.this, VibrationType.WEAK);
-            settingsScrollView.smoothScrollTo(0, 0, 500);
-            UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.INSTANCE.getAnimationDuration(), new AccelerateInterpolator(3));
-            Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                Intent sp = new Intent(Settings.this, SinglePlayer.class);
-                startActivity(sp);
-                finish();
-                Settings.this.overridePendingTransition(0, 0);
-            }, ValuesNew.INSTANCE.getAnimationDuration());
+            onBackPressed();
         });
         buttonVibrate.setOnClickListener(v -> {
             ValuesNew.INSTANCE.setVibrationEnabled(!ValuesNew.INSTANCE.getVibrationEnabled());
@@ -96,7 +81,7 @@ public class Settings extends AppCompatActivity {
 
         buttonAppInfo.setOnClickListener(v -> {
             vibrate(Settings.this, VibrationType.WEAK);
-            settingsScrollView.smoothScrollTo(0, 0, 500);
+            settingsScrollView.smoothScrollTo(0, 0, ValuesNew.INSTANCE.getAnimationDuration() / 2);
             UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.INSTANCE.getAnimationDuration(), new AccelerateInterpolator(3));
             Handler handler = new Handler();
             handler.postDelayed(() -> {
@@ -112,67 +97,74 @@ public class Settings extends AppCompatActivity {
         determineOptionsStates();
         buildBackgroundButtonRecyclerView();
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (buttonBack.isClickable()) {
+                    buttonBack.setClickable(false);
+                    settingsScrollView.smoothScrollTo(0, 0, 500);
+                    UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.INSTANCE.getAnimationDuration(), new AccelerateInterpolator(3));
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        Intent sp = new Intent(Settings.this, SinglePlayer.class);
+                        startActivity(sp);
+                        finish();
+                        Settings.this.overridePendingTransition(0, 0);
+                    }, ValuesNew.INSTANCE.getAnimationDuration());
+                }
+            }
+        });
     }
 
     private void determineOptionsStates() {
         if (!ValuesNew.INSTANCE.getVibrationEnabled()) {
-            UIElements.setBackground(this, buttonVibrate, new int[]{
+            UIElements.setBackground(buttonVibrate, new int[]{
                             ContextCompat.getColor(this, R.color.disabledOption),
                             ContextCompat.getColor(this, R.color.disabledOption)},
-                    UIElements.dpToFloat(15f), 0);
+                    UIElements.dpToFloat(15f));
             if (ValuesNew.INSTANCE.getDarkThemeEnabled()) {
                 vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.white));
             } else {
                 vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.black));
             }
         } else {
-            UIElements.setBackground(this, buttonVibrate, new int[]{
+            UIElements.setBackground(buttonVibrate, new int[]{
                             ContextCompat.getColor(this, R.color.enabledOption),
                             ContextCompat.getColor(this, R.color.enabledOption)},
-                    UIElements.dpToFloat(15f), 0);
+                    UIElements.dpToFloat(15f));
             vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.white));
         }
         if (!ValuesNew.INSTANCE.getDarkThemeEnabled()) {
-            UIElements.setBackground(this, buttonDarkTheme, new int[]{
+            UIElements.setBackground(buttonDarkTheme, new int[]{
                             ContextCompat.getColor(this, R.color.disabledOption),
                             ContextCompat.getColor(this, R.color.disabledOption)},
-                    UIElements.dpToFloat(15f), 0);
+                    UIElements.dpToFloat(15f));
         } else {
-            UIElements.setBackground(this, buttonDarkTheme, new int[]{
+            UIElements.setBackground(buttonDarkTheme, new int[]{
                             ContextCompat.getColor(this, R.color.enabledOption),
                             ContextCompat.getColor(this, R.color.enabledOption)},
-                    UIElements.dpToFloat(15f), 0);
+                    UIElements.dpToFloat(15f));
         }
     }
 
     public void setBackgroundButtons() {
         buttonArrayList = new ArrayList<>();
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.wintersDayTL),
-                ContextCompat.getColor(this, R.color.wintersDayBR), "Winters Day"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.shallowLakeTL),
-                ContextCompat.getColor(this, R.color.shallowLakeBR), "Shallow Lake"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.tropicalOceanTL),
-                ContextCompat.getColor(this, R.color.tropicalOceanBR), "Tropical Ocean"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.greenGrassTL),
-                ContextCompat.getColor(this, R.color.greenGrassBR), "Green Grass"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.sunshineTL),
-                ContextCompat.getColor(this, R.color.sunshineBR), "Sunshine"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.forestTL),
-                ContextCompat.getColor(this, R.color.forestBR), "Forest"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.atmosphereTL),
-                ContextCompat.getColor(this, R.color.atmosphereBR), "Atmosphere"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.purpleHazeTL),
-                ContextCompat.getColor(this, R.color.purpleHazeBR), "Purple Haze"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.coldNightTL),
-                ContextCompat.getColor(this, R.color.coldNightBR), "Cold Night"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.eternalSpaceTL),
-                ContextCompat.getColor(this, R.color.eternalSpaceBR), "Eternal Space"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.juicyPomegranateTL),
-                ContextCompat.getColor(this, R.color.juicyPomegranateBR), "Juicy Pomegranate"));
-        buttonArrayList.add(new SettingsButton(ContextCompat.getColor(this, R.color.sunnyDepthsTL),
-                ContextCompat.getColor(this, R.color.sunnyDepthsBR), "Sunny Depths"));
-
-
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 0), "Snowfall"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 1), "Faded Red"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 2), "Sunset"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 3), "Hot Lava"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 4), "Cotton Candy"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 5), "Sunshine"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 6), "Traffic Lights"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 7), "Green Grass"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 8), "Coniferous"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 9), "Tropical Ocean"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 10), "Sunny Depths"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 11), "Orbit"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 12), "Juicy Pomegranate"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 13), "Amethyst"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 14), "Darkness"));
+        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 15), "Lollipop"));
     }
 
     public void buildBackgroundButtonRecyclerView() {
@@ -191,7 +183,7 @@ public class Settings extends AppCompatActivity {
         if (Objects.equals(Values.currentActivity, "Settings")) {
             vibrate(getApplicationContext(), VibrationType.WEAK);
         }
-        UIElements.setBackground(this, background, UIElements.getBackgroundColours(this), 0f, 5000);
+        UIElements.setBackground(background, UIElements.getBackgroundColours(this), 0f);
     }
 
     public void settingsScrollViewAnimation() {
@@ -218,11 +210,5 @@ public class Settings extends AppCompatActivity {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }, ValuesNew.INSTANCE.getAnimationDuration() / 4);
-    }
-
-
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onBackPressed() {
     }
 }

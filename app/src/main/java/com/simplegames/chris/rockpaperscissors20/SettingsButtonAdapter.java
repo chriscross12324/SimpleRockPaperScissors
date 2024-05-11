@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAdapter.SettingsButtonViewHolder> {
     private static ArrayList<SettingsButton> buttonArrayList;
     private OnItemClickListener buttonListener;
-    private static Context buttonContext;
+    private final Context buttonContext;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -28,7 +28,7 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
         buttonListener = listener;
     }
 
-    public static class SettingsButtonViewHolder extends RecyclerView.ViewHolder {
+    public class SettingsButtonViewHolder extends RecyclerView.ViewHolder {
         final MaterialCardView buttonLayout;
         final ImageView buttonBackground;
         final TextView buttonText;
@@ -76,13 +76,9 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
         currentItem.setButtonLayout(holder.buttonLayout);
         holder.buttonText.setText(currentItem.getButtonText());
 
-        GradientDrawable gradientDrawable = new GradientDrawable(
-                GradientDrawable.Orientation.TL_BR,
-                new int[]{currentItem.getButtonTL(), currentItem.getButtonBR()});
-        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+        UIElements.setBackground(holder.buttonBackground, currentItem.getButtonColours(), 0f);
 
         setButtonStroke(holder.buttonLayout, position);
-        holder.buttonBackground.setBackground(gradientDrawable);
     }
 
     @Override
