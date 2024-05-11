@@ -26,7 +26,7 @@ fun vibrate(context: Context, type: VibrationType) {
         VibrationType.WEAK -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 vibrator.vibrate(
-                    VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK)
+                    VibrationEffect.createOneShot(5L, 25)
                 )
             } else {
                 @Suppress("DEPRECATION")
@@ -36,7 +36,7 @@ fun vibrate(context: Context, type: VibrationType) {
         VibrationType.MEDIUM -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 vibrator.vibrate(
-                    VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK)
+                    VibrationEffect.createOneShot(10L, 100)
                 )
             } else {
                 @Suppress("DEPRECATION")
@@ -46,7 +46,7 @@ fun vibrate(context: Context, type: VibrationType) {
         VibrationType.STRONG -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 vibrator.vibrate(
-                    VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
+                    VibrationEffect.createOneShot(15L, 200)
                 )
             } else {
                 @Suppress("DEPRECATION")

@@ -40,7 +40,7 @@ public class UIElements {
             case 8 ->
                     UIElements.colourToInt(context, new int[]{R.color.startConiferous, R.color.endConiferous});
             case 9 ->
-                    UIElements.colourToInt(context, new int[]{R.color.startTropicalOcean, R.color.startTropicalOcean});
+                    UIElements.colourToInt(context, new int[]{R.color.startTropicalOcean, R.color.endTropicalOcean});
             case 10 ->
                     UIElements.colourToInt(context, new int[]{R.color.startSunnyDepths, R.color.endSunnyDepths});
             case 11 ->

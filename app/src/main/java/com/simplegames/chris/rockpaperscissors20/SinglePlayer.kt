@@ -9,14 +9,12 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.os.postDelayed
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.card.MaterialCardView
-import kotlinx.coroutines.delay
-import java.util.Random
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
@@ -36,8 +34,8 @@ class SinglePlayer : AppCompatActivity() {
 
     private lateinit var opponentAnimation: AnimationDrawable
     private var isPlaying: Boolean = false
-    private var opponentChoice: String = ""
-    private var playerChoice: String = ""
+    private var opponentChoice: Int = -1
+    private var playerChoice: Int = -1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +74,9 @@ class SinglePlayer : AppCompatActivity() {
         buttonMenu.setOnClickListener {
             if (isPlaying) {
                 vibrate(this, VibrationType.ERROR)
+                YoYo.with(Techniques.Shake)
+                    .duration(250)
+                    .playOn(buttonMenu)
             } else {
                 //Stop multiple clicks
                 buttonMenu.isClickable = false
@@ -153,10 +154,14 @@ class SinglePlayer : AppCompatActivity() {
         buttonRock.setOnClickListener {
             if (isPlaying) {
                 vibrate(this, VibrationType.ERROR)
+
+                YoYo.with(Techniques.Shake)
+                    .duration(250)
+                    .playOn(buttonRock)
             } else {
                 //Set isPlaying
                 isPlaying = true
-                playerChoice = "Rock"
+                playerChoice = 0 //Rock
 
                 //Vibrate
                 vibrate(this, VibrationType.WEAK)
@@ -187,10 +192,13 @@ class SinglePlayer : AppCompatActivity() {
         buttonPaper.setOnClickListener {
             if (isPlaying) {
                 vibrate(this, VibrationType.ERROR)
+                YoYo.with(Techniques.Shake)
+                    .duration(250)
+                    .playOn(buttonPaper)
             } else {
                 //Set isPlaying
                 isPlaying = true
-                playerChoice = "Paper"
+                playerChoice = 1 //Paper
 
                 //Vibrate
                 vibrate(this, VibrationType.WEAK)
@@ -221,10 +229,14 @@ class SinglePlayer : AppCompatActivity() {
         buttonScissors.setOnClickListener {
             if (isPlaying) {
                 vibrate(this, VibrationType.ERROR)
+
+                YoYo.with(Techniques.Shake)
+                    .duration(250)
+                    .playOn(buttonScissors)
             } else {
                 //Set isPlaying
                 isPlaying = true
-                playerChoice = "Scissors"
+                playerChoice = 2 //Scissors
 
                 //Vibrate
                 vibrate(this, VibrationType.WEAK)
@@ -255,9 +267,9 @@ class SinglePlayer : AppCompatActivity() {
 
     private fun playOpponentAnimation() {
         //Play Picking Animation
-        opponentChoiceImage.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ai_picking, null))
+        /*opponentChoiceImage.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ai_picking, null))
         val pickingAnimation = opponentChoiceImage.drawable as AnimationDrawable
-        pickingAnimation.start()
+        pickingAnimation.start()*/
 
         //Hide Result Holder
         Handler().postDelayed({
@@ -272,18 +284,32 @@ class SinglePlayer : AppCompatActivity() {
         }, 2000)
 
         var accumulatedDelay = 0L
+        var previousImage = 1
 
         for (i in 1..30) {
             Handler().postDelayed({
-                vibrate(this, VibrationType.WEAK)
+                if (i < 30) {
+                    vibrate(this, VibrationType.WEAK)
 
-                if (i == 30) {
-                    Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
+                    var rand = (0..2).random()
+                    if (rand == previousImage) rand++
+                    if (rand > 2) rand = 0
+                    previousImage = rand
+                    when (rand) {
+                        0 -> opponentChoiceImage.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.icon_rock, null))
+                        1 -> opponentChoiceImage.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.icon_paper, null))
+                        2 -> opponentChoiceImage.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.icon_scissors, null))
+                    }
+
+                } else {
+                    vibrate(this, VibrationType.STRONG)
 
                     //Display Winner
                     displayWinner()
-                    pickingAnimation.stop()
-                    isPlaying = false
+                    //pickingAnimation.stop()
+                    Handler().postDelayed({
+                        isPlaying = false
+                    }, ValuesNew.animationDuration.toLong())
                 }
             }, accumulatedDelay)
             accumulatedDelay += calculateDuration(i).toLong()
@@ -298,29 +324,24 @@ class SinglePlayer : AppCompatActivity() {
         )
 
         return listOfDurations.elementAt(loopCount - 1)
-        /*return when {
-            loopCount <= 25 -> 100
-            loopCount <= 30 -> 100 + (loopCount - 25) * (800 - 100) / (30 - 25)
-            else -> 0 // Outside the defined range
-        }*/
     }
 
     private fun opponentPick() {
-        val random = Random()
-        val choice = random.nextInt(3)
+        val possibleChoices = arrayListOf(0, 1, 2)
+        val rules = mapOf(0 to 2, 1 to 0, 2 to 1)
 
-        opponentChoice = when (choice) {
-            0 -> {
-                "Rock"
+        opponentChoice = if ((0..1).random() == 1) {
+            if ((0..1).random() == 1) {
+                //Remove chance of AI Loss
+                rules[playerChoice]?.let { possibleChoices.removeAt(it) }
+            } else {
+                //Remove chance of tie
+                possibleChoices.removeAt(playerChoice)
             }
-
-            1 -> {
-                "Paper"
-            }
-
-            else -> {
-                "Scissors"
-            }
+            possibleChoices.random()
+        } else {
+            //Have full range of choices
+            (0..2).random()
         }
 
         //Show Animation
@@ -329,15 +350,15 @@ class SinglePlayer : AppCompatActivity() {
 
     private fun displayOpponentChoice() {
         when (opponentChoice) {
-            "Rock" -> {
+            0 -> {
                 opponentChoiceImage.setImageResource(R.drawable.icon_rock)
             }
 
-            "Paper" -> {
+            1 -> {
                 opponentChoiceImage.setImageResource(R.drawable.icon_paper)
             }
 
-            "Scissors" -> {
+            2 -> {
                 opponentChoiceImage.setImageResource(R.drawable.icon_scissors)
             }
 
@@ -349,7 +370,7 @@ class SinglePlayer : AppCompatActivity() {
 
     private fun displayWinner() {
         displayOpponentChoice()
-        val rules = mapOf("Rock" to "Scissors", "Paper" to "Rock", "Scissors" to "Paper")
+        val rules = mapOf(0 to 2, 1 to 0, 2 to 1)
         if (playerChoice == opponentChoice) {
             roundResult.text = "Tie"
             ValuesNew.userDraws++
@@ -360,27 +381,13 @@ class SinglePlayer : AppCompatActivity() {
             roundResult.text = "You Lose"
             ValuesNew.userLosses++
         }
-        /*if (opponentChoice == playerChoice) {
-            roundResult.text = "Draw"
-            Values.draws++
-        } else if ((opponentChoice == "Rock" && playerChoice == "Scissors")
-            || (opponentChoice == "Paper" && playerChoice == "Rock")
-            || (opponentChoice == "Scissors" && playerChoice == "Paper")
-        ) {
-            roundResult.text = "You Lose"
-            Values.losses++
-        } else {
-            roundResult.text = "You Win"
-            Values.wins++
-
-        }*/
 
         //Animate Back In
         UIElements.animate(
             buttonRock,
             "translationY",
             0,
-            50,
+            0,
             ValuesNew.animationDuration,
             DecelerateInterpolator(3f)
         )
