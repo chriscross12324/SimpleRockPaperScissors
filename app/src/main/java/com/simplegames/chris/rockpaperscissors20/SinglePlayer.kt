@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
@@ -12,6 +13,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.card.MaterialCardView
@@ -50,7 +53,6 @@ class SinglePlayer : AppCompatActivity() {
 
         //Set Content View
         setContentView(R.layout.activity_single_player)
-
 
         //Set Screen Values
         buttonMenu = findViewById(R.id.buttonMenu)
@@ -273,7 +275,7 @@ class SinglePlayer : AppCompatActivity() {
         pickingAnimation.start()*/
 
         //Hide Result Holder
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             UIElements.animate(
                 roundResultHolder,
                 "translationY",
@@ -288,7 +290,7 @@ class SinglePlayer : AppCompatActivity() {
         var previousImage = 1
 
         for (i in 1..30) {
-            Handler().postDelayed({
+            Handler(Looper.getMainLooper()).postDelayed({
                 if (i < 30) {
                     vibrate(this, VibrationType.WEAK)
 
@@ -308,7 +310,7 @@ class SinglePlayer : AppCompatActivity() {
                     //Display Winner
                     displayWinner()
                     //pickingAnimation.stop()
-                    Handler().postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         isPlaying = false
                     }, ValuesNew.ANIMATION_DURATION.toLong() / 2)
                 }
