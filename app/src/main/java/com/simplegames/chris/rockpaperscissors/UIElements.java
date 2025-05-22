@@ -1,4 +1,4 @@
-package com.simplegames.chris.rockpaperscissors20;
+package com.simplegames.chris.rockpaperscissors;
 
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;

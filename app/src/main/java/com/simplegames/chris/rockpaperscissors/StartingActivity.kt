@@ -1,4 +1,4 @@
-package com.simplegames.chris.rockpaperscissors20
+package com.simplegames.chris.rockpaperscissors
 
 import android.R
 import android.content.Intent

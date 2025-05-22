@@ -1,6 +1,6 @@
-package com.simplegames.chris.rockpaperscissors20;
+package com.simplegames.chris.rockpaperscissors;
 
-import static com.simplegames.chris.rockpaperscissors20.VibrationsKt.vibrate;
+import static com.simplegames.chris.rockpaperscissors.VibrationsKt.vibrate;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;

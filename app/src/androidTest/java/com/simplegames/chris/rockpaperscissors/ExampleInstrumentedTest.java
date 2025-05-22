@@ -1,4 +1,4 @@
-package com.simplegames.chris.rockpaperscissors20;
+package com.simplegames.chris.rockpaperscissors;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.chris.rockpaperscissors20", appContext.getPackageName());
+        assertEquals("com.example.chris.rockpaperscissors", appContext.getPackageName());
     }
 }
