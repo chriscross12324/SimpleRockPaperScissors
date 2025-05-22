@@ -1,0 +1,35 @@
+[versions]
+activity-ktx = "1.10.1"
+agp = "8.10.0"
+appcompat = "1.7.0"
+constraintlayout = "2.2.1"
+core-ktx = "1.16.0"
+daimajia-animations = "2.3"
+daimajia-easing = "2.0"
+espresso-core = "3.6.1"
+gridlayout = "1.1.0"
+junit = "4.13.2"
+kotlin = "2.0.21"
+material = "1.12.0"
+play-services-games = "23.2.0"
+runner = "1.6.2"
+splashscreen = "1.0.1"
+
+[libraries]
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity-ktx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+androidx-gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+daimajia-animations = { group = "com.daimajia.androidanimations", name = "library", version.ref = "daimajia-animations" }
+daimajia-easing = { group = "com.daimajia.easing", name = "library", version.ref = "daimajia-easing" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+play-services-games = { group = "com.google.android.gms", name = "play-services-games", version.ref = "play-services-games" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin"}

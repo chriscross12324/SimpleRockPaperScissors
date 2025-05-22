@@ -1,4 +1,4 @@
-package com.simplegames.chris.rockpaperscissors20
+package com.simplegames.chris.rockpaperscissors
 
 object SharedPreferenceKeys {
     val SHARED_PREFERENCES_KEY = "SharedPreferences"

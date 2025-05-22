@@ -1,4 +1,4 @@
-package com.simplegames.chris.rockpaperscissors20;
+package com.simplegames.chris.rockpaperscissors;
 
 import android.content.Context;
 import android.view.LayoutInflater;

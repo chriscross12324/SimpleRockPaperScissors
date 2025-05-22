@@ -1,4 +1,4 @@
-package com.simplegames.chris.rockpaperscissors20;
+package com.simplegames.chris.rockpaperscissors;
 
 import com.google.android.material.card.MaterialCardView;
 
