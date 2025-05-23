@@ -117,7 +117,7 @@
             android:layout_height="match_parent"
             android:layout_margin="25dp"
             android:importantForAccessibility="no"
-            android:src="@drawable/ai_picking"
+            android:src="@drawable/icon_paper"
             android:tintMode="multiply"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
