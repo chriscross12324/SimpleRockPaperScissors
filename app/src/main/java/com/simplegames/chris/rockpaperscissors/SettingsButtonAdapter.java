@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.simplegames.chris.rockpaperscissors.activity.SettingsActivity;
+import com.simplegames.chris.rockpaperscissors.utils.SharedPreferenceKeys;
+import com.simplegames.chris.rockpaperscissors.utils.UIElements;
+import com.simplegames.chris.rockpaperscissors.utils.ValuesNew;
 
 import java.util.ArrayList;
 
@@ -45,11 +49,11 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         ValuesNew.INSTANCE.setBackgroundGradient(position);
-                        ((Settings) buttonContext).determineBackground();
+                        ((SettingsActivity) buttonContext).determineBackground();
                         setButtonStroke(oldLayout, oldPos);
                         setButtonStroke(buttonLayout, position);
                         ValuesNew.INSTANCE.saveValue(buttonContext,
-                                SharedPreferenceKeys.INSTANCE.getKEY_SETTING_BACKGROUND_GRADIENT(),
+                                SharedPreferenceKeys.KEY_SETTING_BACKGROUND_GRADIENT,
                                 position);
                     }
                 }

@@ -1,4 +1,4 @@
-package com.simplegames.chris.rockpaperscissors
+package com.simplegames.chris.rockpaperscissors.utils
 
 import android.content.Context
 import android.os.Build

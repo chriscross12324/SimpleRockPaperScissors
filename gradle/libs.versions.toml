@@ -11,7 +11,6 @@ gridlayout = "1.1.0"
 junit = "4.13.2"
 kotlin = "2.0.21"
 material = "1.12.0"
-play-services-games = "23.2.0"
 runner = "1.6.2"
 splashscreen = "1.0.1"
 
@@ -28,7 +27,6 @@ daimajia-animations = { group = "com.daimajia.androidanimations", name = "librar
 daimajia-easing = { group = "com.daimajia.easing", name = "library", version.ref = "daimajia-easing" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-play-services-games = { group = "com.google.android.gms", name = "play-services-games", version.ref = "play-services-games" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

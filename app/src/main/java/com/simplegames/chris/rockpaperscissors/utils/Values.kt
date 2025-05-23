@@ -1,8 +1,7 @@
-package com.simplegames.chris.rockpaperscissors
+package com.simplegames.chris.rockpaperscissors.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import java.lang.IllegalArgumentException
 
 object ValuesNew {
     //App Essentials

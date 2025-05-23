@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".AppInfo"
+    tools:context=".activity.AboutActivity"
     android:fitsSystemWindows="true">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="20dp"
-        app:cardElevation="0dp">
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/transparent">
 
         <ImageView
             android:id="@+id/background"
@@ -28,12 +29,11 @@
         android:id="@+id/appInfoScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginHorizontal="16dp"
         android:clipToPadding="false"
-        android:overScrollMode="never"
+        android:overScrollMode="always"
         android:paddingTop="120dp"
-        android:paddingBottom="18dp"
+        android:paddingBottom="16dp"
         android:scrollbars="none"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -194,9 +194,9 @@
                             android:id="@+id/changesBody1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="32dp"
                             android:layout_marginTop="4dp"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginEnd="32dp"
                             android:fontFamily="@font/rounded_medium"
                             android:gravity="center"
                             android:text="@string/changelog"
@@ -308,12 +308,12 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/buttonBack"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
                     app:cardBackgroundColor="?ForegroundColour"
-                    app:cardCornerRadius="15dp"
+                    app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -323,7 +323,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="8dp"
+                        android:layout_margin="6dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/icon_arrow"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -1,4 +1,4 @@
-package com.simplegames.chris.rockpaperscissors;
+package com.simplegames.chris.rockpaperscissors.utils;
 
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
@@ -11,6 +11,8 @@ import android.util.TypedValue;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
+
+import com.simplegames.chris.rockpaperscissors.R;
 
 public class UIElements {
 
@@ -61,7 +63,7 @@ public class UIElements {
         //Create the New Gradient
         GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR, colours);
         gradientDrawable.setShape(GradientDrawable.RECTANGLE);
-        gradientDrawable.setCornerRadius(cornerRadius);
+        gradientDrawable.setCornerRadius(dpToFloat(cornerRadius));
 
         //Set Background
         view.setBackground(gradientDrawable);

@@ -1,6 +1,6 @@
-package com.simplegames.chris.rockpaperscissors;
+package com.simplegames.chris.rockpaperscissors.activity;
 
-import static com.simplegames.chris.rockpaperscissors.VibrationsKt.vibrate;
+import static com.simplegames.chris.rockpaperscissors.utils.VibrationsKt.vibrate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,11 +19,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.simplegames.chris.rockpaperscissors.R;
+import com.simplegames.chris.rockpaperscissors.SettingsButton;
+import com.simplegames.chris.rockpaperscissors.SettingsButtonAdapter;
+import com.simplegames.chris.rockpaperscissors.utils.SharedPreferenceKeys;
+import com.simplegames.chris.rockpaperscissors.utils.UIElements;
+import com.simplegames.chris.rockpaperscissors.utils.Values;
+import com.simplegames.chris.rockpaperscissors.utils.ValuesNew;
+import com.simplegames.chris.rockpaperscissors.utils.VibrationType;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     private ArrayList<SettingsButton> buttonArrayList;
 
     int height;
@@ -58,32 +66,32 @@ public class Settings extends AppCompatActivity {
 
         //Option Buttons
         buttonBack.setOnClickListener(v -> {
-            vibrate(Settings.this, VibrationType.WEAK);
+            vibrate(SettingsActivity.this, VibrationType.WEAK);
             getOnBackPressedDispatcher().onBackPressed();
         });
         buttonVibrate.setOnClickListener(v -> {
             ValuesNew.INSTANCE.setVibrationEnabled(!ValuesNew.INSTANCE.getVibrationEnabled());
-            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.INSTANCE.getKEY_SETTING_VIBRATIONS(), ValuesNew.INSTANCE.getVibrationEnabled());
+            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.KEY_SETTING_VIBRATIONS, ValuesNew.INSTANCE.getVibrationEnabled());
             determineOptionsStates();
             vibrate(getApplicationContext(), VibrationType.WEAK);
         });
         buttonDarkTheme.setOnClickListener(v -> {
             ValuesNew.INSTANCE.setDarkThemeEnabled(!ValuesNew.INSTANCE.getDarkThemeEnabled());
-            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.INSTANCE.getKEY_SETTING_THEME(), ValuesNew.INSTANCE.getDarkThemeEnabled());
+            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.KEY_SETTING_THEME, ValuesNew.INSTANCE.getDarkThemeEnabled());
             resetLayout();
             vibrate(getApplicationContext(), VibrationType.WEAK);
         });
 
         buttonAppInfo.setOnClickListener(v -> {
-            vibrate(Settings.this, VibrationType.WEAK);
+            vibrate(SettingsActivity.this, VibrationType.WEAK);
             settingsScrollView.smoothScrollTo(0, 0, ValuesNew.ANIMATION_DURATION / 2);
             UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3));
             Handler handler = new Handler();
             handler.postDelayed(() -> {
-                Intent appInfo = new Intent(Settings.this, AppInfo.class);
+                Intent appInfo = new Intent(SettingsActivity.this, AboutActivity.class);
                 startActivity(appInfo.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                 finish();
-                Settings.this.overridePendingTransition(0, 0);
+                SettingsActivity.this.overridePendingTransition(0, 0);
             }, ValuesNew.ANIMATION_DURATION);
         });
         determineBackground();
@@ -101,10 +109,10 @@ public class Settings extends AppCompatActivity {
                     UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3));
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
-                        Intent sp = new Intent(Settings.this, SinglePlayer.class);
+                        Intent sp = new Intent(SettingsActivity.this, GameActivity.class);
                         startActivity(sp);
                         finish();
-                        Settings.this.overridePendingTransition(0, 0);
+                        SettingsActivity.this.overridePendingTransition(0, 0);
                     }, ValuesNew.ANIMATION_DURATION);
                 }
             }
@@ -200,7 +208,7 @@ public class Settings extends AppCompatActivity {
         NestedScrollView settingsScrollView = findViewById(R.id.settingsScrollView);
         settingsScrollView.smoothScrollTo(0, 0, ValuesNew.ANIMATION_DURATION / 4);
         new Handler().postDelayed(() -> {
-            Intent sp = new Intent(Settings.this, Settings.class);
+            Intent sp = new Intent(SettingsActivity.this, SettingsActivity.class);
             startActivity(sp);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();

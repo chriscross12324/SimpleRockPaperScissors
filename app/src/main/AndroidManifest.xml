@@ -23,7 +23,7 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.App.Starting">
         <activity
-            android:name=".StartingActivity"
+            android:name=".activity.LaunchActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>
@@ -33,16 +33,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SinglePlayer"
+            android:name=".activity.GameActivity"
             android:exported="false"
             android:theme="@style/Main"
             android:enableOnBackInvokedCallback="true"
             tools:targetApi="tiramisu" />
         <activity
-            android:name=".Settings"
+            android:name=".activity.SettingsActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".AppInfo"
+            android:name=".activity.AboutActivity"
             android:theme="@style/Main" />
     </application>
 

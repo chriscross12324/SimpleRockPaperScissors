@@ -7,20 +7,21 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:theme="@style/Main"
-    tools:context=".SinglePlayer"
+    tools:context=".activity.GameActivity"
     android:fitsSystemWindows="true">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="20dp"
-        app:cardElevation="0dp">
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/transparent">
 
         <ImageView
-            android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/endSunshine"
+            android:background="@color/transparent"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop" />
 
@@ -35,7 +36,7 @@
         android:layout_marginTop="10dp"
         android:visibility="invisible"
         app:cardBackgroundColor="?BackgroundColour"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="30dp"
         app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +46,7 @@
             android:id="@+id/menuButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="9dp"
             android:importantForAccessibility="no"
             android:src="@drawable/icon_main_menu"
             android:tintMode="multiply"
@@ -60,7 +61,7 @@
         android:layout_marginTop="10dp"
         android:visibility="invisible"
         app:cardBackgroundColor="?BackgroundColour"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="30dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

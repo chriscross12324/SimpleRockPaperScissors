@@ -1,6 +1,6 @@
-package com.simplegames.chris.rockpaperscissors;
+package com.simplegames.chris.rockpaperscissors.activity;
 
-import static com.simplegames.chris.rockpaperscissors.VibrationsKt.vibrate;
+import static com.simplegames.chris.rockpaperscissors.utils.VibrationsKt.vibrate;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,8 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.simplegames.chris.rockpaperscissors.R;
+import com.simplegames.chris.rockpaperscissors.utils.UIElements;
+import com.simplegames.chris.rockpaperscissors.utils.Values;
+import com.simplegames.chris.rockpaperscissors.utils.ValuesNew;
+import com.simplegames.chris.rockpaperscissors.utils.VibrationType;
 
-public class AppInfo extends AppCompatActivity {
+public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public class AppInfo extends AppCompatActivity {
         }
 
         backButton.setOnClickListener(v -> {
-            vibrate(AppInfo.this, VibrationType.WEAK);
+            vibrate(AboutActivity.this, VibrationType.WEAK);
             getOnBackPressedDispatcher().onBackPressed();
         });
 
@@ -63,10 +68,10 @@ public class AppInfo extends AppCompatActivity {
                     UIElements.animate(appInfoScrollView, "translationY", height, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3));
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
-                        Intent spn = new Intent(AppInfo.this, Settings.class);
+                        Intent spn = new Intent(AboutActivity.this, SettingsActivity.class);
                         startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         finish();
-                        AppInfo.this.overridePendingTransition(0, 0);
+                        AboutActivity.this.overridePendingTransition(0, 0);
                     }, ValuesNew.ANIMATION_DURATION);
                 }
             }

@@ -50,9 +50,6 @@ dependencies {
     implementation(libs.daimajia.easing) { artifact { type = "aar" } }
     implementation(libs.daimajia.animations) { artifact { type = "aar" } }
 
-    // Google Play Services
-    implementation(libs.play.services.games)
-
     // Activity Libraries
     implementation(libs.androidx.activity.ktx)
 

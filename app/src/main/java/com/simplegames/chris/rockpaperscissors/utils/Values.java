@@ -1,4 +1,4 @@
-package com.simplegames.chris.rockpaperscissors;
+package com.simplegames.chris.rockpaperscissors.utils;
 
 public class Values {
 
