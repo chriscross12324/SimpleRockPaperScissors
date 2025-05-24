@@ -102,9 +102,9 @@ object UIUtilities {
         delay: Int,
         duration: Int,
         interpolator: TimeInterpolator = android.view.animation.DecelerateInterpolator(3f),
-        values: Float,
+        vararg values: Float,
     ) {
-        ObjectAnimator.ofFloat(view, property.propertyName, values).apply {
+        ObjectAnimator.ofFloat(view, property.propertyName, *values).apply {
             this.duration = duration.toLong()
             this.interpolator = interpolator
             startDelay = delay.toLong()
