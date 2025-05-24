@@ -1,14 +1,12 @@
 package com.simplegames.chris.rockpaperscissors.activity
 
 import android.content.Intent
-import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.View.TRANSLATION_Y
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,6 +21,7 @@ import com.simplegames.chris.rockpaperscissors.R
 import com.simplegames.chris.rockpaperscissors.utils.UIElements
 import com.simplegames.chris.rockpaperscissors.utils.UIUtilities
 import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.ViewProperty
+import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.animate
 import com.simplegames.chris.rockpaperscissors.utils.Values
 import com.simplegames.chris.rockpaperscissors.utils.ValuesNew
 import com.simplegames.chris.rockpaperscissors.utils.VibrationType
@@ -137,17 +136,22 @@ class GameActivity : AppCompatActivity() {
                 (it.height + UIElements.dpToFloat(10f)).toFloat()
             )
         }
-        UIElements.animate(
+        animate(
             opponentContainer,
-            "translationY",
-            60,
-            0, ValuesNew.ANIMATION_DURATION, DecelerateInterpolator(3f)
-        )
-        UIElements.animate(
-            opponentContainer,
-            "alpha",
+            ViewProperty.TRANSLATION_Y,
             0,
-            0, ValuesNew.ANIMATION_DURATION / 2, DecelerateInterpolator(3f)
+            ValuesNew.ANIMATION_DURATION,
+            DecelerateInterpolator(3f),
+            60f
+        )
+
+        animate(
+            opponentContainer,
+            ViewProperty.ALPHA,
+            0,
+            ValuesNew.ANIMATION_DURATION / 2,
+            DecelerateInterpolator(3f),
+            0f
         )
 
         Timer().schedule(timerTask {
@@ -177,11 +181,13 @@ class GameActivity : AppCompatActivity() {
 
         listOf(btnRock, btnPaper, btnScissors).forEach {
             if (it != view) {
-                UIElements.animate(
+                animate(
                     it,
-                    "translationY",
-                    (it.height + UIElements.dpToFloat(10f)),
-                    0, ValuesNew.ANIMATION_DURATION, DecelerateInterpolator(3f)
+                    ViewProperty.TRANSLATION_Y,
+                    0,
+                    ValuesNew.ANIMATION_DURATION,
+                    DecelerateInterpolator(3f),
+                    (it.height + UIElements.dpToFloat(10f).toFloat())
                 )
             }
         }
@@ -209,13 +215,13 @@ class GameActivity : AppCompatActivity() {
 
     private fun animateOpponentChoiceSequence() {
         Handler(Looper.getMainLooper()).postDelayed({
-            UIElements.animate(
+            animate(
                 resultContainer,
-                "translationY",
-                -(resultContainer.height + UIElements.dpToFloat(10f)),
+                ViewProperty.TRANSLATION_Y,
                 0,
                 ValuesNew.ANIMATION_DURATION,
-                DecelerateInterpolator(3f)
+                DecelerateInterpolator(3f),
+                -(resultContainer.height + UIElements.dpToFloat(10f)).toFloat()
             )
         }, 2000L)
         playAnimationStep(0, null)
@@ -278,30 +284,14 @@ class GameActivity : AppCompatActivity() {
         resultText.text = resultTextString
 
         listOf(btnRock, btnPaper, btnScissors, resultContainer).forEach {
-            UIElements.animate(
+            animate(
                 it,
-                "translationY",
-                0,
+                ViewProperty.TRANSLATION_Y,
                 0,
                 ValuesNew.ANIMATION_DURATION,
-                DecelerateInterpolator(3f)
+                DecelerateInterpolator(3f),
+                0f
             )
-        }
-    }
-
-    private fun displayOpponentChoice() {
-        when (opponentChoice) {
-            Choice.ROCK -> {
-                opponentImage.setImageResource(R.drawable.icon_rock)
-            }
-
-            Choice.PAPER -> {
-                opponentImage.setImageResource(R.drawable.icon_paper)
-            }
-
-            Choice.SCISSORS -> {
-                opponentImage.setImageResource(R.drawable.icon_scissors)
-            }
         }
     }
 
@@ -329,61 +319,61 @@ class GameActivity : AppCompatActivity() {
             resultContainer.visibility = View.VISIBLE
 
             //Animate Elements
-            UIElements.animate(
+            animate(
                 btnMenu,
-                "translationY",
-                0,
+                ViewProperty.TRANSLATION_Y,
                 0,
                 ValuesNew.ANIMATION_DURATION,
-                DecelerateInterpolator(3f)
+                DecelerateInterpolator(3f),
+                0f
             )
-            UIElements.animate(
+            animate(
                 btnRock,
-                "translationY",
-                0,
+                ViewProperty.TRANSLATION_Y,
                 0,
                 ValuesNew.ANIMATION_DURATION,
-                DecelerateInterpolator(3f)
+                DecelerateInterpolator(3f),
+                0f
             )
-            UIElements.animate(
+            animate(
                 btnPaper,
-                "translationY",
-                0,
+                ViewProperty.TRANSLATION_Y,
                 0,
                 ValuesNew.ANIMATION_DURATION,
-                DecelerateInterpolator(3f)
+                DecelerateInterpolator(3f),
+                0f
             )
-            UIElements.animate(
+            animate(
                 btnScissors,
-                "translationY",
-                0,
+                ViewProperty.TRANSLATION_Y,
                 0,
                 ValuesNew.ANIMATION_DURATION,
-                DecelerateInterpolator(3f)
+                DecelerateInterpolator(3f),
+                0f
             )
-            UIElements.animate(
+            animate(
                 opponentContainer,
-                "translationY",
-                0,
+                ViewProperty.TRANSLATION_Y,
                 100,
                 ValuesNew.ANIMATION_DURATION,
-                DecelerateInterpolator(3f)
+                DecelerateInterpolator(3f),
+                0f
             )
-            UIElements.animate(
+            animate(
                 opponentContainer,
-                "alpha",
-                1,
+                ViewProperty.ALPHA,
                 100,
                 ValuesNew.ANIMATION_DURATION,
-                DecelerateInterpolator(3f)
+                DecelerateInterpolator(3f),
+                1f
             )
-            UIElements.animate(
+            animate(
                 resultContainer,
-                "translationY",
-                0,
+                ViewProperty.TRANSLATION_Y,
                 0,
                 ValuesNew.ANIMATION_DURATION,
-                DecelerateInterpolator(3f)
+                DecelerateInterpolator(3f),
+                0f
             )
 
             //Set currentActivity

@@ -24,6 +24,7 @@ import com.simplegames.chris.rockpaperscissors.SettingsButton;
 import com.simplegames.chris.rockpaperscissors.SettingsButtonAdapter;
 import com.simplegames.chris.rockpaperscissors.utils.SharedPreferenceKeys;
 import com.simplegames.chris.rockpaperscissors.utils.UIElements;
+import com.simplegames.chris.rockpaperscissors.utils.UIUtilities;
 import com.simplegames.chris.rockpaperscissors.utils.Values;
 import com.simplegames.chris.rockpaperscissors.utils.ValuesNew;
 import com.simplegames.chris.rockpaperscissors.utils.VibrationType;
@@ -85,7 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
         buttonAppInfo.setOnClickListener(v -> {
             vibrate(SettingsActivity.this, VibrationType.WEAK);
             settingsScrollView.smoothScrollTo(0, 0, ValuesNew.ANIMATION_DURATION / 2);
-            UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3));
+            UIUtilities.INSTANCE.animate(settingsScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3f), height);
             Handler handler = new Handler();
             handler.postDelayed(() -> {
                 Intent appInfo = new Intent(SettingsActivity.this, AboutActivity.class);
@@ -106,7 +107,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if (buttonBack.isClickable()) {
                     buttonBack.setClickable(false);
                     settingsScrollView.smoothScrollTo(0, 0, 500);
-                    UIElements.animate(settingsScrollView, "translationY", height, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3));
+                    UIUtilities.INSTANCE.animate(settingsScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3f), height);
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         Intent sp = new Intent(SettingsActivity.this, GameActivity.class);
@@ -124,7 +125,7 @@ public class SettingsActivity extends AppCompatActivity {
             UIElements.setBackground(buttonVibrate, new int[]{
                             ContextCompat.getColor(this, R.color.disabledOption),
                             ContextCompat.getColor(this, R.color.disabledOption)},
-                    UIElements.dpToFloat(15f));
+                    15f);
             if (ValuesNew.INSTANCE.getDarkThemeEnabled()) {
                 vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.white));
             } else {
@@ -134,19 +135,19 @@ public class SettingsActivity extends AppCompatActivity {
             UIElements.setBackground(buttonVibrate, new int[]{
                             ContextCompat.getColor(this, R.color.enabledOption),
                             ContextCompat.getColor(this, R.color.enabledOption)},
-                    UIElements.dpToFloat(15f));
+                    15f);
             vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.white));
         }
         if (!ValuesNew.INSTANCE.getDarkThemeEnabled()) {
             UIElements.setBackground(buttonDarkTheme, new int[]{
                             ContextCompat.getColor(this, R.color.disabledOption),
                             ContextCompat.getColor(this, R.color.disabledOption)},
-                    UIElements.dpToFloat(15f));
+                    15f);
         } else {
             UIElements.setBackground(buttonDarkTheme, new int[]{
                             ContextCompat.getColor(this, R.color.enabledOption),
                             ContextCompat.getColor(this, R.color.enabledOption)},
-                    UIElements.dpToFloat(15f));
+                    15f);
         }
     }
 
@@ -199,7 +200,7 @@ public class SettingsActivity extends AppCompatActivity {
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int height = displayMetrics.heightPixels;
             settingsScrollView.setY(height);
-            UIElements.animate(settingsScrollView, "translationY", 0, 0, ValuesNew.ANIMATION_DURATION, new DecelerateInterpolator(3));
+            UIUtilities.INSTANCE.animate(settingsScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 0, ValuesNew.ANIMATION_DURATION, new DecelerateInterpolator(3f), 0);
             Values.currentActivity = "Settings";
         }
     }

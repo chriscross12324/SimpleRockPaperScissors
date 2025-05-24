@@ -20,6 +20,7 @@ import androidx.core.widget.NestedScrollView;
 import com.google.android.material.card.MaterialCardView;
 import com.simplegames.chris.rockpaperscissors.R;
 import com.simplegames.chris.rockpaperscissors.utils.UIElements;
+import com.simplegames.chris.rockpaperscissors.utils.UIUtilities;
 import com.simplegames.chris.rockpaperscissors.utils.Values;
 import com.simplegames.chris.rockpaperscissors.utils.ValuesNew;
 import com.simplegames.chris.rockpaperscissors.utils.VibrationType;
@@ -65,7 +66,7 @@ public class AboutActivity extends AppCompatActivity {
                     DisplayMetrics displayMetrics = new DisplayMetrics();
                     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
                     int height = displayMetrics.heightPixels;
-                    UIElements.animate(appInfoScrollView, "translationY", height, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3));
+                    UIUtilities.INSTANCE.animate(appInfoScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3f), height);
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         Intent spn = new Intent(AboutActivity.this, SettingsActivity.class);
@@ -90,7 +91,7 @@ public class AboutActivity extends AppCompatActivity {
         int height = displayMetrics.heightPixels + 100;
         NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
         appInfoScrollView.setY(height);
-        UIElements.animate(appInfoScrollView, "translationY", 0, 100, ValuesNew.ANIMATION_DURATION, new DecelerateInterpolator(3));
+        UIUtilities.INSTANCE.animate(appInfoScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 100, ValuesNew.ANIMATION_DURATION, new DecelerateInterpolator(3f), 0);
         appInfoScrollView.setVisibility(View.VISIBLE);
         Values.currentActivity = "AppInfo";
         //ValuesNew.INSTANCE
