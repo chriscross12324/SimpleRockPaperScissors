@@ -69,14 +69,6 @@ public class UIElements {
         view.setBackground(gradientDrawable);
     }
 
-    public static void animate(View layout, String propertyName, int finishedPos, int delay, int animationSpeed, TimeInterpolator interpolator) {
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(layout, propertyName, finishedPos);
-        objectAnimator.setDuration(animationSpeed);
-        objectAnimator.setInterpolator(interpolator);
-        Handler handler = new Handler();
-        handler.postDelayed(objectAnimator::start, delay);
-    }
-
     public static int dpToFloat(float inputDP) {
         DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, inputDP, displayMetrics));
