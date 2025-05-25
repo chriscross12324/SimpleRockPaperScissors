@@ -18,11 +18,11 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.card.MaterialCardView
 import com.simplegames.chris.rockpaperscissors.R
+import com.simplegames.chris.rockpaperscissors.utils.CurrentScreen
 import com.simplegames.chris.rockpaperscissors.utils.UIElements
 import com.simplegames.chris.rockpaperscissors.utils.UIUtilities
 import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.ViewProperty
 import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.animate
-import com.simplegames.chris.rockpaperscissors.utils.Values
 import com.simplegames.chris.rockpaperscissors.utils.ValuesNew
 import com.simplegames.chris.rockpaperscissors.utils.VibrationType
 import com.simplegames.chris.rockpaperscissors.utils.vibrate
@@ -365,7 +365,7 @@ class GameActivity : AppCompatActivity() {
             )
 
             //Set currentActivity
-            Values.currentActivity = "SinglePlayer"
+            ValuesNew.currentScreen = CurrentScreen.GAME
         }
     }
 
