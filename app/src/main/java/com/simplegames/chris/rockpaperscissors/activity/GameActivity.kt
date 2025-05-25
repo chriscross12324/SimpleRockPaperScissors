@@ -21,7 +21,6 @@ import com.google.android.material.card.MaterialCardView
 import com.simplegames.chris.rockpaperscissors.R
 import com.simplegames.chris.rockpaperscissors.utils.CurrentScreen
 import com.simplegames.chris.rockpaperscissors.utils.UIElements
-import com.simplegames.chris.rockpaperscissors.utils.UIUtilities
 import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.ViewProperty
 import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.animate
 import com.simplegames.chris.rockpaperscissors.utils.ValuesNew
@@ -48,7 +47,7 @@ class GameActivity : AppCompatActivity() {
 
     private var isPlaying: Boolean = false
     private lateinit var playerChoice: Choice
-    private lateinit var opponentChoice: Choice;
+    private lateinit var opponentChoice: Choice
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Show splash screen
@@ -116,7 +115,7 @@ class GameActivity : AppCompatActivity() {
         vibrate(this, VibrationType.MEDIUM)
 
         listOf(btnMenu, resultContainer).forEach {
-            UIUtilities.animate(
+            animate(
                 it,
                 ViewProperty.TRANSLATION_Y,
                 0,
@@ -126,7 +125,7 @@ class GameActivity : AppCompatActivity() {
             )
         }
         listOf(btnRock, btnPaper, btnScissors).forEach {
-            UIUtilities.animate(
+            animate(
                 it,
                 ViewProperty.TRANSLATION_Y,
                 0,
@@ -384,7 +383,6 @@ class GameActivity : AppCompatActivity() {
         ROCK(0), PAPER(1), SCISSORS(2);
 
         companion object {
-            fun fromInt(value: Int) = Choice.entries.first { it.value == value }
             fun getRandom(exclude: Choice? = null): Choice {
                 val choices = Choice.entries.filter { it != exclude }
                 return choices.random()
