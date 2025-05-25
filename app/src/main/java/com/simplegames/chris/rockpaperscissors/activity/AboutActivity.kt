@@ -22,11 +22,15 @@ import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.ViewProperty
 import com.simplegames.chris.rockpaperscissors.utils.ValuesNew
 import com.simplegames.chris.rockpaperscissors.utils.VibrationType
 import com.simplegames.chris.rockpaperscissors.utils.vibrate
+import com.simplegames.chris.rockpaperscissors.BuildConfig
+
 
 class AboutActivity : AppCompatActivity() {
     // Create Screen Values
     private lateinit var scrollView: NestedScrollView
     private lateinit var appVersion: TextView
+    private lateinit var buildDate: TextView
+    private lateinit var buildType: TextView
     private lateinit var backButton: MaterialCardView
     private lateinit var background: ImageView
 
@@ -41,11 +45,13 @@ class AboutActivity : AppCompatActivity() {
     private fun initializeUI() {
         scrollView = findViewById(R.id.appInfoScrollView)
         appVersion = findViewById(R.id.versionBody)
+        buildDate = findViewById(R.id.buildDateBody)
+        buildType = findViewById(R.id.buildTypeBody)
         backButton = findViewById(R.id.buttonBack)
         background = findViewById(R.id.background)
 
         setupListeners()
-        displayAppVersion()
+        displayAppData()
         UIUtilities.setBackground(background, UIElements.getBackgroundColours(this), 0f)
         enterAnimation()
     }
@@ -82,10 +88,24 @@ class AboutActivity : AppCompatActivity() {
         })
     }
 
-    private fun displayAppVersion() {
+    private fun displayAppData() {
         try {
             val versionName = packageManager.getPackageInfo(packageName, 0).versionName
             appVersion.text = versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+
+        try {
+            val buildDate = BuildConfig.BUILD_DATE
+            this.buildDate.text = buildDate
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+
+        try {
+            val buildType = BuildConfig.BUILD_TYPE.replaceFirstChar(Char::uppercaseChar)
+            this.buildType.text = buildType
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }

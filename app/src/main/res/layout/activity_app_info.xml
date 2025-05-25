@@ -120,7 +120,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="64dp"
+                            android:layout_marginTop="56dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="@font/rounded_bold"
                             android:text="@string/app_info_title_app_name"
@@ -209,7 +209,7 @@
 
 
                         <TextView
-                            android:id="@+id/dateReleasedTitle"
+                            android:id="@+id/buildDateTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -224,7 +224,7 @@
                             app:layout_constraintTop_toBottomOf="@id/changesBody1" />
 
                         <TextView
-                            android:id="@+id/dateReleasedBody"
+                            android:id="@+id/buildDateBody"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -236,10 +236,10 @@
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/dateReleasedTitle" />
+                            app:layout_constraintTop_toBottomOf="@+id/buildDateTitle" />
 
                         <TextView
-                            android:id="@+id/stabilityTitle"
+                            android:id="@+id/buildTypeTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -251,10 +251,10 @@
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/dateReleasedBody" />
+                            app:layout_constraintTop_toBottomOf="@id/buildDateBody" />
 
                         <TextView
-                            android:id="@+id/stabilityBody"
+                            android:id="@+id/buildTypeBody"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -266,7 +266,7 @@
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/stabilityTitle" />
+                            app:layout_constraintTop_toBottomOf="@+id/buildTypeTitle" />
 
                         <TextView
                             android:id="@+id/developerTitle"
@@ -281,7 +281,7 @@
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/stabilityBody" />
+                            app:layout_constraintTop_toBottomOf="@id/buildTypeBody" />
 
                         <TextView
                             android:id="@+id/developerBody"
