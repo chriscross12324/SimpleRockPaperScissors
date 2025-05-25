@@ -25,7 +25,7 @@
     <color name="black">#0d0d0d</color>
     <color name="white">#FFFFFF</color>
 
-    <color name="enabledOption">#D936A1FF</color>
+    <color name="enabledOption">#D9000000</color>
     <color name="disabledOption">#33FFFFFF</color>
     <!-- ########### -->
 
