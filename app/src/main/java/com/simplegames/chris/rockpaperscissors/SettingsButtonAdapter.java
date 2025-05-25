@@ -15,6 +15,8 @@ import com.simplegames.chris.rockpaperscissors.activity.SettingsActivity;
 import com.simplegames.chris.rockpaperscissors.utils.SharedPreferenceKeys;
 import com.simplegames.chris.rockpaperscissors.utils.UIElements;
 import com.simplegames.chris.rockpaperscissors.utils.ValuesNew;
+import com.simplegames.chris.rockpaperscissors.utils.VibrationType;
+import com.simplegames.chris.rockpaperscissors.utils.VibrationsKt;
 
 import java.util.ArrayList;
 
@@ -49,7 +51,8 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         ValuesNew.INSTANCE.setBackgroundGradient(position);
-                        ((SettingsActivity) buttonContext).determineBackground();
+                        ((SettingsActivity) buttonContext).setSettingsBackground();
+                        VibrationsKt.vibrate(buttonContext, VibrationType.WEAK);
                         setButtonStroke(oldLayout, oldPos);
                         setButtonStroke(buttonLayout, position);
                         ValuesNew.INSTANCE.saveValue(buttonContext,

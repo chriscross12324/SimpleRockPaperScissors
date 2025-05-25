@@ -1,218 +1,244 @@
-package com.simplegames.chris.rockpaperscissors.activity;
+package com.simplegames.chris.rockpaperscissors.activity
 
-import static com.simplegames.chris.rockpaperscissors.utils.VibrationsKt.vibrate;
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.DisplayMetrics
+import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
+import com.simplegames.chris.rockpaperscissors.R
+import com.simplegames.chris.rockpaperscissors.SettingsButton
+import com.simplegames.chris.rockpaperscissors.SettingsButtonAdapter
+import com.simplegames.chris.rockpaperscissors.utils.CurrentScreen
+import com.simplegames.chris.rockpaperscissors.utils.SharedPreferenceKeys
+import com.simplegames.chris.rockpaperscissors.utils.UIElements
+import com.simplegames.chris.rockpaperscissors.utils.UIUtilities
+import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.ViewProperty
+import com.simplegames.chris.rockpaperscissors.utils.ValuesNew
+import com.simplegames.chris.rockpaperscissors.utils.VibrationType
+import com.simplegames.chris.rockpaperscissors.utils.vibrate
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
+class SettingsActivity : AppCompatActivity() {
+    // Create Screen Values
+    private lateinit var scrollView: NestedScrollView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var buttonVibrate: MaterialCardView
+    private lateinit var buttonDarkTheme: MaterialCardView
+    private lateinit var buttonBack: MaterialCardView
+    private lateinit var buttonAppInfo: MaterialCardView
+    private lateinit var vibrationIcon: ImageView
+    private lateinit var background: ImageView
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+    private lateinit var buttonArrayList: ArrayList<SettingsButton>
 
-import com.google.android.material.card.MaterialCardView;
-import com.simplegames.chris.rockpaperscissors.R;
-import com.simplegames.chris.rockpaperscissors.SettingsButton;
-import com.simplegames.chris.rockpaperscissors.SettingsButtonAdapter;
-import com.simplegames.chris.rockpaperscissors.utils.SharedPreferenceKeys;
-import com.simplegames.chris.rockpaperscissors.utils.UIElements;
-import com.simplegames.chris.rockpaperscissors.utils.UIUtilities;
-import com.simplegames.chris.rockpaperscissors.utils.Values;
-import com.simplegames.chris.rockpaperscissors.utils.ValuesNew;
-import com.simplegames.chris.rockpaperscissors.utils.VibrationType;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setTheme(if (ValuesNew.darkThemeEnabled) R.style.DarkTheme else R.style.LightTheme)
+        setContentView(R.layout.activity_settings)
 
-import java.util.ArrayList;
-import java.util.Objects;
+        initializeUI()
+    }
 
-public class SettingsActivity extends AppCompatActivity {
-    private ArrayList<SettingsButton> buttonArrayList;
+    private fun initializeUI() {
+        scrollView = findViewById(R.id.settingsScrollView)
+        recyclerView = findViewById(R.id.backgroundRecyclerView)
+        buttonVibrate = findViewById(R.id.buttonVibrate)
+        buttonDarkTheme = findViewById(R.id.buttonDarkTheme)
+        buttonAppInfo = findViewById(R.id.buttonAppInfo)
+        buttonBack = findViewById(R.id.buttonBack)
+        vibrationIcon = findViewById(R.id.vibrationIcon)
+        background = findViewById(R.id.background)
 
-    int height;
+        setupListeners()
+        setupBackgroundButtons()
+        setSettingsBackground()
+        enterAnimation()
+    }
 
-    NestedScrollView settingsScrollView;
-    MaterialCardView buttonVibrate, buttonDarkTheme, buttonBack, buttonAppInfo;
-    ImageView vibrationIcon, background;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (ValuesNew.INSTANCE.getDarkThemeEnabled()) {
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.LightTheme);
+    private fun setupListeners() {
+        buttonBack.setOnClickListener {
+            vibrate(this, VibrationType.WEAK)
+            onBackPressedDispatcher.onBackPressed()
         }
-        setContentView(R.layout.activity_settings);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height = displayMetrics.heightPixels;
+        buttonVibrate.setOnClickListener {
+            ValuesNew.vibrationEnabled = !ValuesNew.vibrationEnabled
+            ValuesNew.saveValue(this, SharedPreferenceKeys.KEY_SETTING_VIBRATIONS, ValuesNew.vibrationEnabled)
+            updateOptionsStates()
+            vibrate(this, VibrationType.WEAK)
+        }
 
-        //Set Views
-        background = findViewById(R.id.background);
-        settingsScrollView = findViewById(R.id.settingsScrollView);
-        buttonVibrate = findViewById(R.id.buttonVibrate);
-        buttonDarkTheme = findViewById(R.id.buttonDarkTheme);
-        buttonAppInfo = findViewById(R.id.buttonAppInfo);
-        buttonBack = findViewById(R.id.buttonBack);
-        vibrationIcon = findViewById(R.id.vibrationIcon);
+        buttonDarkTheme.setOnClickListener {
+            ValuesNew.darkThemeEnabled = !ValuesNew.darkThemeEnabled
+            ValuesNew.saveValue(this, SharedPreferenceKeys.KEY_SETTING_THEME, ValuesNew.darkThemeEnabled)
+            resetLayout()
+            vibrate(this, VibrationType.WEAK)
+        }
 
-        //Option Buttons
-        buttonBack.setOnClickListener(v -> {
-            vibrate(SettingsActivity.this, VibrationType.WEAK);
-            getOnBackPressedDispatcher().onBackPressed();
-        });
-        buttonVibrate.setOnClickListener(v -> {
-            ValuesNew.INSTANCE.setVibrationEnabled(!ValuesNew.INSTANCE.getVibrationEnabled());
-            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.KEY_SETTING_VIBRATIONS, ValuesNew.INSTANCE.getVibrationEnabled());
-            determineOptionsStates();
-            vibrate(getApplicationContext(), VibrationType.WEAK);
-        });
-        buttonDarkTheme.setOnClickListener(v -> {
-            ValuesNew.INSTANCE.setDarkThemeEnabled(!ValuesNew.INSTANCE.getDarkThemeEnabled());
-            ValuesNew.INSTANCE.saveValue(this, SharedPreferenceKeys.KEY_SETTING_THEME, ValuesNew.INSTANCE.getDarkThemeEnabled());
-            resetLayout();
-            vibrate(getApplicationContext(), VibrationType.WEAK);
-        });
+        buttonAppInfo.setOnClickListener {
+            vibrate(this, VibrationType.WEAK)
+            scrollView.smoothScrollTo(0, 0, ValuesNew.ANIMATION_DURATION / 2)
+            UIUtilities.animate(
+                scrollView,
+                ViewProperty.TRANSLATION_Y,
+                0,
+                ValuesNew.ANIMATION_DURATION,
+                AccelerateInterpolator(3f),
+                resources.displayMetrics.heightPixels.toFloat()
+            )
+            Handler(Looper.getMainLooper()).postDelayed({
+                val intent = Intent(this@SettingsActivity, AboutActivity::class.java)
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                finish()
+                this@SettingsActivity.overridePendingTransition(0, 0)
+            }, ValuesNew.ANIMATION_DURATION.toLong())
+        }
 
-        buttonAppInfo.setOnClickListener(v -> {
-            vibrate(SettingsActivity.this, VibrationType.WEAK);
-            settingsScrollView.smoothScrollTo(0, 0, ValuesNew.ANIMATION_DURATION / 2);
-            UIUtilities.INSTANCE.animate(settingsScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3f), height);
-            Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                Intent appInfo = new Intent(SettingsActivity.this, AboutActivity.class);
-                startActivity(appInfo.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                finish();
-                SettingsActivity.this.overridePendingTransition(0, 0);
-            }, ValuesNew.ANIMATION_DURATION);
-        });
-        determineBackground();
-        getWindow().getDecorView().post(this::settingsScrollViewAnimation);
-        setBackgroundButtons();
-        determineOptionsStates();
-        buildBackgroundButtonRecyclerView();
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                buttonBack.isClickable = false
 
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                if (buttonBack.isClickable()) {
-                    buttonBack.setClickable(false);
-                    settingsScrollView.smoothScrollTo(0, 0, 500);
-                    UIUtilities.INSTANCE.animate(settingsScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3f), height);
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> {
-                        Intent sp = new Intent(SettingsActivity.this, GameActivity.class);
-                        startActivity(sp);
-                        finish();
-                        SettingsActivity.this.overridePendingTransition(0, 0);
-                    }, ValuesNew.ANIMATION_DURATION);
-                }
+                scrollView.smoothScrollTo(0, 0, 500)
+
+                val height = resources.displayMetrics.heightPixels.toFloat()
+                UIUtilities.animate(
+                    scrollView,
+                    ViewProperty.TRANSLATION_Y,
+                    0,
+                    ValuesNew.ANIMATION_DURATION,
+                    AccelerateInterpolator(3f),
+                    height
+                )
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    val intent = Intent(this@SettingsActivity, GameActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finish()
+                    this@SettingsActivity.overridePendingTransition(0, 0)
+                }, ValuesNew.ANIMATION_DURATION.toLong())
             }
-        });
+        })
     }
 
-    private void determineOptionsStates() {
-        if (!ValuesNew.INSTANCE.getVibrationEnabled()) {
-            UIElements.setBackground(buttonVibrate, new int[]{
-                            ContextCompat.getColor(this, R.color.disabledOption),
-                            ContextCompat.getColor(this, R.color.disabledOption)},
-                    15f);
-            if (ValuesNew.INSTANCE.getDarkThemeEnabled()) {
-                vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.white));
-            } else {
-                vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.black));
-            }
+    private fun updateOptionsStates() {
+        val (vibButtonColour, vibIconColour) = if (!ValuesNew.vibrationEnabled) {
+            intArrayOf(
+                ContextCompat.getColor(this, R.color.disabledOption),
+                ContextCompat.getColor(this, R.color.disabledOption)
+            ) to if (ValuesNew.darkThemeEnabled) R.color.white else R.color.black
         } else {
-            UIElements.setBackground(buttonVibrate, new int[]{
-                            ContextCompat.getColor(this, R.color.enabledOption),
-                            ContextCompat.getColor(this, R.color.enabledOption)},
-                    15f);
-            vibrationIcon.setColorFilter(ContextCompat.getColor(this, R.color.white));
+            intArrayOf(
+                ContextCompat.getColor(this, R.color.enabledOption),
+                ContextCompat.getColor(this, R.color.enabledOption)
+            ) to R.color.white
         }
-        if (!ValuesNew.INSTANCE.getDarkThemeEnabled()) {
-            UIElements.setBackground(buttonDarkTheme, new int[]{
-                            ContextCompat.getColor(this, R.color.disabledOption),
-                            ContextCompat.getColor(this, R.color.disabledOption)},
-                    15f);
-        } else {
-            UIElements.setBackground(buttonDarkTheme, new int[]{
-                            ContextCompat.getColor(this, R.color.enabledOption),
-                            ContextCompat.getColor(this, R.color.enabledOption)},
-                    15f);
+
+        UIElements.setBackground(buttonVibrate, vibButtonColour, 15f)
+        vibrationIcon.setColorFilter(ContextCompat.getColor(this, vibIconColour))
+
+        val themeButtonColour = if (!ValuesNew.darkThemeEnabled)
+            R.color.disabledOption
+        else
+            R.color.enabledOption
+
+        UIElements.setBackground(buttonDarkTheme, intArrayOf(
+            ContextCompat.getColor(this, themeButtonColour),
+            ContextCompat.getColor(this, themeButtonColour)
+        ), 15f)
+
+
+    }
+
+    private fun setupBackgroundButtons() {
+        val names = listOf<String>(
+            "Snowfall",
+            "Faded Red",
+            "Sunset",
+            "Hot Lava",
+            "Cotton Candy",
+            "Sunshine",
+            "Traffic Lights",
+            "Green Grass",
+            "Coniferous",
+            "Tropical Ocean",
+            "Sunny Depths",
+            "Orbit",
+            "Juicy Pomegranate",
+            "Amethyst",
+            "Darkness",
+            "Lollipop"
+        )
+
+        buttonArrayList = ArrayList()
+        names.forEachIndexed { index, name ->
+            buttonArrayList.add(
+                SettingsButton(
+                    UIUtilities.getColourArray(
+                        this,
+                        index
+                    ), name
+                )
+            )
         }
+        buildBackgroundRecyclerView()
     }
 
-    public void setBackgroundButtons() {
-        buttonArrayList = new ArrayList<>();
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 0), "Snowfall"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 1), "Faded Red"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 2), "Sunset"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 3), "Hot Lava"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 4), "Cotton Candy"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 5), "Sunshine"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 6), "Traffic Lights"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 7), "Green Grass"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 8), "Coniferous"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 9), "Tropical Ocean"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 10), "Sunny Depths"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 11), "Orbit"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 12), "Juicy Pomegranate"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 13), "Amethyst"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 14), "Darkness"));
-        buttonArrayList.add(new SettingsButton(UIElements.getColourArray(this, 15), "Lollipop"));
+    fun setSettingsBackground() {
+        UIUtilities.setBackground(background, UIElements.getBackgroundColours(this), 0f)
     }
 
-    public void buildBackgroundButtonRecyclerView() {
-        RecyclerView buttonRecyclerView = findViewById(R.id.backgroundRecyclerView);
-        buttonRecyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager buttonLayoutManager = new LinearLayoutManager(this);
-        SettingsButtonAdapter buttonAdapter = new SettingsButtonAdapter(buttonArrayList, this);
-
-        buttonRecyclerView.setLayoutManager(buttonLayoutManager);
-        buttonRecyclerView.setAdapter(buttonAdapter);
-        buttonAdapter.setOnItemClickListener(position -> {
-        });
-    }
-
-    public void determineBackground() {
-        if (Objects.equals(Values.currentActivity, "Settings")) {
-            vibrate(getApplicationContext(), VibrationType.WEAK);
-        }
-        UIElements.setBackground(background, UIElements.getBackgroundColours(this), 0f);
-    }
-
-    public void settingsScrollViewAnimation() {
-        settingsScrollView.setVisibility(View.VISIBLE);
-        if (Objects.equals(Values.currentActivity, "Settings")) {
-            settingsScrollView.scrollTo(0, 0);
-        } else {
-            settingsScrollView.scrollTo(0, 0);
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            int height = displayMetrics.heightPixels;
-            settingsScrollView.setY(height);
-            UIUtilities.INSTANCE.animate(settingsScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 0, ValuesNew.ANIMATION_DURATION, new DecelerateInterpolator(3f), 0);
-            Values.currentActivity = "Settings";
+    private fun buildBackgroundRecyclerView() {
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = SettingsButtonAdapter(buttonArrayList, this).apply {
+            setOnItemClickListener { position -> {
+                vibrate(this@SettingsActivity, VibrationType.WEAK)
+            }}
         }
     }
 
-    public void resetLayout() {
-        NestedScrollView settingsScrollView = findViewById(R.id.settingsScrollView);
-        settingsScrollView.smoothScrollTo(0, 0, ValuesNew.ANIMATION_DURATION / 4);
-        new Handler().postDelayed(() -> {
-            Intent sp = new Intent(SettingsActivity.this, SettingsActivity.class);
-            startActivity(sp);
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            finish();
-        }, ValuesNew.ANIMATION_DURATION / 4);
+    private fun enterAnimation() {
+        scrollView.visibility = View.VISIBLE
+        scrollView.scrollTo(0, 0)
+
+        if (ValuesNew.currentScreen != CurrentScreen.SETTINGS) {
+            scrollView.y = DisplayMetrics().also {
+                windowManager.defaultDisplay.getMetrics(it)
+            }.heightPixels.toFloat()
+
+            UIUtilities.animate(
+                scrollView,
+                ViewProperty.TRANSLATION_Y,
+                0,
+                ValuesNew.ANIMATION_DURATION,
+                DecelerateInterpolator(3f),
+                0f
+            )
+
+            ValuesNew.currentScreen = CurrentScreen.SETTINGS
+        }
+    }
+
+    private fun resetLayout() {
+        scrollView.smoothScrollTo(0, 0, ValuesNew.ANIMATION_DURATION / 4)
+        scrollView.postDelayed({
+            val intent = Intent(this@SettingsActivity, SettingsActivity::class.java)
+            startActivity(intent)
+            this@SettingsActivity.overridePendingTransition(
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
+            finish()
+        }, ValuesNew.ANIMATION_DURATION / 4.toLong())
     }
 }
