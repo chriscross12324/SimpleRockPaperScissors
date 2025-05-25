@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -15,6 +18,10 @@ android {
         versionName = "3.2.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val dateFormat = SimpleDateFormat("MMM dd, yyyy")
+        val buildDate = dateFormat.format(Date())
+        buildConfigField("String", "BUILD_DATE", "\"$buildDate\"")
     }
 
     buildTypes {
@@ -32,6 +39,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "22"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
