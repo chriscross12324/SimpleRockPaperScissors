@@ -1,6 +1,6 @@
 package com.simplegames.chris.rockpaperscissors.activity
 
-import android.R
+import android.R.anim
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -20,9 +20,9 @@ class LaunchActivity : AppCompatActivity() {
         //Open Screen
         startActivity(Intent(this, GameActivity::class.java))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, R.anim.fade_in, R.anim.fade_out)
+            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, anim.fade_in, anim.fade_out)
         } else {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            overridePendingTransition(anim.fade_in, anim.fade_out)
         }
 
         //Finish Screen
