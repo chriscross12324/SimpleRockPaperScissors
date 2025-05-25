@@ -92,7 +92,7 @@ object UIUtilities {
     fun setBackground(view: View, colours: IntArray, cornerRadius: Float) {
         view.background = GradientDrawable(GradientDrawable.Orientation.TL_BR, colours).apply {
             shape = GradientDrawable.RECTANGLE
-            this.cornerRadius = cornerRadius
+            this.cornerRadius = Conversions.dpToPx(cornerRadius)
         }
     }
 
