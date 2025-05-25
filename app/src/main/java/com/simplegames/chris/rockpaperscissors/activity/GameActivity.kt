@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.material.card.MaterialCardView
@@ -50,7 +51,17 @@ class GameActivity : AppCompatActivity() {
     private lateinit var opponentChoice: Choice;
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Show splash screen
+        val splashScreen = installSplashScreen()
+
+        // Keep splash screen on screen until values are loaded
+        splashScreen.setKeepOnScreenCondition { !ValuesNew.isLoaded() }
+
         super.onCreate(savedInstanceState)
+
+        // Load values from SharedPreferences if needed
+        ValuesNew.loadValues(context = applicationContext)
+
         setTheme(if (ValuesNew.darkThemeEnabled) R.style.DarkTheme else R.style.LightTheme)
         setContentView(R.layout.activity_single_player)
 
