@@ -63,7 +63,7 @@ class GameActivity : AppCompatActivity() {
         ValuesNew.loadValues(context = applicationContext)
 
         setTheme(if (ValuesNew.darkThemeEnabled) R.style.DarkTheme else R.style.LightTheme)
-        setContentView(R.layout.activity_single_player)
+        setContentView(R.layout.activity_game)
 
         initializeUI()
         setupListeners()

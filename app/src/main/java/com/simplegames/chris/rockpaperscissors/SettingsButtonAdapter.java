@@ -72,7 +72,7 @@ public class SettingsButtonAdapter extends RecyclerView.Adapter<SettingsButtonAd
     @NonNull
     @Override
     public SettingsButtonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.settings_background_button_layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_background_option, parent, false);
         return new SettingsButtonViewHolder(v, buttonListener);
     }
 

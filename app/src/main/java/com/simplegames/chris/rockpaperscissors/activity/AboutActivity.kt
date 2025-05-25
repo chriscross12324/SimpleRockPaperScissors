@@ -37,7 +37,7 @@ class AboutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(if (ValuesNew.darkThemeEnabled) R.style.DarkTheme else R.style.LightTheme)
-        setContentView(R.layout.activity_app_info)
+        setContentView(R.layout.activity_about)
 
         initializeUI()
     }
