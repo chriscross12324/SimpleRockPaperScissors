@@ -9,9 +9,9 @@ object Conversions {
     fun colourToInt(context: Context, colourIDs: IntArray): IntArray =
         colourIDs.map { ContextCompat.getColor(context, it) }.toIntArray()
 
-    fun dpToPx(dp: Float): Int = TypedValue.applyDimension(
+    fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         dp,
         Resources.getSystem().displayMetrics
-    ).toInt()
+    )
 }
