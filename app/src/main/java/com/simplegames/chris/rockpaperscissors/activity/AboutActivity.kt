@@ -1,99 +1,107 @@
-package com.simplegames.chris.rockpaperscissors.activity;
+package com.simplegames.chris.rockpaperscissors.activity
 
-import static com.simplegames.chris.rockpaperscissors.utils.VibrationsKt.vibrate;
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
+import com.google.android.material.card.MaterialCardView
+import com.simplegames.chris.rockpaperscissors.R
+import com.simplegames.chris.rockpaperscissors.utils.CurrentScreen
+import com.simplegames.chris.rockpaperscissors.utils.UIElements
+import com.simplegames.chris.rockpaperscissors.utils.UIUtilities
+import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.ViewProperty
+import com.simplegames.chris.rockpaperscissors.utils.ValuesNew
+import com.simplegames.chris.rockpaperscissors.utils.VibrationType
+import com.simplegames.chris.rockpaperscissors.utils.vibrate
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageView;
-import android.widget.TextView;
+class AboutActivity : AppCompatActivity() {
+    // Create Screen Values
+    private lateinit var scrollView: NestedScrollView
+    private lateinit var appVersion: TextView
+    private lateinit var backButton: MaterialCardView
+    private lateinit var background: ImageView
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setTheme(if (ValuesNew.darkThemeEnabled) R.style.DarkTheme else R.style.LightTheme)
+        setContentView(R.layout.activity_app_info)
 
-import com.google.android.material.card.MaterialCardView;
-import com.simplegames.chris.rockpaperscissors.R;
-import com.simplegames.chris.rockpaperscissors.utils.UIElements;
-import com.simplegames.chris.rockpaperscissors.utils.UIUtilities;
-import com.simplegames.chris.rockpaperscissors.utils.Values;
-import com.simplegames.chris.rockpaperscissors.utils.ValuesNew;
-import com.simplegames.chris.rockpaperscissors.utils.VibrationType;
+        initializeUI()
+    }
 
-public class AboutActivity extends AppCompatActivity {
+    private fun initializeUI() {
+        scrollView = findViewById(R.id.appInfoScrollView)
+        appVersion = findViewById(R.id.versionBody)
+        backButton = findViewById(R.id.buttonBack)
+        background = findViewById(R.id.background)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (ValuesNew.INSTANCE.getDarkThemeEnabled()) {
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.LightTheme);
+        setupListeners()
+        displayAppVersion()
+        UIUtilities.setBackground(background, UIElements.getBackgroundColours(this), 0f)
+        enterAnimation()
+    }
+
+    private fun setupListeners() {
+        backButton.setOnClickListener {
+            vibrate(this, VibrationType.WEAK)
+            onBackPressedDispatcher.onBackPressed()
         }
-        setContentView(R.layout.activity_app_info);
 
-        NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
-        TextView appVersion = findViewById(R.id.versionBody);
-        MaterialCardView backButton = findViewById(R.id.buttonBack);
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                backButton.isClickable = false
 
-        determineBackground();
-        appInfoScrollViewAnimation();
+                scrollView.smoothScrollTo(0, 0, 500)
 
+                val height = resources.displayMetrics.heightPixels.toFloat()
+                UIUtilities.animate(
+                    scrollView,
+                    ViewProperty.TRANSLATION_Y,
+                    0,
+                    ValuesNew.ANIMATION_DURATION,
+                    AccelerateInterpolator(3f),
+                    height
+                )
 
-        try {
-            String versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-            appVersion.setText(versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.getLocalizedMessage();
-        }
-
-        backButton.setOnClickListener(v -> {
-            vibrate(AboutActivity.this, VibrationType.WEAK);
-            getOnBackPressedDispatcher().onBackPressed();
-        });
-
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                if (backButton.isClickable()) {
-                    backButton.setClickable(false);
-                    appInfoScrollView.smoothScrollTo(0, 0, 500);
-                    DisplayMetrics displayMetrics = new DisplayMetrics();
-                    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                    int height = displayMetrics.heightPixels;
-                    UIUtilities.INSTANCE.animate(appInfoScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 0, ValuesNew.ANIMATION_DURATION, new AccelerateInterpolator(3f), height);
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> {
-                        Intent spn = new Intent(AboutActivity.this, SettingsActivity.class);
-                        startActivity(spn.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                        finish();
-                        AboutActivity.this.overridePendingTransition(0, 0);
-                    }, ValuesNew.ANIMATION_DURATION);
-                }
+                Handler(Looper.getMainLooper()).postDelayed({
+                    val intent = Intent(this@AboutActivity, SettingsActivity::class.java)
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION))
+                    finish()
+                    this@AboutActivity.overridePendingTransition(0, 0)
+                }, ValuesNew.ANIMATION_DURATION.toLong())
             }
-        });
+        })
     }
 
-    private void determineBackground() {
-        ImageView background = findViewById(R.id.background);
-        //UIElements.determineBackground(background, null, AppInfo.this);
-        UIElements.setBackground(background, UIElements.getBackgroundColours(getApplicationContext()), 0f);
+    private fun displayAppVersion() {
+        try {
+            val versionName = packageManager.getPackageInfo(packageName, 0).versionName
+            appVersion.text = versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
     }
 
-    public void appInfoScrollViewAnimation() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels + 100;
-        NestedScrollView appInfoScrollView = findViewById(R.id.appInfoScrollView);
-        appInfoScrollView.setY(height);
-        UIUtilities.INSTANCE.animate(appInfoScrollView, UIUtilities.ViewProperty.TRANSLATION_Y, 100, ValuesNew.ANIMATION_DURATION, new DecelerateInterpolator(3f), 0);
-        appInfoScrollView.setVisibility(View.VISIBLE);
-        Values.currentActivity = "AppInfo";
-        //ValuesNew.INSTANCE
+    private fun enterAnimation() {
+        val height = resources.displayMetrics.heightPixels + 100f
+
+        scrollView.y = height
+
+        UIUtilities.animate(
+            scrollView, ViewProperty.TRANSLATION_Y, 100, ValuesNew.ANIMATION_DURATION,
+            DecelerateInterpolator(3f), 0f
+        )
+
+        scrollView.visibility = View.VISIBLE
+        ValuesNew.currentScreen = CurrentScreen.ABOUT
     }
 }

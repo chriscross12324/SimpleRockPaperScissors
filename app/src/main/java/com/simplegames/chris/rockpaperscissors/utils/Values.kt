@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 
 object ValuesNew {
     //App Essentials
-    val currentScreen = CurrentScreen.GAME
+    var currentScreen = CurrentScreen.GAME
     const val ANIMATION_DURATION = 800
 
     //User Settings
