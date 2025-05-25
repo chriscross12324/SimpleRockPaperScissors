@@ -194,7 +194,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     fun setSettingsBackground() {
-        UIUtilities.setBackground(background, UIElements.getBackgroundColours(this), 0f)
+        UIUtilities.setBackground(background, UIElements.getBackgroundColours(this), 20f)
     }
 
     private fun buildBackgroundRecyclerView() {
