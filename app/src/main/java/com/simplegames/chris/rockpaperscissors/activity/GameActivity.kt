@@ -29,18 +29,6 @@ import com.simplegames.chris.rockpaperscissors.utils.vibrate
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
-enum class Choice(val value: Int) {
-    ROCK(0), PAPER(1), SCISSORS(2);
-
-    companion object {
-        fun fromInt(value: Int) = Choice.entries.first { it.value == value }
-        fun getRandom(exclude: Choice? = null): Choice {
-            val choices = Choice.entries.filter { it != exclude }
-            return choices.random()
-        }
-    }
-}
-
 class GameActivity : AppCompatActivity() {
 
     //Create Screen Values
@@ -378,6 +366,18 @@ class GameActivity : AppCompatActivity() {
 
             //Set currentActivity
             Values.currentActivity = "SinglePlayer"
+        }
+    }
+
+    enum class Choice(val value: Int) {
+        ROCK(0), PAPER(1), SCISSORS(2);
+
+        companion object {
+            fun fromInt(value: Int) = Choice.entries.first { it.value == value }
+            fun getRandom(exclude: Choice? = null): Choice {
+                val choices = Choice.entries.filter { it != exclude }
+                return choices.random()
+            }
         }
     }
 
