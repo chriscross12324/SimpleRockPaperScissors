@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 object ValuesNew {
     //App Essentials
     var currentScreen = CurrentScreen.GAME
+    private var loaded = false
     const val ANIMATION_DURATION = 800
 
     //User Settings
@@ -17,6 +18,8 @@ object ValuesNew {
     var userWins: Int = 0
     var userDraws: Int = 0
     var userLosses: Int = 0
+
+    fun isLoaded(): Boolean = loaded
 
     fun saveValue(context: Context, key: String, value: Any) {
         //Initialize Shared Preferences
@@ -35,6 +38,9 @@ object ValuesNew {
     }
 
     fun loadValues(context: Context) {
+        // Check if values have already been loaded
+        if (loaded) return
+
         //Initialize Shared Preferences
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(SharedPreferenceKeys.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
 
@@ -45,6 +51,9 @@ object ValuesNew {
         userWins = sharedPreferences.getInt(SharedPreferenceKeys.KEY_SCOREBOARD_WINS, 0)
         userDraws = sharedPreferences.getInt(SharedPreferenceKeys.KEY_SCOREBOARD_DRAWS, 0)
         userLosses = sharedPreferences.getInt(SharedPreferenceKeys.KEY_SCOREBOARD_LOSSES, 0)
+
+        //Set Loaded
+        loaded = true
     }
 }
 
