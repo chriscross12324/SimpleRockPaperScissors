@@ -59,6 +59,7 @@ class SettingsActivity : AppCompatActivity() {
         vibrationIcon = findViewById(R.id.iconVibrate)
         background = findViewById(R.id.background)
 
+        updateOptionsStates()
         setupListeners()
         setupBackgroundButtons()
         setSettingsBackground()
@@ -143,7 +144,7 @@ class SettingsActivity : AppCompatActivity() {
             ) to R.color.white
         }
 
-        UIElements.setBackground(buttonVibrate, vibButtonColour, 15f)
+        UIElements.setBackground(buttonVibrate, vibButtonColour, 25f)
         vibrationIcon.setColorFilter(ContextCompat.getColor(this, vibIconColour))
 
         val themeButtonColour = if (!ValuesNew.darkThemeEnabled)
@@ -151,12 +152,12 @@ class SettingsActivity : AppCompatActivity() {
         else
             R.color.enabledOption
 
-        UIElements.setBackground(buttonDarkTheme, intArrayOf(
-            ContextCompat.getColor(this, themeButtonColour),
-            ContextCompat.getColor(this, themeButtonColour)
-        ), 15f)
-
-
+        UIElements.setBackground(
+            buttonDarkTheme, intArrayOf(
+                ContextCompat.getColor(this, themeButtonColour),
+                ContextCompat.getColor(this, themeButtonColour)
+            ), 25f
+        )
     }
 
     private fun setupBackgroundButtons() {
