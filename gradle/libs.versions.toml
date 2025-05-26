@@ -11,6 +11,7 @@ gridlayout = "1.1.0"
 junit = "4.13.2"
 kotlin = "2.0.21"
 material = "1.12.0"
+recyclerview = "1.4.0"
 runner = "1.6.2"
 splashscreen = "1.0.1"
 
@@ -22,6 +23,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 androidx-gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 daimajia-animations = { group = "com.daimajia.androidanimations", name = "library", version.ref = "daimajia-animations" }
 daimajia-easing = { group = "com.daimajia.easing", name = "library", version.ref = "daimajia-easing" }

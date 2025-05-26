@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
     implementation(libs.androidx.gridlayout)
+    implementation(libs.androidx.recyclerview)
 
     // Animation Libraries
     implementation(libs.daimajia.easing) { artifact { type = "aar" } }
