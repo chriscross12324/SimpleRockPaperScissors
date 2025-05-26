@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.simplegames.chris.rockpaperscissors.R
-import com.simplegames.chris.rockpaperscissors.SettingsButton
-import com.simplegames.chris.rockpaperscissors.SettingsButtonAdapter
+import com.simplegames.chris.rockpaperscissors.component.BackgroundOption
+import com.simplegames.chris.rockpaperscissors.component.BackgroundOptionAdapter
 import com.simplegames.chris.rockpaperscissors.utils.CurrentScreen
 import com.simplegames.chris.rockpaperscissors.utils.SharedPreferenceKeys
 import com.simplegames.chris.rockpaperscissors.utils.UIElements
@@ -39,7 +39,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var vibrationIcon: ImageView
     private lateinit var background: ImageView
 
-    private lateinit var buttonArrayList: ArrayList<SettingsButton>
+    private lateinit var backgroundOptionsArray: ArrayList<BackgroundOption>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,14 +74,22 @@ class SettingsActivity : AppCompatActivity() {
 
         buttonVibrate.setOnClickListener {
             ValuesNew.vibrationEnabled = !ValuesNew.vibrationEnabled
-            ValuesNew.saveValue(this, SharedPreferenceKeys.KEY_SETTING_VIBRATIONS, ValuesNew.vibrationEnabled)
+            ValuesNew.saveValue(
+                this,
+                SharedPreferenceKeys.KEY_SETTING_VIBRATIONS,
+                ValuesNew.vibrationEnabled
+            )
             updateOptionsStates()
             vibrate(this, VibrationType.WEAK)
         }
 
         buttonDarkTheme.setOnClickListener {
             ValuesNew.darkThemeEnabled = !ValuesNew.darkThemeEnabled
-            ValuesNew.saveValue(this, SharedPreferenceKeys.KEY_SETTING_THEME, ValuesNew.darkThemeEnabled)
+            ValuesNew.saveValue(
+                this,
+                SharedPreferenceKeys.KEY_SETTING_THEME,
+                ValuesNew.darkThemeEnabled
+            )
             resetLayout()
             vibrate(this, VibrationType.WEAK)
         }
@@ -180,10 +188,10 @@ class SettingsActivity : AppCompatActivity() {
             "Lollipop"
         )
 
-        buttonArrayList = ArrayList()
+        backgroundOptionsArray = ArrayList()
         names.forEachIndexed { index, name ->
-            buttonArrayList.add(
-                SettingsButton(
+            backgroundOptionsArray.add(
+                BackgroundOption(
                     UIUtilities.getColourArray(
                         this,
                         index
@@ -201,11 +209,13 @@ class SettingsActivity : AppCompatActivity() {
     private fun buildBackgroundRecyclerView() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = SettingsButtonAdapter(buttonArrayList, this).apply {
-            setOnItemClickListener { position -> {
-                vibrate(this@SettingsActivity, VibrationType.WEAK)
-            }}
-        }
+        recyclerView.adapter = BackgroundOptionAdapter(
+            context = this,
+            options = backgroundOptionsArray,
+            selectedIndex = ValuesNew.backgroundGradient,
+            onSelectionChanges = {
+                setSettingsBackground()
+            })
     }
 
     private fun enterAnimation() {
