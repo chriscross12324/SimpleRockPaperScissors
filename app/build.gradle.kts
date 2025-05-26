@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -15,6 +18,10 @@ android {
         versionName = "3.2.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val dateFormat = SimpleDateFormat("MMM dd, yyyy")
+        val buildDate = dateFormat.format(Date())
+        buildConfigField("String", "BUILD_DATE", "\"$buildDate\"")
     }
 
     buildTypes {
@@ -33,6 +40,9 @@ android {
     kotlinOptions {
         jvmTarget = "22"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -45,13 +55,11 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
     implementation(libs.androidx.gridlayout)
+    implementation(libs.androidx.recyclerview)
 
     // Animation Libraries
     implementation(libs.daimajia.easing) { artifact { type = "aar" } }
     implementation(libs.daimajia.animations) { artifact { type = "aar" } }
-
-    // Google Play Services
-    implementation(libs.play.services.games)
 
     // Activity Libraries
     implementation(libs.androidx.activity.ktx)
