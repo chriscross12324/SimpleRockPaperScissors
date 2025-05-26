@@ -52,7 +52,7 @@ class AboutActivity : AppCompatActivity() {
 
         setupListeners()
         displayAppData()
-        UIUtilities.setBackground(background, UIElements.getBackgroundColours(this), 0f)
+        UIUtilities.setBackground(background, UIElements.getBackgroundColours(this), 25f)
         enterAnimation()
     }
 

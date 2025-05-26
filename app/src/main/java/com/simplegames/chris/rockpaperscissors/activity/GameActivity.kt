@@ -80,7 +80,7 @@ class GameActivity : AppCompatActivity() {
         resultText = findViewById(R.id.resultText)
         resultContainer = findViewById(R.id.resultHolder)
 
-        UIElements.setBackground(background, UIElements.getBackgroundColours(this), 20f)
+        UIElements.setBackground(background, UIElements.getBackgroundColours(this), 25f)
 
         choiceDrawables = mapOf<Choice, Drawable?>(
             Choice.ROCK to ResourcesCompat.getDrawable(resources, R.drawable.icon_rock, null),
