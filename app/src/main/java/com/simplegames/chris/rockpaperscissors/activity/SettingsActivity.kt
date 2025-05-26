@@ -50,13 +50,13 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun initializeUI() {
-        scrollView = findViewById(R.id.settingsScrollView)
-        recyclerView = findViewById(R.id.backgroundRecyclerView)
+        scrollView = findViewById(R.id.scrollView)
+        recyclerView = findViewById(R.id.backgroundsRecyclerView)
         buttonVibrate = findViewById(R.id.buttonVibrate)
         buttonDarkTheme = findViewById(R.id.buttonDarkTheme)
         buttonAppInfo = findViewById(R.id.buttonAppInfo)
         buttonBack = findViewById(R.id.buttonBack)
-        vibrationIcon = findViewById(R.id.vibrationIcon)
+        vibrationIcon = findViewById(R.id.iconVibrate)
         background = findViewById(R.id.background)
 
         setupListeners()
