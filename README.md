@@ -10,7 +10,7 @@ Years later, I found myself nitpicking the mobile apps I used every day. I kept 
 
 The first result of that curiosity was **Simple Rock Paper Scissors**. On the surface, it's just the classic game, but for me, it was my crash course in learning how to build apps.
 
-A funny thing about the earliest version: I used massively huge PNGs for the icons. On high-end devices, that caused a short delay after you picked a move, like a built-in pause. On lower-end devices, it would likely crash the phone... not the app, the entire phone would shut-down and reboot. Yeah, not ideal. Eventually, I learned about SVGs and swapped them in, which mixed performance mess.
+A funny thing about the earliest version: I used massively huge PNGs for the icons. On high-end devices, that caused a short delay after you picked a move, like a built-in pause. On lower-end devices, it would likely crash the phone... not the app, the entire phone would shut-down and reboot. Yeah, not ideal. Eventually, I learned about SVGs and swapped them in, which fixed the performance mess.
 
 The UI was also hardcoded to line up perfectly on **my phone only**. On other devices, it was a disaster (seeing a pattern here?). Buttons everywhere. I learned about responsive design the hard way. and slowly made the app look right across different screen sizes.
 
