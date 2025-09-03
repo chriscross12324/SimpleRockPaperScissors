@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.simplegames.chris.rockpaperscissors"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.simplegames.chris.rockpaperscissors"
         minSdk = 22
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 14
         versionName = "3.2.1"
 
@@ -34,11 +34,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_22
-        targetCompatibility = JavaVersion.VERSION_22
+        sourceCompatibility = JavaVersion.VERSION_23
+        targetCompatibility = JavaVersion.VERSION_23
     }
-    kotlinOptions {
-        jvmTarget = "22"
+    kotlin {
+        jvmToolchain(23)
     }
     buildFeatures {
         buildConfig = true
