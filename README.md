@@ -36,4 +36,4 @@ I don't update it often anymore, it usually only gets attention when I'm bored, 
 
 
 # Where I Am Now
-These days, I'm exploring other creative outlets, like storytelling. But Simple Rock Paper Scissors will always be the project that started it all: a small app, a bunch of fun mistakes I still laugh at, and a turning point that pulled me into the world of programming. I was 14 years old when I spent the $25 for a Google Developer account (with parental support of course), and 15 years old when my first app went live.
+These days, I'm exploring other creative outlets, like storytelling. Back to my "Oregon Trail" origins. But Simple Rock Paper Scissors will always be the project that started it all: a small app, a bunch of fun mistakes I still laugh at, and a turning point that pulled me into the world of programming. I was 14 years old when I spent the $25 for a Google Developer account (with parental support of course), and 15 years old when my first app went live.
