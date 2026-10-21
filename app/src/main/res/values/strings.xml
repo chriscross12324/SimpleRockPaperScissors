@@ -28,4 +28,10 @@
     <string name="game_result_draw">Draw</string>
     <string name="game_result_lose">You Lose</string>
 
+    <string-array name="about_changes">
+        <item>Now supports Android 12 and above</item>
+        <item>Added support for System Back</item>
+        <item>Improved stability and performance</item>
+    </string-array>
+
 </resources>

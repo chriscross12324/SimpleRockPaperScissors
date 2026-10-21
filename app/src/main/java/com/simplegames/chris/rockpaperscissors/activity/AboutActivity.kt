@@ -22,7 +22,6 @@ import com.simplegames.chris.rockpaperscissors.utils.UIUtilities.ViewProperty
 import com.simplegames.chris.rockpaperscissors.utils.ValuesNew
 import com.simplegames.chris.rockpaperscissors.utils.VibrationType
 import com.simplegames.chris.rockpaperscissors.utils.vibrate
-import com.simplegames.chris.rockpaperscissors.BuildConfig
 
 
 class AboutActivity : AppCompatActivity() {
@@ -96,19 +95,17 @@ class AboutActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
-        try {
-            val buildDate = BuildConfig.BUILD_DATE
-            this.buildDate.text = buildDate
+        /*try {
+            this.buildDate.text = getString(R.string.build_date)
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
 
         try {
-            val buildType = BuildConfig.BUILD_TYPE.replaceFirstChar(Char::uppercaseChar)
-            this.buildType.text = buildType
+            this.buildType.text = getString(R.string.build_type)
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
-        }
+        }*/
     }
 
     private fun enterAnimation() {
